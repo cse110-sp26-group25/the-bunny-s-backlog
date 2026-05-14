@@ -22,7 +22,7 @@ The goal of the MVP is to deliver a functional "Run" where a player can navigate
 
 ---
 
-## 🛠️ Technical Stack
+## Technical Stack
 *   **Frontend:** Vanilla JavaScript (ES6+), HTML5, CSS3.
 *   **Architecture:** Modular "Theory Building" approach—separating the Typing Engine, Inventory Manager, and Map Renderer.
 *   **Version Control:** Semantic Versioning (**SemVer**) and **Conventional Commits** (`feat:`, `fix:`, `docs:`).
