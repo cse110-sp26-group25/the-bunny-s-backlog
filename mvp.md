@@ -1,51 +1,44 @@
-# Compile Quest ⚔️⌨️
-
-**Compile Quest** is a mobile-friendly, offline-first, open-world RPG rogue-like where your keyboard is your greatest weapon. Instead of traditional button-mashing, players navigate a dangerous world and defeat enemies by accurately typing syntax-heavy code snippets.
-
----
-
-##  Core Gameplay Loop
-
-1. **Explore:** Navigate an open-world map built with Vanilla JavaScript and DOM-driven rendering.
-2. **Combat:** Engage obstacles by mirroring dynamic code prompts. Speed and accuracy determine your damage output.
-3. **Loot:** Collect items to upgrade your "Inventory," modifying your typing stats (e.g., accuracy shields or WPM boosters).
-4. **Permadeath:** If your HP hits zero, the "Runtime" terminates, and you must start a new run.
+# Compile Quest ⚔️⌨️ 
+**Project:** Open-World RPG Rogue-like Typing Game  
+**Team:** Group 25 (KnowIdeas) | **Course:** CSE 110 Spring 2026
 
 ---
 
-## Technical Stack
+## MVP Definition (Minimum Viable Product)
+The goal of the MVP is to deliver a functional "Run" where a player can navigate a tile-based map, engage in syntax-driven combat, and manage a basic inventory—all while functioning offline on mobile.
 
+### 1. Core Gameplay & Features
+- [ ] **Typing Combat Engine:** A DOM-driven system that mirrors syntax-heavy code prompts with real-time validation (visual feedback for hits/typos).
+- [ ] **Rogue-like Loop:** Implementation of HP (Health Points), permadeath mechanics, and "Runtime Termination" (Game Over) state.
+- [ ] **Inventory Data Model:** A system to track items/buffs that influence typing stats (e.g., Accuracy Shields, WPM Boosters).
+- [ ] **Open-World Exploration:** A lightweight, tile-based map built with CSS Grid/Flexbox for mobile-responsive navigation.
+- [ ] **Offline Persistence:** Integration of `LocalStorage` to save player state and inventory without a network connection.
+
+### 2. Software Engineering Infrastructure (Sprint 2 Requirements)
+- [ ] **ADR Documentation:** Use of **MADR format** to document major technical decisions (e.g., why Vanilla JS, why LocalStorage).
+- [ ] **System Diagrams:** Inclusion of at least one workflow diagram (e.g., State Machine for combat or Data Model for inventory).
+- [ ] **CI/CD Pipeline:** Active **GitHub Actions** to automate linting and unit testing (WPM logic, health depletion) on every Pull Request.
+- [ ] **Mobile-First UX:** UI designed with the "Inverted F Pattern" and accessible input fields that trigger native mobile keyboards.
+
+---
+
+## 🛠️ Technical Stack
 *   **Frontend:** Vanilla JavaScript (ES6+), HTML5, CSS3.
-*   **Architecture:** Modular design with a focus on clean state management and Inventory Data Architecture.
-*   **Persistence:** Offline-first functionality using LocalStorage and PWA principles.
-*   **DevOps:** GitHub Actions for CI/CD, automated unit testing for WPM/Accuracy logic.
+*   **Architecture:** Modular "Theory Building" approach—separating the Typing Engine, Inventory Manager, and Map Renderer.
+*   **Version Control:** Semantic Versioning (**SemVer**) and **Conventional Commits** (`feat:`, `fix:`, `docs:`).
 
 ---
 
-## MVP Features (v0.1.0)
-
-- [ ] **Typing Engine:** Real-time character validation with visual feedback for typos.
-- [ ] **Data Architecture:** A robust Inventory system capable of handling item effects and player stats.
-- [ ] **Rogue-like Cycle:** Basic game-over state and run-reset logic.
-- [ ] **Mobile-Responsive UI:** Optimized input fields that trigger native mobile keyboards.
-- [ ] **Offline Mode:** Fully playable without an active internet connection.
-
----
-
-## Software Engineering Excellence
-
-This project was developed for **CSE 110** with a strict adherence to Agile methodologies:
-
-*   **ADRs (Architectural Decision Records):** Every major technical choice (like choosing Vanilla JS over a framework) is documented.
-*   **Quality Assurance:** High test coverage for core game logic.
-*   **CI/CD:** Automated pipelines ensure that the "main" branch is always deployable.
+## Definition of Done (DoD)
+An issue/task is considered "Done" only when:
+1. Code follows **JSDocs** standards for internal documentation.
+2. The logic is covered by **Unit Tests**.
+3. A human peer review is completed via **Pull Request** (for batches >300 lines).
+4. The **ADR** is updated if a major architectural change was made.
 
 ---
 
-## Setup & Installation
-
-Since this project is built with Vanilla web technologies, no heavy installation is required.
-
-1. Clone the repository:
-   ```bash
-   git clone [https://github.com/YOUR_USERNAME/compile-quest.git](https://github.com/cse110-sp26-group25/compile-quest.git)
+## Setup for Developers
+1. Clone the repo: `git clone https://github.com/cse110-sp26-group25/compile-quest.git`
+2. No build step required—launch `index.html` via Live Server.
+3. Ensure GitHub Actions pass before merging to `main`.
