@@ -43,8 +43,8 @@ The goal of the MVP is to deliver a functional "Run" where a player can navigate
 ## Definition of Done (DoD)
 An issue/task is considered "Done" only when:
 1. Code follows **JSDocs** standards for internal documentation.
-2. The logic is covered by **Unit Tests**[cite: 1, 2].
-3. A human peer review is completed via **Pull Request** for batches >300 lines[cite: 1, 2].
+2. The logic is covered by **Unit Tests**.
+3. A human peer review is completed via **Pull Request** for batches >300 lines.
 4. **LLM Attribution:** Any AI-assisted code is documented in `AI-LOG.md` with specific prompts and revisions
 5. The **ADR** is updated if a major architectural change was made.
 
