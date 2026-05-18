@@ -41,7 +41,7 @@
 
 ## 4. MVP Content Scope
 * **Tutorial Level:** Introduces the "investigate parrot" mechanic and Word Box usage.
-* **The Darci Arc:** 2–3 levels following the primary storyline (*"Darci killed ___ and ran off with ___"*).
+* **The Genesis Arc (Case File 001): 2–3 levels following a primary overarching mystery (Subject, Method, Motive).
 * **Core Systems:** Fully functional title screen, level selection, and success/failure screens.
 
 ---
