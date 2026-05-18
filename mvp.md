@@ -1,56 +1,67 @@
-# Compile Quest ⚔️⌨️ 
-
-**Project:** Open-World RPG Rogue-like Typing Game  
-**Team:** Group 25 (KnowIdeas) | **Course:** CSE 110 Spring 2026
-
----
-
-## MVP Definition (Minimum Viable Product)
-The goal of the MVP is to deliver a functional "Run" where a player can navigate a tile-based map, engage in syntax-driven combat, and manage a basic inventory—all while functioning offline on mobile.
-
-### 1. Core Gameplay & Features
-- [ ] **Typing Combat Engine:** A DOM-driven system mirroring syntax-heavy code prompts with real-time validation and visual feedback for hits/typos.
-- [ ] **Rogue-like Loop:** Implementation of HP (Health Points), permadeath mechanics, and "Runtime Termination" (Game Over) state.
-- [ ] **Inventory Data Model:** Structured JSON-based items/buffs (e.g., Accuracy Shields, WPM Boosters) that influence player attributes.
-- [ ] **Open-World Exploration:** Lightweight, tile-based map stored as a 2D array and rendered via CSS Grid/Flexbox for mobile-responsive navigation.
-- [ ] **Offline Persistence:** Integration of `LocalStorage` to persist player state, map progress, and inventory data.
-
-### 2. Software Engineering Infrastructure (Sprint 2 Requirements)
-- [ ] **ADR Documentation:** Use of **MADR format** to document major technical decisions (e.g., [ADR-001] Vanilla JS vs Frameworks, [ADR-002] LocalStorage Persistence).
-- [ ] **System Diagrams:** Workflow diagram (e.g., State Machine for combat) integrated into `docs/design`.
-- [ ] **CI/CD Pipeline:** Active **GitHub Actions** for automated linting and unit testing (WPM logic, HP depletion) on every Pull Request.
-- [ ] **Mobile-First UX:** UI designed using the **Inverted F Pattern** and optimized input fields to ensure visibility during virtual keyboard engagement.
+# MVP Specification: Type-Witness
+**Team:** Group 25 | KnowIdeas  
+**Engine:** ct.js  
+**Status:** Sprint 2 (Active Development)
 
 ---
 
-## Technical Workflow (Exit Criteria)
-
-### Typing Combat State Machine
-1. **Event Capture:** `keydown` listener intercepts player input.
-2. **Validation:** Logic checks input against target syntax string stored in the map data.
-3. **State Update:** HP adjusted based on accuracy; WPM calculated in real-time.
-4. **UI Render:** DOM updates classes (e.g., `.correct`, `.error`) for immediate visual feedback.
+## 1. Project Overview
+**Type-Witness** is a narrative-driven, investigator puzzle game. Players take on the role of an MIB investigator analyzing "corrupted" information files formatted in HTML. The core gameplay loop involves identifying inconsistencies, gathering clues into a **Word Box**, and using **Typing Mechanics** to reconstruct the truth behind each case.
 
 ---
 
-## Technical Stack
-* **Frontend:** Vanilla JavaScript (ES6+), HTML5, CSS3.
-* **Architecture:** Modular "Theory Building" approach—separating Typing Engine, Inventory Manager, and Map Renderer.
-* **Version Control:** Semantic Versioning (**SemVer**) and **Conventional Commits** (`feat:`, `fix:`, `docs:`).
+## 2. Core Gameplay Loop
+1.  **Investigate:** Use the ct.js viewport to explore a scene and click/tap on interactive Points of Interest (POIs).
+2.  **Collect:** Identify names, items, or locations (clues) which are then stored in a persistent **Word Box**.
+3.  **Deduce:** Open the "Case File" (The Book) to view a summary of the event with missing blanks.
+4.  **Resolve:** Type the correct keywords from the Word Box into the story blanks to solve the level.
 
 ---
 
-## Definition of Done (DoD)
-An issue/task is considered "Done" only when:
-1. Code follows **JSDocs** standards for internal documentation.
-2. The logic is covered by **Unit Tests**.
-3. A human peer review is completed via **Pull Request** for batches >300 lines.
-4. **LLM Attribution:** Any AI-assisted code is documented in `AI-LOG.md` with specific prompts and revisions
-5. The **ADR** is updated if a major architectural change was made.
+## 3. Functional Requirements (MVP)
+
+### A. Frontend & UI
+* **Dual-Platform Support:** Parallel layout architecture for **Mobile** and **Desktop** browsers.
+* **The "Book" UI:** A dedicated overlay interface for solving the overarching narrative.
+* **Dynamic Word Box:** A UI component that updates in real-time as clues are discovered.
+* **Sensory Feedback:** * **Visual:** Highlighting POIs (Easy/Hard mode toggles).
+    * **Audio:** SFX for clue discovery and accuracy verification.
+
+### B. Mechanics & Backend Logic
+* **Typing Integration:** * **Debugging Mode:** A specialized typing mechanic used to "unlock" or interact with specific HTML evidence.
+    * **Accuracy Checker:** Logic to compare user-typed strings against the `true_story` key in the level data.
+* **Scene Management:** A modular system to fetch and load scene-specific data (images, clues, coordinates) via JSON.
+* **Event Handling:** Implementation of event checks within ct.js to trigger story progression.
+
+### C. Data & Persistence
+* **Save States:** Use of **Local Storage** to save level progress, collected clues, and user preferences.
+* **State Recovery:** Ability to reload the game and resume from the last completed level or checkpoint.
 
 ---
 
-## Setup for Developers
-1. Clone the repo: `git clone https://github.com/cse110-sp26-group25/compile-quest.git`
-2. No build step required—launch `index.html` via Live Server
-3. Ensure GitHub Actions pass before merging to `main`
+## 4. MVP Content Scope
+* **Tutorial Level:** Introduces the "investigate parrot" mechanic and Word Box usage.
+* **The Darci Arc:** 2–3 levels following the primary storyline (*"Darci killed ___ and ran off with ___"*).
+* **Core Systems:** Fully functional title screen, level selection, and success/failure screens.
+
+---
+
+## 5. Technical Stack
+* **Game Engine:** ct.js (v4.x+)
+* **Development:** JavaScript / HTML5
+* **Data Structure:** JSON-based level configurations.
+* **CI/CD:** GitHub Actions for automated deployment to GitHub Pages.
+
+---
+
+## 6. Out of Scope (Post-MVP)
+* **Currency/Skin System:** Character customization and random-chance rewards.
+* **Hint System:** Automated POI glows and difficulty assistance.
+* **Cloud Sync:** Moving from Local Storage to a SQLite-backed cloud database.
+
+---
+
+## 7. Success Criteria
+1.  User can find all clues in a level and have them accurately reflected in the Word Box.
+2.  The "Accuracy Checker" correctly identifies a solved story and triggers the next level.
+3.  The game is fully playable on both an iPhone (Safari) and a desktop browser.
