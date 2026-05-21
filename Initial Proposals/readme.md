@@ -16,6 +16,6 @@ description here
 
 
 ### Game 2 ### 
-[Game 2 Proposal](./Game2_Javascript.PDF)
+[Game 2 Proposal](./Notes_260520_182129.PDF)
 
 The second game is a cozy mystery game, reminiscent of point and click detective games. The game intends to teach javascript, using the gener's focus on objects and character actions as an easy way to visualize objects and functions.  
