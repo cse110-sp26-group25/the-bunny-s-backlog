@@ -1,4 +1,4 @@
-# Game Design Proposals# 
+# Game Design Proposals  
 
 These are the 2 inital fleshed out game designs propsed to the team, which will be taking a vote on which to to move forward with. 
 
@@ -16,6 +16,6 @@ description here
 
 
 ### Game 2 ### 
-[Game 2 Proposal]()
+[Game 2 Proposal](./Game2_Javascript.PDF)
 
 The second game is a cozy mystery game, reminiscent of point and click detective games. The game intends to teach javascript, using the gener's focus on objects and character actions as an easy way to visualize objects and functions.  
