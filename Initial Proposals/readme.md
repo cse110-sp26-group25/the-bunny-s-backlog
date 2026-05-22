@@ -10,7 +10,7 @@ For these proposals, we focused on including the following characteristics:
 - **Tutorial Level** - Providing a tutorial level gave the team a concrete understanding of how the narrative may influence the other features. Additionally, our next upcomming task was to start on the tutorial level, so it proving this information upfront would ensure the other team members weren't reliant on us for further progression.
 
 ### Game 1 ### 
-[Game 1 Proposal](./Game_Story_Idea_(HTML).pdf)
+[Game 1 Proposal](./Initial Proposals/Game Story Idea (HTML) .pdf)
 
 The first game is an eye-catching and exciting adventure game with various animal characters and vibrant colors. This game intends to teach HTML and how to read and decode HTML syntax. It follows a mystery HTML manuscript that the main character tries to decode level by level.
 
