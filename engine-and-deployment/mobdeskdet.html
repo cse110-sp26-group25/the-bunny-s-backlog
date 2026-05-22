@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Stage Select Map</title>
+
+    <style>
+      body {
+        margin: 0;
+      }
+
+      #map {
+        width: 100vw;
+        height: 100vh;
+        background: lightgreen;
+        position: relative;
+      }
+
+      .stage {
+        width: 80px;
+        height: 80px;
+        background: gold;
+        border: 3px solid black;
+        border-radius: 50%;
+        position: absolute;
+        text-align: center;
+        line-height: 80px;
+        font-weight: bold;
+        font-size: 24px;
+      }
+
+      body.mobile .stage {
+        width: 110px;
+        height: 110px;
+        line-height: 110px;
+        font-size: 32px;
+      }
+
+      body.mobile #stage1 {
+        left: 10%;
+        top: 20%;
+      }
+
+      body.mobile #stage2 {
+        left: 55%;
+        top: 18%;
+      }
+
+      body.mobile #stage3 {
+        left: 18%;
+        top: 58%;
+      }
+
+      body.mobile #stage4 {
+        left: 58%;
+        top: 62%;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="map">
+      <div id="stage1" class="stage" style="left: 15%; top: 25%">1</div>
+      <div id="stage2" class="stage" style="left: 55%; top: 20%">2</div>
+      <div id="stage3" class="stage" style="left: 30%; top: 60%">3</div>
+      <div id="stage4" class="stage" style="left: 70%; top: 65%">4</div>
+    </div>
+
+    <script>
+      const stages = document.querySelectorAll(".stage");
+      const map = document.getElementById("map");
+      const isMobile = /iPhone|Android|iPad/i.test(navigator.userAgent);
+      let clickRadius;
+
+      if (isMobile) {
+        document.body.classList.add("mobile");
+        clickRadius = 150;
+        console.log("Mobile UI enabled");
+      } else {
+        document.body.classList.add("desktop");
+        clickRadius = 130;
+        console.log("Desktop UI enabled");
+      }
+
+      map.addEventListener("pointerdown", (e) => {
+        stages.forEach((stage) => {
+          const rect = stage.getBoundingClientRect();
+          const stageCenterX = rect.left + rect.width / 2;
+          const stageCenterY = rect.top + rect.height / 2;
+          const dx = e.clientX - stageCenterX;
+          const dy = e.clientY - stageCenterY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+
+          if (distance <= clickRadius) {
+            enterStage(stage.textContent);
+          }
+        });
+      });
+
+      function enterStage(stageNumber) {
+        console.log("Entering Stage " + stageNumber);
+
+        alert("Entering Stage " + stageNumber);
+      }
+    </script>
+  </body>
+</html>
