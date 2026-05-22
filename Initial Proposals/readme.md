@@ -10,7 +10,7 @@ For these proposals, we focused on including the following characteristics:
 - **Tutorial Level** - Providing a tutorial level gave the team a concrete understanding of how the narrative may influence the other features. Additionally, our next upcomming task was to start on the tutorial level, so it proving this information upfront would ensure the other team members weren't reliant on us for further progression.
 
 ### Game 1 ### 
-[Game 1 Proposal](./Game Story Idea (HTML) .pdf)
+[Game 1 Proposal](./Game1.pdf)
 
 
 [Google Slides Link](https://docs.google.com/presentation/d/1bzHN3g3TG3yQ8SJMMpNnTmsGp-1UL2-yRxNnJBjt9-c/edit?usp=sharing)
