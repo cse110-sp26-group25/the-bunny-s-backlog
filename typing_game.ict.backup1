@@ -6,13 +6,10 @@ libs:
   place:
     gridX: 1024
     gridY: 1024
-    debugMode: false
-    debugText: 0
-  pointer:
-    startlocked: false
+  pointer: {}
   keyboard: {}
-  pointer.polyfill: {}
   keyboard.polyfill: {}
+  pointer.polyfill: {}
 startroom: -1
 contentTypes: []
 actions: []
@@ -88,7 +85,7 @@ assets:
         bindings: {}
     tiles: []
     extends: {}
-    lastmod: 1780090181721
+    lastmod: 1780089802307
     events:
       - eventKey: OnRoomStart
         code: "// Initialize the global game state\nwindow.gameState = window.gameState || { \n    currentInput: \"\", \n    wordbox: [] \n};\n\n// Define the level data, clues, and the final solution string\nwindow.gameState.levelData = {\n    level_id: \"1\",\n    clues: [\n        {\n            targetString: \"log.whoAccessed(server);\",\n            clue: \"suspect = \\\"Phantom\\\"\",\n            isFound: false\n        },\n        {\n            targetString: \"trace.getOrigin(packet);\",\n            clue: \"breachedPort = 8080\",\n            isFound: false\n        },\n        {\n            targetString: \"scanner.parseData(keycard);\",\n            clue: \"accessLevel = \\\"Admin\\\"\",\n            isFound: false\n        }\n    ],\n    final_solution: \"deployFirewall(\\\"Phantom\\\", 8080, \\\"Admin\\\");\"\n};\n\n// Compare user input against a target string by ignoring all whitespace\nwindow.checkSolution = function(playerInput, targetString) {\n    if (!targetString) return false; \n    return playerInput.replace(/\\s/g, '') === targetString.replace(/\\s/g, '');\n};\n\n// Evaluate the submitted input against the final solution and available clues\nwindow.processCommand = function(input) {\n    let level = window.gameState.levelData;\n\n    // Trigger the win state if the input matches the final solution.\n    if (window.checkSolution(input, level.final_solution)) {\n        console.log(\"===================================\");\n        console.log(\"LEVEL PASSED!\");\n        console.log(\"===================================\");\n        return; \n    }\n\n    // Iterate through clues to find a match and update the wordbox.\n    let clueFound = false;\n    for (let i = 0; i < level.clues.length; i++) {\n        let c = level.clues[i];\n        \n        if (!c.isFound && window.checkSolution(input, c.targetString)) {\n            c.isFound = true; \n            window.gameState.wordbox.push(c.clue); \n            \n            console.log(\"\U0001F50D CLUE FOUND!\");\n            console.log(\"Added to Word Box: \", c.clue);\n            console.log(\"Current Word Box: \", window.gameState.wordbox);\n            \n            clueFound = true;\n            break; \n        }\n    }\n\n    // Unlock the solve terminal if every clue has been found.\n    if (clueFound) {\n        let allCluesFound = level.clues.every(c => c.isFound === true);\n        \n        if (allCluesFound) {\n            console.log(\"\\n===================================\");\n            console.log(\"ALL CLUES GATHERED.\");\n            console.log(\"-----------------------------------\");\n            console.log(`function deployFirewall(targetUser, portNumber, requiredClearance) {\n                console.log(\"Locking out user: \" + targetUser);\n                network.block(portNumber);\n                system.require(requiredClearance);\n            }`);\n            console.log(\"-----------------------------------\");\n            console.log(\"Provide the exact function call to execute the override.\");\n            console.log(\"===================================\\n\");\n        }\n    } else {\n        // Log an error if the input did not match any valid command.\n        if (!window.checkSolution(input, level.final_solution)) {\n            console.log(\"❌ Command not recognized, or clue already found.\");\n        }\n    }\n};\n\n// Capture keyboard input, handle submission on Enter, and manage backspaces.\nthis.typingListener = (e) => {\n    if (e.ctrlKey || e.altKey || e.metaKey) return;\n\n    if (e.key === 'Enter') {\n        let submission = window.gameState.currentInput;\n        console.log(\"> User submitted: \", submission);\n        \n        window.processCommand(submission);\n        window.gameState.currentInput = \"\"; \n        \n    } else if (e.key === 'Backspace') {\n        window.gameState.currentInput = window.gameState.currentInput.slice(0, -1);\n        \n    } else if (e.key.length === 1) {\n        window.gameState.currentInput += e.key;\n    }\n};\n\n// Attach the typing listener directly to the browser window.\nwindow.addEventListener('keydown', this.typingListener);"
@@ -104,7 +101,7 @@ assets:
   - type: style
     name: TerminalStyle
     uid: tdHb41B2tfdR6n
-    typeface: -1
+    typeface: 91474NNq6CN9j3
     font:
       family: sans-serif
       halign: left
@@ -192,14 +189,14 @@ assets:
     name: New folder
     lastmod: 1779330040656
     entries: []
-  - name: frJQ4tRn4rJRWBg
+  - name: JetBrainsMono-VariableFont_wght
     type: typeface
     fonts:
       - weight: '400'
         italic: false
-        uid: nRBh52t7tJMFMr
-        origname: frJQ4tRn4rJRWBg
-    lastmod: 1780090344538
+        uid: rJQ4tRn4rJRWBg
+        origname: JetBrainsMono-VariableFont_wght
+    lastmod: 1779330062267
     bitmapFont: false
     bitmapFontSize: 16
     bitmapFontLineHeight: 18
@@ -207,7 +204,7 @@ assets:
     charsets:
       - allInFont
     customCharset: ''
-    uid: n4HW3CpzW2p7WW
+    uid: 91474NNq6CN9j3
 globalVars: []
 settings:
   authoring:
