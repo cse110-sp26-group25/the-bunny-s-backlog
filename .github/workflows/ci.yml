@@ -28,7 +28,7 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run ESLint
+      - name: Run Linting (JS, HTML, CSS)
         run: npm run lint
 
   # --- RUNS ONLY ON PULL REQUESTS TO MAIN ---
@@ -47,6 +47,10 @@ jobs:
 
       - name: Install Dependencies
         run: npm ci
+
+      # --- LINTING ---
+      - name: Run Linting (JS, HTML, CSS)
+        run: npm run lint
 
       # --- JSON INTEGRITY ---
       - name: Validate JSON Syntax
@@ -83,3 +87,22 @@ jobs:
           echo "Verifying vital deployment file locations..."
           test -f index.html     || { echo "index.html is missing!"; exit 1; }
           test -f package.json   || { echo "package.json is missing!"; exit 1; }
+
+      # --- ASSET INTEGRITY CHECK ---
+      - name: Verify Local Assets (Dead Links)
+        run: |
+          echo "Verifying local assets linked in index.html exist..."
+          node -e "
+            const fs = require('fs');
+            const html = fs.readFileSync('index.html', 'utf8');
+            const links = [...html.matchAll(/href=\"(?!http)(.*?)\"/g), ...html.matchAll(/src=\"(?!http)(.*?)\"/g)].map(m => m[1].split('?')[0].split('#')[0]).filter(Boolean);
+            let failed = false;
+            for (const link of links) {
+              if (!fs.existsSync(link)) {
+                console.error('ERROR: Dead link found -> ' + link);
+                failed = true;
+              }
+            }
+            if (failed) process.exit(1);
+            console.log('All local links in index.html are valid.');
+          "
