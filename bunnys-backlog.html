@@ -1,0 +1,2130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bunny's Backlog</title>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Patrick+Hand&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-cream: #f5efe0;
+    --bg-tan: #ede3cc;
+    --panel-bg: #fdf8ee;
+    --terminal-bg: #1a1a2e;
+    --terminal-green: #a8e6a3;
+    --terminal-yellow: #f0d080;
+    --terminal-red: #f08080;
+    --terminal-blue: #80c8f0;
+    --terminal-dim: #668066;
+    --accent-warm: #c8845a;
+    --accent-teal: #5a9e8a;
+    --accent-purple: #8a6aac;
+    --accent-pink: #d4748a;
+    --border-ink: #2a1f14;
+    --text-ink: #1e1510;
+    --text-mid: #5a4a38;
+    --shadow: rgba(42,31,20,0.15);
+    --hotspot-glow: rgba(200,132,90,0.4);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-cream);
+    font-family: 'Patrick Hand', cursive;
+    color: var(--text-ink);
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── TITLE SCREEN ─── */
+  #title-screen {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, #f5efe0 0%, #ede3cc 40%, #e8d9b8 100%);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 1000;
+    transition: opacity 0.6s;
+  }
+  #title-screen.hidden { opacity: 0; pointer-events: none; }
+
+  .title-paper {
+    background: var(--panel-bg);
+    border: 3px solid var(--border-ink);
+    border-radius: 4px;
+    padding: 40px 60px;
+    box-shadow: 6px 6px 0 var(--border-ink);
+    text-align: center;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+  }
+  .title-paper::before {
+    content: '';
+    position: absolute; top: 8px; left: 8px; right: -8px; bottom: -8px;
+    background: var(--bg-tan);
+    border: 2px solid var(--border-ink);
+    border-radius: 4px;
+    z-index: -1;
+  }
+
+  .title-deco {
+    font-size: 3rem;
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .title-main {
+    font-family: 'Special Elite', serif;
+    font-size: 2.4rem;
+    color: var(--text-ink);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .title-sub {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.85rem;
+    color: var(--text-mid);
+    letter-spacing: 0.15em;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .title-stamp {
+    display: inline-block;
+    border: 3px solid var(--accent-warm);
+    color: var(--accent-warm);
+    font-family: 'Special Elite', serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    padding: 3px 12px;
+    transform: rotate(-2deg);
+    margin-bottom: 28px;
+  }
+
+  .title-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .title-btn {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.05rem;
+    padding: 12px 20px;
+    border: 2.5px solid var(--border-ink);
+    border-radius: 3px;
+    background: var(--bg-cream);
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 3px 3px 0 var(--border-ink);
+    color: var(--text-ink);
+  }
+  .title-btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--border-ink); background: #fffdf5; }
+  .title-btn:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 var(--border-ink); }
+  .title-btn.primary { background: var(--accent-warm); color: white; border-color: var(--border-ink); grid-column: 1/-1; font-size: 1.2rem; }
+  .title-btn.primary:hover { background: #b8744a; }
+
+  .title-footer {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    color: var(--text-mid);
+    margin-top: 16px;
+    display: flex; justify-content: space-between;
+  }
+
+  /* ─── LEVEL SELECT ─── */
+  #level-screen {
+    position: fixed; inset: 0;
+    background: linear-gradient(135deg, #f5efe0, #ede3cc);
+    display: none; flex-direction: column;
+    align-items: center; justify-content: center;
+    z-index: 999;
+  }
+  #level-screen.visible { display: flex; }
+
+  .level-paper {
+    background: var(--panel-bg);
+    border: 3px solid var(--border-ink);
+    box-shadow: 6px 6px 0 var(--border-ink);
+    border-radius: 4px;
+    padding: 32px 40px;
+    max-width: 700px; width: 92%;
+  }
+  .level-header {
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 2px solid var(--border-ink);
+    padding-bottom: 16px; margin-bottom: 24px;
+  }
+  .level-header h2 { font-family: 'Special Elite', serif; font-size: 1.5rem; }
+
+  .level-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px; margin-bottom: 24px;
+  }
+  .level-card {
+    border: 2.5px solid var(--border-ink);
+    border-radius: 3px;
+    padding: 16px 12px;
+    background: var(--bg-cream);
+    box-shadow: 3px 3px 0 var(--border-ink);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-align: center;
+    position: relative;
+  }
+  .level-card:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--border-ink); }
+  .level-card.locked { opacity: 0.5; cursor: not-allowed; }
+  .level-card.locked:hover { transform: none; box-shadow: 3px 3px 0 var(--border-ink); }
+  .level-card .lc-num { font-family: 'Special Elite', serif; font-size: 1.8rem; color: var(--accent-warm); }
+  .level-card .lc-title { font-size: 0.85rem; color: var(--text-mid); margin-top: 4px; line-height: 1.2; }
+  .level-card .lc-badge { font-family: 'Courier Prime', monospace; font-size: 0.65rem; margin-top: 8px; padding: 2px 8px; border-radius: 2px; display: inline-block; }
+  .level-card .lc-badge.unlocked { background: #d4f5d4; color: #2a6a2a; border: 1px solid #2a6a2a; }
+  .level-card .lc-badge.locked-badge { background: #f5d4d4; color: #6a2a2a; border: 1px solid #6a2a2a; }
+  .level-card .lc-lock { font-size: 1.5rem; }
+
+  .level-synopsis {
+    background: var(--bg-tan);
+    border: 2px solid var(--border-ink);
+    border-radius: 3px;
+    padding: 16px;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    min-height: 60px;
+    font-family: 'Courier Prime', monospace;
+  }
+
+  /* ─── MAIN GAME LAYOUT ─── */
+  #game-root {
+    display: none;
+    width: 100vw; height: 100vh;
+    flex-direction: column;
+  }
+  #game-root.visible { display: flex; }
+
+  .game-wrapper {
+    display: flex;
+    width: 100%; height: 100%;
+  }
+
+  /* LEFT: main area (24/34 = ~70.6%) */
+  .main-area {
+    flex: 0 0 70.6%;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* SCENE viewport: 18/20 of left height */
+  #scene-viewport {
+    flex: 0 0 90%;
+    position: relative;
+    overflow: hidden;
+    background: #2a3a5a;
+  }
+
+  .scene-bg {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 8rem;
+    background: linear-gradient(180deg, #4a6880 0%, #2a3a5a 100%);
+  }
+
+  /* Scene layers drawn in CSS */
+  .scene-office {
+    background: linear-gradient(180deg, #c8b89a 0%, #b8a888 50%, #8a7a68 100%);
+  }
+  .scene-bakery {
+    background: linear-gradient(180deg, #f0d8b8 0%, #e0c8a0 50%, #c8a870 100%);
+  }
+
+  /* Drawn scene elements */
+  .scene-canvas {
+    position: absolute; inset: 0;
+  }
+
+  /* Hotspot */
+  .hotspot {
+    position: absolute;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .hotspot::before {
+    content: '';
+    position: absolute; inset: -6px;
+    border: 2px dashed var(--accent-warm);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s;
+    animation: hotspot-pulse 2s ease-in-out infinite;
+  }
+  .hotspot:hover::before { opacity: 1; }
+  .hotspot-inner {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: var(--hotspot-glow);
+    border: 2px solid var(--accent-warm);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    backdrop-filter: blur(2px);
+    transition: all 0.2s;
+  }
+  .hotspot:hover .hotspot-inner { background: rgba(200,132,90,0.6); transform: scale(1.1); }
+
+  @keyframes hotspot-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  .hotspot-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%; transform: translateX(-50%);
+    background: var(--terminal-bg);
+    color: var(--terminal-green);
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.75rem;
+    padding: 5px 10px;
+    border-radius: 3px;
+    border: 1px solid var(--terminal-green);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .hotspot:hover .hotspot-tooltip { opacity: 1; }
+
+  /* Hint button */
+  #hint-btn {
+    position: absolute;
+    top: 10px; right: 10px;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    border: 2.5px solid var(--border-ink);
+    background: var(--panel-bg);
+    font-family: 'Special Elite', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--border-ink);
+    z-index: 10;
+    transition: all 0.15s;
+  }
+  #hint-btn:hover { background: var(--accent-warm); color: white; transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--border-ink); }
+
+  /* Dialogue box */
+  #dialogue-box {
+    position: absolute;
+    bottom: 10px; left: 10px; right: 10px;
+    background: rgba(253,248,238,0.97);
+    border: 2.5px solid var(--border-ink);
+    border-radius: 4px;
+    padding: 12px 16px;
+    display: none;
+    box-shadow: 3px 3px 0 var(--border-ink);
+    z-index: 20;
+    max-height: 30%;
+    overflow-y: auto;
+  }
+  #dialogue-box.visible { display: block; }
+  .dialogue-speaker {
+    font-family: 'Special Elite', serif;
+    font-size: 0.85rem;
+    color: var(--accent-warm);
+    margin-bottom: 4px;
+  }
+  .dialogue-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--text-ink);
+  }
+  .dialogue-advance {
+    text-align: right;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    color: var(--text-mid);
+    margin-top: 6px;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Object state overlays */
+  .obj-overlay {
+    position: absolute;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    border-radius: 3px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.5rem;
+  }
+
+  /* ─── TERMINAL AREA (rows 18-20) ─── */
+  #terminal-area {
+    flex: 0 0 10%;
+    background: var(--terminal-bg);
+    border-top: 2px solid var(--border-ink);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    overflow: hidden;
+  }
+
+  #terminal-statusbar {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 3px 8px;
+    background: #0f0f1e;
+    border-bottom: 1px solid #2a2a4a;
+    flex-shrink: 0;
+  }
+  .term-stat {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    padding: 2px 10px;
+    border-right: 1px solid #2a2a4a;
+    color: #888;
+  }
+  .term-stat .val { color: var(--terminal-yellow); font-weight: bold; }
+  .term-stat .val.good { color: var(--terminal-green); }
+  #term-home { margin-left: auto; background: none; border: none; color: #888; cursor: pointer; font-size: 0.9rem; padding: 0 8px; }
+  #term-home:hover { color: var(--terminal-yellow); }
+  #term-settings-btn { background: none; border: none; color: #888; cursor: pointer; font-size: 0.9rem; padding: 0 8px; }
+  #term-settings-btn:hover { color: var(--terminal-yellow); }
+
+  #terminal-input-row {
+    display: flex;
+    align-items: center;
+    padding: 4px 8px;
+    gap: 6px;
+    flex: 1;
+  }
+  #term-prompt {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9rem;
+    color: var(--terminal-green);
+    flex-shrink: 0;
+    user-select: none;
+  }
+  #term-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.9rem;
+    color: #e8e8e8;
+    caret-color: var(--terminal-green);
+  }
+  #term-input::placeholder { color: #444; }
+  #term-enter-hint {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    color: #444;
+    flex-shrink: 0;
+  }
+
+  /* ─── SIDEBAR (cols 24-34) ─── */
+  #sidebar {
+    flex: 0 0 29.4%;
+    background: var(--panel-bg);
+    border-left: 2.5px solid var(--border-ink);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  #sidebar-tabs {
+    display: flex;
+    border-bottom: 2.5px solid var(--border-ink);
+    background: var(--bg-tan);
+    flex-shrink: 0;
+  }
+  .sidebar-tab {
+    flex: 1;
+    padding: 8px 4px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+    border-right: 1.5px solid var(--border-ink);
+    border-bottom: none;
+    background: var(--bg-tan);
+    color: var(--text-mid);
+    transition: all 0.15s;
+    line-height: 1.2;
+  }
+  .sidebar-tab:last-child { border-right: none; }
+  .sidebar-tab:hover { background: var(--bg-cream); color: var(--text-ink); }
+  .sidebar-tab.active { background: var(--panel-bg); color: var(--text-ink); font-weight: bold; border-bottom: 2px solid var(--panel-bg); margin-bottom: -2px; }
+  .sidebar-tab .tab-icon { font-size: 1rem; display: block; }
+
+  .sidebar-panel {
+    display: none;
+    flex: 1;
+    overflow-y: auto;
+    padding: 14px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent-warm) var(--bg-tan);
+  }
+  .sidebar-panel.active { display: block; }
+  .sidebar-panel::-webkit-scrollbar { width: 5px; }
+  .sidebar-panel::-webkit-scrollbar-track { background: var(--bg-tan); }
+  .sidebar-panel::-webkit-scrollbar-thumb { background: var(--accent-warm); border-radius: 3px; }
+
+  /* Bunny's Lessons panel */
+  .lesson-entry {
+    border: 2px solid var(--border-ink);
+    border-radius: 3px;
+    padding: 10px;
+    margin-bottom: 12px;
+    background: var(--bg-cream);
+    box-shadow: 2px 2px 0 var(--border-ink);
+    animation: slide-in 0.3s ease;
+  }
+  @keyframes slide-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .lesson-title {
+    font-family: 'Special Elite', serif;
+    font-size: 0.85rem;
+    color: var(--accent-warm);
+    border-bottom: 1.5px solid var(--border-ink);
+    padding-bottom: 5px; margin-bottom: 7px;
+  }
+  .lesson-body {
+    font-size: 0.8rem;
+    line-height: 1.6;
+    color: var(--text-ink);
+  }
+  .lesson-body code {
+    font-family: 'Courier Prime', monospace;
+    background: var(--bg-tan);
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 0.78rem;
+    color: var(--accent-teal);
+  }
+  .lesson-highlight {
+    border-left: 3px solid var(--accent-warm);
+    padding-left: 8px;
+    background: rgba(200,132,90,0.08);
+    border-radius: 0 3px 3px 0;
+  }
+
+  /* Lizard's Notes panel */
+  .note-entry {
+    border-left: 3px solid var(--accent-teal);
+    padding: 8px 10px;
+    margin-bottom: 10px;
+    background: var(--bg-cream);
+    border-radius: 0 3px 3px 0;
+    animation: slide-in 0.3s ease;
+  }
+  .note-key {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.7rem;
+    color: var(--accent-teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 3px;
+  }
+  .note-val {
+    font-size: 0.82rem;
+    color: var(--text-ink);
+    line-height: 1.5;
+  }
+  .note-val code {
+    font-family: 'Courier Prime', monospace;
+    background: var(--bg-tan);
+    padding: 1px 3px;
+    border-radius: 2px;
+    font-size: 0.75rem;
+    color: var(--accent-purple);
+  }
+
+  /* Evidence notepad panel */
+  .evidence-board {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .evidence-slots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .ev-slot {
+    border: 2.5px dashed var(--border-ink);
+    border-radius: 3px;
+    padding: 8px;
+    min-height: 60px;
+    background: var(--bg-cream);
+    transition: all 0.2s;
+  }
+  .ev-slot.dragover { border-color: var(--accent-teal); background: rgba(90,158,138,0.1); }
+  .ev-slot.filled { border-style: solid; border-color: var(--accent-teal); }
+  .ev-slot-label {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--text-mid);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  .ev-slot-content {
+    font-size: 0.78rem;
+    color: var(--text-ink);
+    font-family: 'Courier Prime', monospace;
+  }
+  .ev-slot-content.empty { color: #bbb; font-style: italic; }
+
+  .ev-fragments {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    padding: 8px;
+    background: var(--bg-tan);
+    border: 1.5px solid var(--border-ink);
+    border-radius: 3px;
+    min-height: 40px;
+  }
+  .ev-fragment {
+    background: var(--panel-bg);
+    border: 1.5px solid var(--border-ink);
+    border-radius: 2px;
+    padding: 3px 8px;
+    font-size: 0.72rem;
+    font-family: 'Courier Prime', monospace;
+    cursor: grab;
+    transition: all 0.15s;
+    box-shadow: 1px 1px 0 var(--border-ink);
+    user-select: none;
+  }
+  .ev-fragment:hover { background: var(--accent-warm); color: white; border-color: var(--border-ink); }
+  .ev-fragment:active { cursor: grabbing; }
+  .ev-fragment.used { opacity: 0.35; cursor: not-allowed; }
+
+  .ev-question {
+    font-size: 0.82rem;
+    color: var(--text-mid);
+    padding: 8px;
+    background: var(--bg-tan);
+    border-radius: 3px;
+    border-left: 3px solid var(--accent-purple);
+    font-family: 'Courier Prime', monospace;
+  }
+
+  .ev-code-input {
+    width: 100%;
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.8rem;
+    padding: 8px;
+    border: 2px solid var(--border-ink);
+    border-radius: 3px;
+    background: var(--terminal-bg);
+    color: var(--terminal-green);
+    outline: none;
+    resize: none;
+    height: 60px;
+  }
+  .ev-code-input::placeholder { color: var(--terminal-dim); }
+  .ev-code-input:focus { border-color: var(--terminal-green); }
+
+  .ev-verify-btn {
+    width: 100%;
+    padding: 8px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    background: var(--accent-teal);
+    color: white;
+    border: 2px solid var(--border-ink);
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--border-ink);
+    transition: all 0.15s;
+  }
+  .ev-verify-btn:hover { transform: translate(-1px,-1px); box-shadow: 3px 3px 0 var(--border-ink); }
+
+  /* Terminal output log (replaces scene for some states) */
+  #terminal-log {
+    position: absolute;
+    top: 8px; left: 8px; right: 8px; bottom: 8px;
+    background: rgba(26,26,46,0.92);
+    border-radius: 4px;
+    border: 1.5px solid #2a2a5a;
+    overflow-y: auto;
+    padding: 8px;
+    display: none;
+    z-index: 5;
+    scrollbar-width: thin;
+    scrollbar-color: var(--terminal-dim) transparent;
+  }
+  #terminal-log.visible { display: block; }
+  .tlog-line {
+    font-family: 'Courier Prime', monospace;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .tlog-line.success { color: var(--terminal-green); }
+  .tlog-line.error { color: var(--terminal-red); }
+  .tlog-line.info { color: var(--terminal-blue); }
+  .tlog-line.dim { color: var(--terminal-dim); }
+  .tlog-line.warn { color: var(--terminal-yellow); }
+
+  /* Settings overlay */
+  #settings-overlay {
+    position: fixed; inset: 0;
+    background: rgba(26,26,46,0.7);
+    display: none; align-items: center; justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+  }
+  #settings-overlay.visible { display: flex; }
+  .settings-box {
+    background: var(--panel-bg);
+    border: 3px solid var(--border-ink);
+    box-shadow: 6px 6px 0 var(--border-ink);
+    border-radius: 4px;
+    padding: 24px 28px;
+    width: min(400px, 90vw);
+  }
+  .settings-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+  }
+  .settings-header h3 { font-family: 'Special Elite', serif; font-size: 1.2rem; }
+  .settings-close {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 2px solid var(--border-ink);
+    background: var(--accent-pink);
+    color: white; cursor: pointer;
+    font-size: 0.8rem; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .setting-row {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 16px; padding-bottom: 16px;
+    border-bottom: 1px solid var(--bg-tan);
+  }
+  .setting-row:last-child { border-bottom: none; margin-bottom: 0; }
+  .setting-label { font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+  .setting-label .icon { font-size: 1.1rem; }
+  input[type=range] {
+    width: 120px;
+    accent-color: var(--accent-warm);
+  }
+  .toggle-switch {
+    width: 44px; height: 22px;
+    background: #ccc;
+    border-radius: 11px;
+    position: relative;
+    cursor: pointer;
+    border: 2px solid var(--border-ink);
+    transition: background 0.2s;
+  }
+  .toggle-switch.on { background: var(--accent-pink); }
+  .toggle-knob {
+    position: absolute;
+    top: 1px; left: 1px;
+    width: 16px; height: 16px;
+    background: white;
+    border-radius: 50%;
+    transition: left 0.2s;
+    border: 1.5px solid var(--border-ink);
+  }
+  .toggle-switch.on .toggle-knob { left: 23px; }
+
+  /* Proceed button */
+  .proceed-btn {
+    display: none;
+    position: absolute;
+    bottom: 60px; right: 10px;
+    padding: 10px 20px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    background: var(--accent-teal);
+    color: white;
+    border: 2.5px solid var(--border-ink);
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--border-ink);
+    z-index: 30;
+    transition: all 0.15s;
+  }
+  .proceed-btn.visible { display: block; animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+  .proceed-btn:hover { transform: translate(-2px,-2px); box-shadow: 5px 5px 0 var(--border-ink); }
+  @keyframes pop-in { from { transform: scale(0.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+  /* Reward toast */
+  #reward-toast {
+    position: fixed;
+    top: 20px; left: 50%; transform: translateX(-50%);
+    background: var(--panel-bg);
+    border: 2.5px solid var(--border-ink);
+    box-shadow: 4px 4px 0 var(--border-ink);
+    border-radius: 3px;
+    padding: 12px 24px;
+    font-family: 'Special Elite', serif;
+    font-size: 1rem;
+    text-align: center;
+    z-index: 3000;
+    display: none;
+    animation: slide-down 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  #reward-toast.visible { display: block; }
+  @keyframes slide-down { from { transform: translateX(-50%) translateY(-40px); opacity: 0; } to { transform: translateX(-50%) translateY(0); opacity: 1; } }
+
+  /* Inventory bar */
+  #inventory-bar {
+    position: absolute;
+    top: 8px; left: 8px;
+    display: flex; gap: 6px;
+    z-index: 10;
+  }
+  .inv-item {
+    background: var(--panel-bg);
+    border: 2px solid var(--border-ink);
+    border-radius: 3px;
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-family: 'Courier Prime', monospace;
+    box-shadow: 2px 2px 0 var(--border-ink);
+    animation: pop-in 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  /* Credits overlay */
+  #credits-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none; align-items: center; justify-content: center;
+    z-index: 2000;
+  }
+  #credits-overlay.visible { display: flex; }
+  .credits-box {
+    background: var(--panel-bg);
+    border: 3px solid var(--border-ink);
+    box-shadow: 6px 6px 0 var(--border-ink);
+    border-radius: 4px;
+    padding: 32px 40px;
+    text-align: center;
+    max-width: 400px;
+  }
+  .credits-box h3 { font-family: 'Special Elite', serif; font-size: 1.4rem; margin-bottom: 16px; }
+  .credits-box p { font-size: 0.9rem; margin-bottom: 8px; color: var(--text-mid); }
+  .credits-close { margin-top: 20px; }
+
+  /* Hint popup */
+  #hint-popup {
+    position: absolute;
+    top: 50px; right: 10px;
+    background: var(--panel-bg);
+    border: 2.5px solid var(--border-ink);
+    border-radius: 4px;
+    padding: 12px 14px;
+    max-width: 200px;
+    box-shadow: 3px 3px 0 var(--border-ink);
+    display: none;
+    z-index: 15;
+    font-size: 0.82rem;
+    animation: slide-in 0.2s ease;
+  }
+  #hint-popup.visible { display: block; }
+  .hint-label {
+    font-family: 'Special Elite', serif;
+    font-size: 0.8rem;
+    color: var(--accent-warm);
+    margin-bottom: 5px;
+  }
+  .hint-close {
+    position: absolute; top: 4px; right: 6px;
+    background: none; border: none; cursor: pointer;
+    font-size: 0.8rem; color: var(--text-mid);
+  }
+  .hint-close:hover { color: var(--accent-pink); }
+
+  /* Responsive note */
+  @media (max-width: 700px) {
+    .game-wrapper { flex-direction: column; }
+    .main-area { flex: 0 0 60%; }
+    #sidebar { flex: 0 0 40%; border-left: none; border-top: 2.5px solid var(--border-ink); }
+    #terminal-area { flex: 0 0 12%; }
+    #scene-viewport { flex: 0 0 88%; }
+  }
+
+  /* State-locked / unlocked objects */
+  .obj-locked::after {
+    content: '🔒';
+    position: absolute; bottom: -4px; right: -4px;
+    font-size: 1rem;
+  }
+  .obj-unlocked::after {
+    content: '🔓';
+    position: absolute; bottom: -4px; right: -4px;
+    font-size: 1rem;
+  }
+
+  /* Floating particles for success */
+  .success-particle {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.2rem;
+    z-index: 9999;
+    animation: float-up 1.2s ease-out forwards;
+  }
+  @keyframes float-up {
+    0% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-80px) scale(0.5); }
+  }
+
+  /* Scene furniture CSS art */
+  .scene-art {
+    position: absolute;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ TITLE SCREEN ═══ -->
+<div id="title-screen">
+  <div class="title-paper">
+    <div class="title-deco">🐰🔍</div>
+    <h1 class="title-main">The Bunny's<br>Backlog</h1>
+    <div class="title-sub">A Cozy Detective Typing Mystery</div>
+    <div class="title-stamp">Case Files: Open</div>
+    <div class="title-buttons">
+      <button class="title-btn primary" onclick="goToLevelSelect()">▶ Start Investigation</button>
+      <button class="title-btn" onclick="continueSave()">📂 Continue</button>
+      <button class="title-btn" onclick="openCredits()">📜 Credits</button>
+      <button class="title-btn" onclick="openSettings()">⚙ Settings</button>
+    </div>
+    <div class="title-footer">
+      <span>v1.0</span>
+      <span>© Knowldeas — Group 25</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LEVEL SELECT ═══ -->
+<div id="level-screen">
+  <div class="level-paper">
+    <div class="level-header">
+      <span style="font-size:1.5rem">📋</span>
+      <h2>Case Files — Select Level</h2>
+      <button class="title-btn" style="margin-left:auto;padding:6px 14px;font-size:0.85rem" onclick="backToTitle()">← Back</button>
+    </div>
+    <div class="level-cards" id="level-cards"></div>
+    <div class="level-synopsis" id="level-synopsis">Hover a case file to preview...</div>
+  </div>
+</div>
+
+<!-- ═══ MAIN GAME ═══ -->
+<div id="game-root">
+  <div class="game-wrapper">
+
+    <!-- LEFT: Scene + Terminal -->
+    <div class="main-area">
+
+      <!-- SCENE VIEWPORT -->
+      <div id="scene-viewport">
+        <canvas class="scene-canvas" id="scene-canvas"></canvas>
+
+        <!-- Dynamic hotspots will be injected here -->
+        <div id="hotspots-container"></div>
+
+        <!-- Inventory -->
+        <div id="inventory-bar"></div>
+
+        <!-- Hint button -->
+        <button id="hint-btn" title="Get a hint" onclick="toggleHint()">?</button>
+
+        <!-- Hint popup -->
+        <div id="hint-popup">
+          <div class="hint-label">💡 Hint</div>
+          <button class="hint-close" onclick="toggleHint()">✕</button>
+          <div id="hint-text">Look around the scene for glowing hotspots!</div>
+        </div>
+
+        <!-- Terminal log overlay (shows last output) -->
+        <div id="terminal-log"></div>
+
+        <!-- Dialogue box -->
+        <div id="dialogue-box">
+          <div class="dialogue-speaker" id="dlg-speaker"></div>
+          <div class="dialogue-text" id="dlg-text"></div>
+          <div class="dialogue-advance" id="dlg-advance">[ click to continue ]</div>
+        </div>
+
+        <!-- Proceed button -->
+        <button class="proceed-btn" id="proceed-btn" onclick="proceedLevel()"></button>
+      </div>
+
+      <!-- TERMINAL AREA -->
+      <div id="terminal-area">
+        <div id="terminal-statusbar">
+          <div class="term-stat">🏠 <span id="stat-level">Tutorial</span></div>
+          <div class="term-stat">Words: <span class="val" id="stat-words">0</span>/<span id="stat-words-max">4</span></div>
+          <div class="term-stat">Clues: <span class="val good" id="stat-clues">0</span>/<span id="stat-clues-max">1</span></div>
+          <button id="term-home" onclick="backToTitle()" title="Home">⌂</button>
+          <button id="term-settings-btn" onclick="openSettings()" title="Settings">⚙</button>
+        </div>
+        <div id="terminal-input-row">
+          <span id="term-prompt">&gt;_</span>
+          <input type="text" id="term-input" placeholder='type a command and press Enter...' autocomplete="off" autocorrect="off" spellcheck="false" />
+          <span id="term-enter-hint">↵ Enter</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Sidebar -->
+    <div id="sidebar">
+      <div id="sidebar-tabs">
+        <div class="sidebar-tab active" data-tab="lessons" onclick="switchTab('lessons')">
+          <span class="tab-icon">📖</span>Bunny's<br>Lessons
+        </div>
+        <div class="sidebar-tab" data-tab="notes" onclick="switchTab('notes')">
+          <span class="tab-icon">🦎</span>Lizard's<br>Notes
+        </div>
+        <div class="sidebar-tab" data-tab="evidence" onclick="switchTab('evidence')">
+          <span class="tab-icon">🗂</span>Evidence<br>Board
+        </div>
+      </div>
+
+      <!-- Tab 1: Lessons -->
+      <div class="sidebar-panel active" id="panel-lessons">
+        <div id="lessons-content">
+          <div class="lesson-entry">
+            <div class="lesson-title">Welcome to the Terminal</div>
+            <div class="lesson-body">
+              The terminal below is your main interface. Type commands <strong>exactly</strong> as shown — case, punctuation, and semicolons all matter!<br><br>
+              <div class="lesson-highlight">Hover over glowing hotspots in the scene to reveal what to type.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 2: Notes -->
+      <div class="sidebar-panel" id="panel-notes">
+        <div id="notes-content">
+          <div style="font-family:'Courier Prime',monospace;font-size:0.75rem;color:var(--text-mid);text-align:center;padding:20px 0;">
+            No notes yet.<br>Complete actions to<br>populate your notes.
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Evidence Board -->
+      <div class="sidebar-panel" id="panel-evidence">
+        <div class="evidence-board" id="evidence-board">
+          <div style="font-family:'Courier Prime',monospace;font-size:0.75rem;color:var(--text-mid);text-align:center;padding:20px 0;">
+            Evidence board locked.<br>Progress the investigation<br>to unlock.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Settings Overlay -->
+<div id="settings-overlay">
+  <div class="settings-box">
+    <div class="settings-header">
+      <h3>⚙ Settings</h3>
+      <button class="settings-close" onclick="closeSettings()">✕</button>
+    </div>
+    <div class="setting-row">
+      <div class="setting-label"><span class="icon">🔊</span> Master Volume</div>
+      <input type="range" min="0" max="100" value="70" id="vol-master">
+    </div>
+    <div class="setting-row">
+      <div class="setting-label"><span class="icon">🎵</span> Music Volume</div>
+      <input type="range" min="0" max="100" value="60" id="vol-music">
+    </div>
+    <div class="setting-row">
+      <div class="setting-label"><span class="icon">💥</span> FX Volume</div>
+      <input type="range" min="0" max="100" value="80" id="vol-fx">
+    </div>
+    <div class="setting-row">
+      <div class="setting-label"><span class="icon">💀</span> Hard Mode</div>
+      <div class="toggle-switch" id="hard-mode-toggle" onclick="toggleHardMode()">
+        <div class="toggle-knob"></div>
+      </div>
+    </div>
+    <button class="title-btn" style="width:100%;margin-top:8px" onclick="closeSettings()">Close</button>
+  </div>
+</div>
+
+<!-- Credits Overlay -->
+<div id="credits-overlay">
+  <div class="credits-box">
+    <h3>📜 Credits</h3>
+    <p><strong>The Bunny's Backlog</strong></p>
+    <p>A cozy OOP typing mystery game</p>
+    <p style="margin-top:12px">Developed by Group 25</p>
+    <p>Engine: ct.js v4.x+</p>
+    <p>Built with ❤️ and JavaScript</p>
+    <p style="margin-top:12px;font-family:'Courier Prime',monospace;font-size:0.75rem">© Knowldeas — v1.0</p>
+    <button class="title-btn credits-close" onclick="closeCredits()">Close</button>
+  </div>
+</div>
+
+<!-- Reward Toast -->
+<div id="reward-toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+//  GAME STATE
+// ═══════════════════════════════════════════════
+const State = {
+  currentLevel: 0,
+  currentPhase: 0,
+  inventory: [],
+  unlockedLevels: [0],
+  notepad: { who: '', didWhat: '', where: '', withWhat: '' },
+  hardMode: false,
+  commandCount: 0,
+  settings: { master: 70, music: 60, fx: 80 }
+};
+
+// Words typed tracker per level
+const LevelMeta = [
+  { id: 0, title: 'Tutorial: The Detective\'s Office', totalWords: 4, totalClues: 1, synopsis: 'Level 0 — Chief Inspector Bunny walks you through the basics of terminal scanning. Learn to inspect objects with precise syntax.' },
+  { id: 1, title: 'Bunny Goes Missing', totalWords: 12, totalClues: 2, synopsis: 'Level 1 — Bunny has vanished! Search the office, find the hidden key in the plant pot, and unlock her secret desk drawer.' },
+  { id: 2, title: 'The Bakery Mystery', totalWords: 24, totalClues: 4, synopsis: 'Level 2 — Head to Sweet & Savory Bakery. Something\'s wrong with the ingredient vault — and Barnaby needs your help urgently.' },
+];
+
+const GameProgress = {
+  wordsTyped: 0,
+  cluesFound: 0,
+};
+
+// Per-level object states
+const ObjectStates = {
+  drawer_locked: true,
+  vault_locked: true,
+  vault_weight: 180,
+  desk_key_found: false,
+};
+
+// ═══════════════════════════════════════════════
+//  SAVE / LOAD
+// ═══════════════════════════════════════════════
+function saveGame() {
+  try {
+    localStorage.setItem('bunny_save', JSON.stringify({
+      currentLevel: State.currentLevel,
+      currentPhase: State.currentPhase,
+      inventory: State.inventory,
+      unlockedLevels: State.unlockedLevels,
+      notepad: State.notepad,
+      wordsTyped: GameProgress.wordsTyped,
+      cluesFound: GameProgress.cluesFound,
+      objectStates: ObjectStates,
+      settings: State.settings
+    }));
+  } catch(e) { /* storage may be unavailable */ }
+}
+
+function loadGame() {
+  try {
+    const raw = localStorage.getItem('bunny_save');
+    if (!raw) return false;
+    const data = JSON.parse(raw);
+    State.currentLevel = data.currentLevel || 0;
+    State.currentPhase = data.currentPhase || 0;
+    State.inventory = data.inventory || [];
+    State.unlockedLevels = data.unlockedLevels || [0];
+    State.notepad = data.notepad || { who:'',didWhat:'',where:'',withWhat:'' };
+    GameProgress.wordsTyped = data.wordsTyped || 0;
+    GameProgress.cluesFound = data.cluesFound || 0;
+    if (data.objectStates) Object.assign(ObjectStates, data.objectStates);
+    if (data.settings) {
+      State.settings = data.settings;
+      document.getElementById('vol-master').value = data.settings.master || 70;
+      document.getElementById('vol-music').value = data.settings.music || 60;
+      document.getElementById('vol-fx').value = data.settings.fx || 80;
+    }
+    return true;
+  } catch(e) { return false; }
+}
+
+// ═══════════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════════
+function backToTitle() {
+  saveGame();
+  document.getElementById('game-root').classList.remove('visible');
+  document.getElementById('level-screen').classList.remove('visible');
+  document.getElementById('title-screen').classList.remove('hidden');
+}
+
+function goToLevelSelect() {
+  document.getElementById('title-screen').classList.add('hidden');
+  document.getElementById('level-screen').classList.add('visible');
+  renderLevelCards();
+}
+
+function continueSave() {
+  if (loadGame()) {
+    document.getElementById('title-screen').classList.add('hidden');
+    loadLevel(State.currentLevel, State.currentPhase);
+  } else {
+    showToast('No save found! Start a new investigation.', '📋');
+  }
+}
+
+function renderLevelCards() {
+  const container = document.getElementById('level-cards');
+  container.innerHTML = '';
+  LevelMeta.forEach(lv => {
+    const unlocked = State.unlockedLevels.includes(lv.id);
+    const card = document.createElement('div');
+    card.className = 'level-card' + (unlocked ? '' : ' locked');
+    card.innerHTML = `
+      <div class="lc-num">${lv.id === 0 ? '★' : lv.id}</div>
+      <div class="lc-title">${lv.id === 0 ? 'Tutorial' : 'Case ' + lv.id}</div>
+      <div style="font-size:0.7rem;margin-top:4px;color:var(--text-mid)">${lv.title.split(':')[lv.id===0?1:0]?.trim() || lv.title}</div>
+      <div class="lc-badge ${unlocked ? 'unlocked' : 'locked-badge'}">${unlocked ? '✓ Available' : '🔒 Locked'}</div>
+    `;
+    card.addEventListener('mouseenter', () => {
+      document.getElementById('level-synopsis').textContent = lv.synopsis;
+    });
+    if (unlocked) {
+      card.addEventListener('click', () => {
+        document.getElementById('level-screen').classList.remove('visible');
+        loadLevel(lv.id, 0);
+      });
+    }
+    container.appendChild(card);
+  });
+}
+
+function proceedLevel() {
+  const next = State.currentLevel + 1;
+  if (next < LevelMeta.length) {
+    if (!State.unlockedLevels.includes(next)) State.unlockedLevels.push(next);
+    saveGame();
+    loadLevel(next, 0);
+  } else {
+    showToast('🎉 You\'ve completed all available cases!', '🏆');
+    setTimeout(() => backToTitle(), 2500);
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  TAB & UI
+// ═══════════════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.sidebar-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.sidebar-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + tab));
+}
+
+function openSettings() { document.getElementById('settings-overlay').classList.add('visible'); }
+function closeSettings() { document.getElementById('settings-overlay').classList.remove('visible'); }
+function openCredits()  { document.getElementById('credits-overlay').classList.add('visible'); }
+function closeCredits() { document.getElementById('credits-overlay').classList.remove('visible'); }
+
+function toggleHardMode() {
+  const toggle = document.getElementById('hard-mode-toggle');
+  State.hardMode = !State.hardMode;
+  toggle.classList.toggle('on', State.hardMode);
+}
+
+function toggleHint() {
+  const popup = document.getElementById('hint-popup');
+  popup.classList.toggle('visible');
+}
+
+function setHint(text) { document.getElementById('hint-text').textContent = text; }
+
+// ═══════════════════════════════════════════════
+//  SCENE DRAWING (CSS + Canvas)
+// ═══════════════════════════════════════════════
+const SceneArt = {
+  0: drawOfficeScene,
+  1: drawOfficeSceneMissing,
+  2: drawBakeryScene,
+};
+
+function drawOfficeScene(canvas) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  // Warm office background
+  const bgGrad = ctx.createLinearGradient(0,0,0,h);
+  bgGrad.addColorStop(0,'#c8b08a'); bgGrad.addColorStop(1,'#a08060');
+  ctx.fillStyle = bgGrad; ctx.fillRect(0,0,w,h);
+  // Floor
+  ctx.fillStyle = '#8a6a48'; ctx.fillRect(0,h*0.72,w,h*0.28);
+  // Wall detail - window
+  ctx.fillStyle = '#d4e8f0'; ctx.fillRect(w*0.6,h*0.05,w*0.28,h*0.3);
+  ctx.strokeStyle = '#5a4030'; ctx.lineWidth = 3;
+  ctx.strokeRect(w*0.6,h*0.05,w*0.28,h*0.3);
+  ctx.beginPath(); ctx.moveTo(w*0.74,h*0.05); ctx.lineTo(w*0.74,h*0.35); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w*0.6,h*0.2); ctx.lineTo(w*0.88,h*0.2); ctx.stroke();
+  // Desk
+  ctx.fillStyle = '#7a5030'; ctx.fillRect(w*0.2,h*0.58,w*0.45,h*0.12);
+  ctx.fillStyle = '#5a3820'; ctx.fillRect(w*0.22,h*0.7,w*0.1,h*0.22);
+  ctx.fillRect(w*0.51,h*0.7,w*0.1,h*0.22);
+  // Desk drawer
+  ctx.fillStyle = ObjectStates.drawer_locked ? '#6a4020' : '#8a6040';
+  ctx.fillRect(w*0.28,h*0.61,w*0.17,h*0.07);
+  ctx.strokeStyle = '#3a2010'; ctx.lineWidth = 2;
+  ctx.strokeRect(w*0.28,h*0.61,w*0.17,h*0.07);
+  ctx.fillStyle = '#c8a070'; ctx.beginPath();
+  ctx.arc(w*0.365,h*0.645,4,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  // Papers on desk
+  ctx.fillStyle = '#fffff0';
+  [[w*0.25,h*0.52],[w*0.3,h*0.5],[w*0.35,h*0.51]].forEach(([x,y]) => {
+    ctx.save(); ctx.translate(x,y); ctx.rotate(-0.1+Math.random()*0.2);
+    ctx.fillRect(0,0,w*0.08,h*0.08); ctx.strokeStyle='#ccc'; ctx.lineWidth=1; ctx.strokeRect(0,0,w*0.08,h*0.08);
+    ctx.restore();
+  });
+  // Bunny character (simple)
+  drawBunny(ctx, w*0.75, h*0.38, h*0.38, false);
+  // Plant pot
+  ctx.fillStyle = '#8a5a30'; ctx.beginPath();
+  ctx.moveTo(w*0.08,h*0.7); ctx.lineTo(w*0.04,h*0.58); ctx.lineTo(w*0.14,h*0.58); ctx.lineTo(w*0.12,h*0.7); ctx.fill();
+  ctx.fillStyle = '#5a9a30';
+  for(let i=0;i<5;i++){
+    ctx.beginPath(); ctx.ellipse(w*0.09+i*0.01,h*0.52+Math.sin(i)*0.04,w*0.025,h*0.06,-0.3+i*0.15,0,Math.PI*2); ctx.fill();
+  }
+  ctx.fillStyle = '#2a6a10';
+  for(let i=0;i<3;i++){
+    ctx.beginPath(); ctx.ellipse(w*0.075+i*0.02,h*0.48+i*0.02,w*0.02,h*0.05,-0.5+i*0.3,0,Math.PI*2); ctx.fill();
+  }
+}
+
+function drawOfficeSceneMissing(canvas) {
+  drawOfficeScene(canvas);
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  // Clear bunny area and draw lizard instead
+  const bgGrad = ctx.createLinearGradient(0,0,0,h);
+  bgGrad.addColorStop(0,'#c8b08a'); bgGrad.addColorStop(1,'#a08060');
+  ctx.fillStyle = bgGrad; ctx.fillRect(w*0.65,h*0.1,w*0.35,h*0.65);
+  // Redraw window
+  ctx.fillStyle = '#d4e8f0'; ctx.fillRect(w*0.6,h*0.05,w*0.28,h*0.3);
+  ctx.strokeStyle = '#5a4030'; ctx.lineWidth = 3; ctx.strokeRect(w*0.6,h*0.05,w*0.28,h*0.3);
+  ctx.beginPath(); ctx.moveTo(w*0.74,h*0.05); ctx.lineTo(w*0.74,h*0.35); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(w*0.6,h*0.2); ctx.lineTo(w*0.88,h*0.2); ctx.stroke();
+  // Letter on desk
+  ctx.fillStyle = '#fffde8'; ctx.fillRect(w*0.45,h*0.52,w*0.12,h*0.09);
+  ctx.strokeStyle = '#a08040'; ctx.lineWidth = 1.5; ctx.strokeRect(w*0.45,h*0.52,w*0.12,h*0.09);
+  ctx.fillStyle = '#c8a040'; ctx.font = `${h*0.04}px Patrick Hand`; ctx.fillText('📜',w*0.48,h*0.58);
+  // Lizard character
+  drawLizard(ctx, w*0.8, h*0.45, h*0.4);
+}
+
+function drawBakeryScene(canvas) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  // Warm bakery background
+  const bgGrad = ctx.createLinearGradient(0,0,0,h);
+  bgGrad.addColorStop(0,'#f0d8b8'); bgGrad.addColorStop(1,'#c8a870');
+  ctx.fillStyle = bgGrad; ctx.fillRect(0,0,w,h);
+  // Floor
+  ctx.fillStyle = '#b8905a'; ctx.fillRect(0,h*0.72,w,h*0.28);
+  // Tile pattern on floor
+  ctx.strokeStyle = '#a07848'; ctx.lineWidth = 1;
+  for(let x=0;x<w;x+=w*0.08){ ctx.beginPath(); ctx.moveTo(x,h*0.72); ctx.lineTo(x,h); ctx.stroke(); }
+  for(let y=h*0.72;y<h;y+=h*0.07){ ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(w,y); ctx.stroke(); }
+  // Display case
+  ctx.fillStyle = '#d4c090'; ctx.fillRect(w*0.05,h*0.45,w*0.3,h*0.28);
+  ctx.fillStyle = 'rgba(200,230,255,0.5)'; ctx.fillRect(w*0.06,h*0.47,w*0.28,h*0.2);
+  ctx.strokeStyle = '#8a6030'; ctx.lineWidth = 3; ctx.strokeRect(w*0.05,h*0.45,w*0.3,h*0.28);
+  // Baked goods
+  ['🎂','🧁','🍰','🥐'].forEach((e,i) => {
+    ctx.font = `${h*0.07}px serif`; ctx.fillText(e, w*(0.08+i*0.07), h*0.62);
+  });
+  // Vault / safe
+  ctx.fillStyle = '#5a5a6a'; ctx.fillRect(w*0.6,h*0.3,w*0.25,h*0.3);
+  ctx.fillStyle = ObjectStates.vault_locked ? '#3a3a4a' : '#6a8a6a';
+  ctx.fillRect(w*0.62,h*0.32,w*0.21,h*0.26);
+  ctx.strokeStyle = '#2a2a3a'; ctx.lineWidth = 4; ctx.strokeRect(w*0.6,h*0.3,w*0.25,h*0.3);
+  ctx.font = `${h*0.12}px serif`; ctx.fillText(ObjectStates.vault_locked?'🔒':'🔓',w*0.68,h*0.52);
+  // Scale
+  ctx.fillStyle = '#c8a060'; ctx.fillRect(w*0.35,h*0.55,w*0.18,h*0.1);
+  ctx.fillStyle = '#a08040'; ctx.fillRect(w*0.42,h*0.45,w*0.04,h*0.1);
+  ctx.strokeStyle = '#6a5020'; ctx.lineWidth = 2; ctx.strokeRect(w*0.35,h*0.55,w*0.18,h*0.1);
+  ctx.font = `${h*0.06}px Courier Prime`; ctx.fillStyle = '#2a1a00';
+  ctx.fillText(`${ObjectStates.vault_weight}kg`, w*0.37, h*0.62);
+  // Barnaby baker character
+  drawBaker(ctx, w*0.78, h*0.45, h*0.42);
+}
+
+function drawBunny(ctx, x, y, size, withBag=true) {
+  ctx.save(); ctx.translate(x - size*0.3, y - size*0.6);
+  const s = size * 0.35;
+  // Body
+  ctx.fillStyle = '#f5efe0'; ctx.beginPath();
+  ctx.ellipse(s*0.6,s*1.2,s*0.45,s*0.6,0,0,Math.PI*2); ctx.fill();
+  // Head
+  ctx.beginPath(); ctx.arc(s*0.6,s*0.55,s*0.42,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#c8a888'; ctx.lineWidth = 2; ctx.stroke();
+  // Ears
+  ctx.fillStyle = '#f0d8c8';
+  ctx.beginPath(); ctx.ellipse(s*0.38,s*0.18,s*0.12,s*0.32,-.2,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(s*0.82,s*0.18,s*0.12,s*0.32,.2,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  // Eyes
+  ctx.fillStyle = '#2a1a10'; ctx.beginPath(); ctx.arc(s*0.46,s*0.52,s*0.065,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(s*0.74,s*0.52,s*0.065,0,Math.PI*2); ctx.fill();
+  // Nose
+  ctx.fillStyle = '#d88898'; ctx.beginPath(); ctx.arc(s*0.6,s*0.64,s*0.04,0,Math.PI*2); ctx.fill();
+  // Hat
+  ctx.fillStyle = '#8a5a30'; ctx.fillRect(s*0.25,s*0.12,s*0.7,s*0.12);
+  ctx.fillRect(s*0.35,s*-0.12,s*0.5,s*0.26);
+  ctx.restore();
+}
+
+function drawLizard(ctx, x, y, size) {
+  ctx.save(); ctx.translate(x - size*0.3, y - size*0.7);
+  const s = size * 0.38;
+  // Body
+  ctx.fillStyle = '#7ab870'; ctx.beginPath();
+  ctx.ellipse(s*0.6,s*1.1,s*0.42,s*0.55,0,0,Math.PI*2); ctx.fill();
+  // Head
+  ctx.beginPath(); ctx.ellipse(s*0.6,s*0.5,s*0.38,s*0.38,0,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle = '#5a9858'; ctx.lineWidth = 2; ctx.stroke();
+  // Snout
+  ctx.fillStyle = '#8ac880'; ctx.beginPath();
+  ctx.ellipse(s*0.82,s*0.6,s*0.2,s*0.15,0.2,0,Math.PI*2); ctx.fill();
+  // Eyes
+  ctx.fillStyle = '#f8f060'; ctx.beginPath(); ctx.arc(s*0.5,s*0.42,s*0.09,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(s*0.7,s*0.42,s*0.09,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#1a0a00'; ctx.beginPath(); ctx.arc(s*0.5,s*0.43,s*0.05,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(s*0.7,s*0.43,s*0.05,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+function drawBaker(ctx, x, y, size) {
+  ctx.save(); ctx.translate(x - size*0.3, y - size*0.7);
+  const s = size * 0.38;
+  // Body (brown bear)
+  ctx.fillStyle = '#b88050'; ctx.beginPath();
+  ctx.ellipse(s*0.6,s*1.1,s*0.44,s*0.58,0,0,Math.PI*2); ctx.fill();
+  // Apron
+  ctx.fillStyle = 'white'; ctx.fillRect(s*0.3,s*0.7,s*0.6,s*0.7);
+  ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1.5; ctx.strokeRect(s*0.3,s*0.7,s*0.6,s*0.7);
+  // Head
+  ctx.fillStyle = '#b88050'; ctx.beginPath();
+  ctx.arc(s*0.6,s*0.5,s*0.42,0,Math.PI*2); ctx.fill();
+  // Ears
+  ctx.beginPath(); ctx.arc(s*0.28,s*0.24,s*0.14,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(s*0.92,s*0.24,s*0.14,0,Math.PI*2); ctx.fill();
+  // Chef hat
+  ctx.fillStyle = 'white';
+  ctx.fillRect(s*0.3,s*0.04,s*0.6,s*0.14);
+  ctx.beginPath(); ctx.ellipse(s*0.6,s*0.02,s*0.28,s*0.18,0,0,Math.PI*2); ctx.fill();
+  // Eyes
+  ctx.fillStyle = '#2a1a10'; ctx.beginPath(); ctx.arc(s*0.44,s*0.52,s*0.06,0,Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(s*0.76,s*0.52,s*0.06,0,Math.PI*2); ctx.fill();
+  // Snout
+  ctx.fillStyle = '#c89060'; ctx.beginPath(); ctx.ellipse(s*0.6,s*0.65,s*0.16,s*0.12,0,0,Math.PI*2); ctx.fill();
+  ctx.restore();
+}
+
+// ═══════════════════════════════════════════════
+//  HOTSPOT CONFIGURATION PER LEVEL/PHASE
+// ═══════════════════════════════════════════════
+const HotspotDefs = {
+  '0-0': [
+    { id: 'desk', label: 'Papers on Desk', tooltip: 'inspect("desk")', icon: '📄', xPct: 0.32, yPct: 0.52, r: 36 }
+  ],
+  '1-0': [
+    { id: 'letter', label: 'Letter', tooltip: 'self.read("letter");', icon: '📜', xPct: 0.5, yPct: 0.54, r: 32 }
+  ],
+  '1-1': [
+    { id: 'plantpot', label: 'Plant Pot', tooltip: 'self.search("office", "plantpot");', icon: '🌿', xPct: 0.09, yPct: 0.55, r: 34 }
+  ],
+  '1-2': [
+    { id: 'drawer', label: 'Desk Drawer', tooltip: 'self.unlock("drawer", "desk_key");', icon: '🗄️', xPct: 0.37, yPct: 0.65, r: 34 }
+  ],
+  '2-0': [
+    { id: 'vault', label: 'Vault Terminal', tooltip: 'bakery.vault.inspect();', icon: '🔐', xPct: 0.72, yPct: 0.48, r: 36 }
+  ],
+  '2-1': [
+    { id: 'scale', label: 'Recipe Scale', tooltip: 'bakery.scale.addWeight(20);', icon: '⚖️', xPct: 0.44, yPct: 0.57, r: 32 }
+  ],
+  '2-2': [
+    { id: 'vault2', label: 'Vault Lock', tooltip: 'bakery.vault.bypassLock();', icon: '🔓', xPct: 0.72, yPct: 0.48, r: 36 }
+  ],
+};
+
+function renderHotspots(levelId, phaseKey) {
+  const container = document.getElementById('hotspots-container');
+  container.innerHTML = '';
+  const key = `${levelId}-${phaseKey}`;
+  const defs = HotspotDefs[key] || [];
+  const vp = document.getElementById('scene-viewport');
+  const vw = vp.clientWidth, vh = vp.clientHeight;
+  defs.forEach(def => {
+    const hs = document.createElement('div');
+    hs.className = 'hotspot';
+    hs.id = 'hs-' + def.id;
+    hs.style.cssText = `
+      left: ${def.xPct * vw - def.r}px;
+      top: ${def.yPct * vh - def.r}px;
+      width: ${def.r*2}px; height: ${def.r*2}px;
+    `;
+    hs.innerHTML = `
+      <div class="hotspot-inner">${def.icon}</div>
+      <div class="hotspot-tooltip">${def.tooltip}</div>
+    `;
+    hs.title = def.label;
+    container.appendChild(hs);
+  });
+}
+
+// ═══════════════════════════════════════════════
+//  TERMINAL ENGINE
+// ═══════════════════════════════════════════════
+const TermLog = {
+  lines: [],
+  maxLines: 50,
+  add(text, type='info') {
+    this.lines.push({ text, type });
+    if (this.lines.length > this.maxLines) this.lines.shift();
+    this.render();
+  },
+  render() {
+    const el = document.getElementById('terminal-log');
+    el.innerHTML = this.lines.map(l =>
+      `<div class="tlog-line ${l.type}">${escapeHtml(l.text)}</div>`
+    ).join('');
+    el.scrollTop = el.scrollHeight;
+  },
+  show() { document.getElementById('terminal-log').classList.add('visible'); },
+  hide() { document.getElementById('terminal-log').classList.remove('visible'); },
+  clear() { this.lines = []; this.render(); }
+};
+
+function escapeHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function printSuccess(msg) {
+  TermLog.add('✓ ' + msg, 'success');
+  TermLog.show();
+  spawnParticles('✨');
+}
+function printError(msg) {
+  TermLog.add('✗ ' + msg, 'error');
+  TermLog.show();
+}
+function printInfo(msg) { TermLog.add('» ' + msg, 'info'); TermLog.show(); }
+function printWarn(msg) { TermLog.add('⚠ ' + msg, 'warn'); TermLog.show(); }
+function printDim(msg)  { TermLog.add('  ' + msg, 'dim');  TermLog.show(); }
+
+// ═══════════════════════════════════════════════
+//  NOTEBOOK (LESSONS + NOTES)
+// ═══════════════════════════════════════════════
+const Lessons = [];
+const Notes = [];
+
+function addLesson(title, body) {
+  Lessons.push({ title, body });
+  renderLessons();
+}
+
+function addNote(key, value) {
+  const existing = Notes.findIndex(n => n.key === key);
+  if (existing >= 0) Notes[existing].value = value;
+  else Notes.push({ key, value });
+  renderNotes();
+  GameProgress.cluesFound++;
+  updateStats();
+  switchTab('notes');
+  setTimeout(() => switchTab('lessons'), 2000);
+}
+
+function renderLessons() {
+  const el = document.getElementById('lessons-content');
+  el.innerHTML = Lessons.map(l => `
+    <div class="lesson-entry">
+      <div class="lesson-title">${l.title}</div>
+      <div class="lesson-body">${l.body}</div>
+    </div>
+  `).join('');
+}
+
+function renderNotes() {
+  const el = document.getElementById('notes-content');
+  if (Notes.length === 0) {
+    el.innerHTML = '<div style="font-family:\'Courier Prime\',monospace;font-size:0.75rem;color:var(--text-mid);text-align:center;padding:20px 0;">No notes yet.</div>';
+    return;
+  }
+  el.innerHTML = Notes.map(n => `
+    <div class="note-entry">
+      <div class="note-key">${n.key}</div>
+      <div class="note-val">${n.value}</div>
+    </div>
+  `).join('');
+}
+
+// ═══════════════════════════════════════════════
+//  INVENTORY
+// ═══════════════════════════════════════════════
+function addInventoryItem(id, label) {
+  if (!State.inventory.includes(id)) {
+    State.inventory.push(id);
+    const bar = document.getElementById('inventory-bar');
+    const item = document.createElement('div');
+    item.className = 'inv-item';
+    item.id = 'inv-' + id;
+    item.textContent = label;
+    bar.appendChild(item);
+  }
+}
+
+function hasInventoryItem(id) { return State.inventory.includes(id); }
+
+// ═══════════════════════════════════════════════
+//  STATS
+// ═══════════════════════════════════════════════
+function updateStats() {
+  const lv = LevelMeta[State.currentLevel];
+  document.getElementById('stat-words').textContent = GameProgress.wordsTyped;
+  document.getElementById('stat-words-max').textContent = lv.totalWords;
+  document.getElementById('stat-clues').textContent = GameProgress.cluesFound;
+  document.getElementById('stat-clues-max').textContent = lv.totalClues;
+  document.getElementById('stat-level').textContent = lv.title.split(':')[0];
+}
+
+// ═══════════════════════════════════════════════
+//  DIALOGUE
+// ═══════════════════════════════════════════════
+let dialogueQueue = [];
+let dialogueCb = null;
+
+function playDialogue(lines, cb) {
+  dialogueQueue = [...lines];
+  dialogueCb = cb || null;
+  advanceDialogue();
+}
+
+function advanceDialogue() {
+  if (dialogueQueue.length === 0) {
+    document.getElementById('dialogue-box').classList.remove('visible');
+    TermLog.hide();
+    if (dialogueCb) { const cb = dialogueCb; dialogueCb = null; cb(); }
+    return;
+  }
+  const line = dialogueQueue.shift();
+  document.getElementById('dlg-speaker').textContent = line.speaker;
+  document.getElementById('dlg-text').textContent = line.text;
+  document.getElementById('dialogue-box').classList.add('visible');
+  document.getElementById('dlg-advance').style.display = dialogueQueue.length > 0 ? 'block' : 'none';
+}
+
+document.getElementById('dialogue-box').addEventListener('click', advanceDialogue);
+
+// ═══════════════════════════════════════════════
+//  LEVEL LOADER
+// ═══════════════════════════════════════════════
+function loadLevel(levelId, phase=0) {
+  State.currentLevel = levelId;
+  State.currentPhase = phase;
+  GameProgress.wordsTyped = 0;
+  GameProgress.cluesFound = 0;
+  Notes.length = 0;
+  Lessons.length = 0;
+
+  document.getElementById('game-root').classList.add('visible');
+  document.getElementById('level-screen').classList.remove('visible');
+  document.getElementById('title-screen').classList.add('hidden');
+  document.getElementById('inventory-bar').innerHTML = '';
+  document.getElementById('proceed-btn').classList.remove('visible');
+  document.getElementById('terminal-log').classList.remove('visible');
+  TermLog.clear();
+
+  // Reset notepad
+  State.notepad = { who:'', didWhat:'', where:'', withWhat:'' };
+
+  // Reset object states for level
+  if (levelId === 0) { ObjectStates.drawer_locked = true; ObjectStates.desk_key_found = false; }
+  if (levelId === 2) { ObjectStates.vault_locked = true; ObjectStates.vault_weight = 180; }
+
+  // Clear inventory display
+  State.inventory = [];
+
+  renderLessons();
+  renderNotes();
+  updateStats();
+  setHint('Look for glowing hotspots in the scene!');
+
+  // Draw scene
+  resizeCanvas();
+  const drawFn = SceneArt[levelId];
+  if (drawFn) drawFn(document.getElementById('scene-canvas'));
+
+  renderHotspots(levelId, phase);
+  switchTab('lessons');
+
+  // Start level intro
+  if (levelId === 0) startLevel0();
+  else if (levelId === 1) startLevel1();
+  else if (levelId === 2) startLevel2();
+}
+
+// ═══════════════════════════════════════════════
+//  LEVEL 0: TUTORIAL
+// ═══════════════════════════════════════════════
+function startLevel0() {
+  addLesson('Welcome to the Terminal', 
+    'The terminal below is your main interface. Type commands <strong>exactly</strong> as shown — case, punctuation, and semicolons all matter!<br><br><div class="lesson-highlight">Hover over glowing hotspots in the scene to reveal what to type.</div>');
+
+  setHint('Hover over the glowing papers on the desk!');
+
+  playDialogue([
+    { speaker: 'Chief Inspector Bunny', text: "Chief Inspector Bunny here. We just got a major lead on a case, but my office is an absolute disaster. I can't leave until I find my notebook." },
+    { speaker: 'Chief Inspector Bunny', text: "Before we head out, let's make sure our terminal scanner is working. See that pile of papers on my desk? Hover your mouse over it to scan for details." },
+  ]);
+
+  State.currentPhase = 0;
+  renderHotspots(0, 0);
+}
+
+// ═══════════════════════════════════════════════
+//  LEVEL 1
+// ═══════════════════════════════════════════════
+function startLevel1() {
+  addLesson('Lesson 2: Interacting via Scope',
+    `To scan, search, or alter objects in the current area, invoke environmental target references.<br><br>
+    <code>self.search("room_location", "object_id")</code><br><br>
+    Use <code>self</code> to reference your current context. Always include both parameters with exact string boundaries and terminate with <code>;</code>.`);
+
+  setHint('Read the letter on the desk first!');
+
+  playDialogue([
+    { speaker: 'Bill the Lizard', text: "Bunny? Are you here? The door was unlocked... This is strange. She said she found a huge clue for her case, but she's completely vanished." },
+    { speaker: 'Bill the Lizard', text: "Look, she left her instructional notebook right here on the side panel. Let me open it up to see what notes she left behind... Check the 'Bunny's Lesson' tab!" },
+  ]);
+
+  State.currentPhase = 0;
+  renderHotspots(1, 0);
+  resizeCanvas();
+  drawOfficeSceneMissing(document.getElementById('scene-canvas'));
+}
+
+// ═══════════════════════════════════════════════
+//  LEVEL 2
+// ═══════════════════════════════════════════════
+function startLevel2() {
+  addLesson('Lesson 3: Nested Object Access',
+    `Access nested structures via chained dot notation:<br><br>
+    <code>object.property.method()</code><br><br>
+    Use public modifier functions like <code>.bypassLock()</code> to alter underlying private state values. Even when a field is protected, public setter functions can override it.`);
+
+  setHint('Inspect the vault terminal first!');
+
+  playDialogue([
+    { speaker: 'Barnaby the Baker', text: "Oh, Inspector Lizard! Thank goodness you're here. Bunny told me she was looking into strange billing records, but then she vanished into thin air!" },
+    { speaker: 'Barnaby the Baker', text: "Right after that, my inventory went completely out of balance. My secret ingredient vault won't open because the terminal threw a strict Data Exception error. I can't check my inventory metrics!" },
+  ]);
+
+  State.currentPhase = 0;
+  renderHotspots(2, 0);
+  resizeCanvas();
+  drawBakeryScene(document.getElementById('scene-canvas'));
+}
+
+// ═══════════════════════════════════════════════
+//  COMMAND PARSER — MASTER ROUTER
+// ═══════════════════════════════════════════════
+function parseCommand(input) {
+  const cmd = input.trim();
+  if (!cmd) return;
+
+  printDim(`> ${cmd}`);
+  GameProgress.wordsTyped++;
+  updateStats();
+
+  const lv = State.currentLevel;
+  const ph = State.currentPhase;
+
+  if (lv === 0) parseLevel0(cmd);
+  else if (lv === 1) parseLevel1(cmd, ph);
+  else if (lv === 2) parseLevel2(cmd, ph);
+
+  saveGame();
+}
+
+// ─── Level 0 parser ───
+function parseLevel0(cmd) {
+  if (cmd === 'inspect("desk")') {
+    printSuccess('Scanning desk... Success! [Clue Unlocked: Desk Layout]');
+    addNote('desk', 'Attributes: locked=true. Location of Bunny\'s Desk Drawer.');
+    addLesson('Objects & Methods',
+      `Methods execute actions on objects using dot notation or arguments.<br><br>
+      <code>object.action()</code> or <code>action('target')</code><br><br>
+      <div class="lesson-highlight">Always match case exactly — JavaScript is case-sensitive!</div>`);
+
+    playDialogue([
+      { speaker: 'Chief Inspector Bunny', text: "Aha! There's my notebook, buried under all these case files. Excellent job." },
+      { speaker: 'Chief Inspector Bunny', text: "You've mastered the basics of object inspection. Now pack your bags — we're heading over to the local Bakery!" },
+    ], () => {
+      const btn = document.getElementById('proceed-btn');
+      btn.textContent = '▶ Proceed to Level 1';
+      btn.classList.add('visible');
+    });
+
+    document.getElementById('hotspots-container').innerHTML = '';
+    spawnParticles('🎉');
+  } else if (cmd.includes('inspect') && (!cmd.includes('"') || !cmd.includes(')') || !cmd.includes('('))) {
+    printError('SyntaxError: Invalid syntax. Did you remember the quotes and parentheses?');
+    printDim('  Expected: inspect("desk")');
+  } else if (cmd.startsWith('inspect')) {
+    printError('ReferenceError: Target not recognized. Try: inspect("desk")');
+  } else {
+    printError(`ReferenceError: '${cmd.split('(')[0]}' is not defined. Hover over glowing objects to find valid commands.`);
+  }
+}
+
+// ─── Level 1 parser ───
+function parseLevel1(cmd, phase) {
+  if (phase === 0) {
+    if (cmd === 'self.read("letter");') {
+      printSuccess('Reading letter... Done.');
+      addNote('letter_hint', "Bunny's note: 'The key is hidden in the plant pot. Use self.search() carefully!'");
+      playDialogue([
+        { speaker: 'Bill the Lizard', text: "The letter says: 'Bill, if I'm not here, I had to chase a lead. The key is hidden in the plant pot. Use the search parameters carefully!'" }
+      ], () => {
+        State.currentPhase = 1;
+        renderHotspots(1, 1);
+        setHint('Now search the plant pot: self.search("office", "plantpot");');
+      });
+    } else if (cmd.includes('read') && !cmd.includes('"letter"')) {
+      printError('ArgumentError: read() expects a string target. Did you mean: self.read("letter");');
+    } else if (!cmd.startsWith('self.')) {
+      printError('ScopeError: Use self to reference objects in the current scope. Try: self.read("letter");');
+    } else {
+      printError(`SyntaxError: Command not recognized. Hover over the letter to see the correct command.`);
+    }
+  } else if (phase === 1) {
+    if (cmd === 'self.search("office", "plantpot");') {
+      printSuccess('Searching plantpot... Found item: [Desk Key]!');
+      addInventoryItem('desk_key', '🗝 Desk Key');
+      addNote('desk_key', 'Item acquired: desk_key. Valid asset for unlocking sequences.');
+      ObjectStates.desk_key_found = true;
+      playDialogue([
+        { speaker: 'Bill the Lizard', text: "There it is! A small key tucked in the soil. Now I can try to unlock her desk drawer." }
+      ], () => {
+        State.currentPhase = 2;
+        renderHotspots(1, 2);
+        setHint('Use the key to unlock the drawer: self.unlock("drawer", "desk_key");');
+      });
+    } else if (cmd.includes('search') && !cmd.includes('"office"')) {
+      printError('ArgumentError: self.search() expects two arguments: location context and target object.\n  Example: self.search("office", "plantpot")');
+    } else if (cmd.includes('search') && !cmd.includes('"plantpot"')) {
+      printError('ArgumentError: Target object not found. Make sure you specify "plantpot" as the second argument.');
+    } else {
+      printError('SyntaxError: Command not recognized. Hover over the plant pot to see the hint.');
+    }
+  } else if (phase === 2) {
+    if (cmd === 'self.unlock("drawer", "desk_key");') {
+      if (hasInventoryItem('desk_key')) {
+        printSuccess('Unlocking drawer with desk_key... Success! Drawer is open. 🔓');
+        ObjectStates.drawer_locked = false;
+        addNote('bunny_journal', "Acquired: Bunny's Secret Journal. Contains suspect rosters linking to local commercial businesses.");
+        resizeCanvas(); drawOfficeSceneMissing(document.getElementById('scene-canvas'));
+        playDialogue([
+          { speaker: 'Bill the Lizard', text: "I've got Bunny's Journal! The first page points directly to missing ingredient tracking logs at the Sweet & Savory Bakery. Let's head there immediately!" }
+        ], () => {
+          showToast('🎩 Item Unlocked: Classic Detective Fedora Hat!', '🏆');
+          const btn = document.getElementById('proceed-btn');
+          btn.textContent = '▶ Go to Level 2: Sweet & Savory Bakery';
+          btn.classList.add('visible');
+          document.getElementById('hotspots-container').innerHTML = '';
+        });
+        spawnParticles('🔓');
+      } else {
+        printError('ScopeError: Action denied. drawer is locked and you do not possess the required access token in your inventory scope.');
+        printDim('  Hint: You need to find the desk_key first!');
+      }
+    } else if (cmd === 'self.unlock("drawer");') {
+      printError('ParameterMismatchError: self.unlock() requires both the target element AND the key reference variable.\n  Example: self.unlock("drawer", "desk_key")');
+    } else if (cmd.includes('unlock') && !cmd.includes('"desk_key"')) {
+      printError('ParameterMismatchError: Missing key parameter. Provide the key item name as the second argument.');
+    } else if (!cmd.startsWith('self.')) {
+      printError('ScopeError: Use self context. Try: self.unlock("drawer", "desk_key");');
+    } else {
+      printError('SyntaxError: Command not recognized. Check the hotspot tooltip for the correct syntax.');
+    }
+  }
+}
+
+// ─── Level 2 parser ───
+function parseLevel2(cmd, phase) {
+  if (phase === 0) {
+    if (cmd === 'bakery.vault.inspect();') {
+      printSuccess('Reading Vault state parameters...');
+      printDim('-> vault.isLocked = true');
+      printDim('-> vault.overrideCode = unknown [Scope Protection: PRIVATE]');
+      printDim(`-> vault.weightSensorValue = ${ObjectStates.vault_weight}`);
+      printDim('-> vault.requiredWeight = 200');
+      addNote('vault_state', `Vault requires exactly 200 units of weight. Current: ${ObjectStates.vault_weight}. Add ${200 - ObjectStates.vault_weight} more units.`);
+      playDialogue([
+        { speaker: 'Barnaby the Baker', text: "That's it! The vault needs exactly 200 units on the scale to balance the sensor. We're at 180 — we need to add 20 more units to the scale!" }
+      ], () => {
+        State.currentPhase = 1;
+        renderHotspots(2, 1);
+        setHint('Add weight to the scale: bakery.scale.addWeight(20);');
+      });
+    } else if (cmd.includes('inspect') && !cmd.startsWith('bakery.vault.')) {
+      printError('ReferenceError: Use the full nested reference: bakery.vault.inspect()');
+    } else {
+      printError('ReferenceError: Command not recognized. Inspect the vault terminal first.');
+    }
+  } else if (phase === 1) {
+    if (cmd === 'bakery.scale.addWeight(20);') {
+      ObjectStates.vault_weight = 200;
+      printSuccess('Adding weight token to scale ledger... State modified.');
+      printDim('-> vault.weightSensorValue updated to 200. ✓');
+      printInfo('-> Weight sensor threshold: BALANCED');
+      addNote('weight_balanced', 'System parameters updated: weightSensorValue = 200, matching threshold. Scale balanced!');
+      resizeCanvas(); drawBakeryScene(document.getElementById('scene-canvas'));
+      playDialogue([
+        { speaker: 'Barnaby the Baker', text: "The scale balanced! I can hear the vault sensor calibrating. Now we need to execute the bypass command to override the lock!" }
+      ], () => {
+        State.currentPhase = 2;
+        renderHotspots(2, 2);
+        setHint('Now bypass the vault lock: bakery.vault.bypassLock();');
+      });
+    } else if (cmd.includes('addWeight') && (cmd.includes("'20'") || cmd.includes('"20"'))) {
+      printError("TypeError: addWeight() expects an integer value, not a string literal.\n  Use: bakery.scale.addWeight(20)  not  bakery.scale.addWeight('20')");
+    } else if (cmd.includes('addWeight') && !cmd.includes('20')) {
+      printError('ArgumentError: Incorrect weight value. The vault needs exactly 20 more units.');
+    } else if (!cmd.startsWith('bakery.scale.')) {
+      printError('ReferenceError: Use full nested reference: bakery.scale.addWeight(20)');
+    } else {
+      printError('SyntaxError: Command not recognized. Hover over the scale for the correct syntax.');
+    }
+  } else if (phase === 2) {
+    if (cmd === 'bakery.vault.bypassLock();') {
+      printSuccess("Executing public modifier bypassLock()...");
+      printSuccess('vault.isLocked state switched: true → FALSE. ✓');
+      ObjectStates.vault_locked = false;
+      addNote('vault_clue', "Inside the vault: a corporate energy bill from Elektron Energy Corp, signed by shell entity 'Strike Holdings'. This matches Bunny's notes exactly!");
+      resizeCanvas(); drawBakeryScene(document.getElementById('scene-canvas'));
+      playDialogue([
+        { speaker: 'Barnaby the Baker', text: "It clicked! The vault doors are open! Look inside — there's a corporate energy bill slip... Made out to Elektron Energy Corp, signed by 'Strike Holdings'!" },
+        { speaker: 'Bill the Lizard', text: "This is the evidence we need. Now I need to compile everything into the evidence board. Open the notepad tab in the sidebar!" }
+      ], () => {
+        State.currentPhase = 3;
+        renderHotspots(2, 3);
+        buildEvidenceBoard();
+        switchTab('evidence');
+        setHint('Fill in the Evidence Board in the sidebar!');
+        document.getElementById('hotspots-container').innerHTML = '';
+      });
+      spawnParticles('🔓');
+    } else if (!cmd.includes('bypassLock')) {
+      printError('ReferenceError: The vault requires a bypass command now. Use bakery.vault.bypassLock();');
+    } else {
+      printError('SyntaxError: Close match — check the method name and ensure it matches exactly: bypassLock()');
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  EVIDENCE BOARD (Level 2 Phase 3)
+// ═══════════════════════════════════════════════
+const EvidenceData = {
+  fragments: [
+    { id: 'f1', label: 'Strike Holdings', slot: 'who' },
+    { id: 'f2', label: 'Diverted Funds / Invoiced Energy Accounts', slot: 'didWhat' },
+    { id: 'f3', label: 'Sweet & Savory Bakery Terminal', slot: 'where' },
+    { id: 'f4', label: 'Elektron Energy Billing Records', slot: 'withWhat' },
+    { id: 'f5', label: 'Bill the Lizard', slot: null }, // decoy
+    { id: 'f6', label: 'Barnaby the Baker', slot: null }, // decoy
+  ]
+};
+
+let draggedFragment = null;
+
+function buildEvidenceBoard() {
+  const board = document.getElementById('evidence-board');
+  board.innerHTML = `
+    <div class="ev-question">Who committed the crime, and how?<br>Drag evidence fragments to the correct slots.</div>
+    <div class="evidence-slots">
+      <div class="ev-slot" id="ev-who" data-slot="who" ondragover="evDragOver(event)" ondrop="evDrop(event)">
+        <div class="ev-slot-label">Who</div>
+        <div class="ev-slot-content empty" id="evc-who">Drop here...</div>
+      </div>
+      <div class="ev-slot" id="ev-didWhat" data-slot="didWhat" ondragover="evDragOver(event)" ondrop="evDrop(event)">
+        <div class="ev-slot-label">Did What</div>
+        <div class="ev-slot-content empty" id="evc-didWhat">Drop here...</div>
+      </div>
+      <div class="ev-slot" id="ev-where" data-slot="where" ondragover="evDragOver(event)" ondrop="evDrop(event)">
+        <div class="ev-slot-label">Where</div>
+        <div class="ev-slot-content empty" id="evc-where">Drop here...</div>
+      </div>
+      <div class="ev-slot" id="ev-withWhat" data-slot="withWhat" ondragover="evDragOver(event)" ondrop="evDrop(event)">
+        <div class="ev-slot-label">With What</div>
+        <div class="ev-slot-content empty" id="evc-withWhat">Drop here...</div>
+      </div>
+    </div>
+    <div class="ev-fragments" id="ev-fragments">
+      ${EvidenceData.fragments.map(f => `
+        <div class="ev-fragment" id="frag-${f.id}" draggable="true"
+          ondragstart="evDragStart(event,'${f.id}')">${f.label}</div>
+      `).join('')}
+    </div>
+    <div class="ev-question" style="margin-top:4px">How should this have been done correctly?<br>Type the final verification command:</div>
+    <textarea class="ev-code-input" id="ev-code" placeholder="Type the verification command here..."></textarea>
+    <button class="ev-verify-btn" onclick="verifyEvidence()">✓ Verify Evidence Board</button>
+    <div id="ev-feedback" style="font-family:'Courier Prime',monospace;font-size:0.75rem;padding:6px;margin-top:4px;border-radius:3px;display:none;"></div>
+  `;
+}
+
+function evDragStart(e, fragId) {
+  draggedFragment = fragId;
+  e.dataTransfer.effectAllowed = 'move';
+}
+function evDragOver(e) { e.preventDefault(); e.currentTarget.classList.add('dragover'); }
+
+function evDrop(e) {
+  e.preventDefault();
+  const slot = e.currentTarget.dataset.slot;
+  e.currentTarget.classList.remove('dragover');
+  if (!draggedFragment) return;
+
+  const frag = EvidenceData.fragments.find(f => f.id === draggedFragment);
+  const el = document.getElementById(`evc-${slot}`);
+  el.textContent = frag.label;
+  el.classList.remove('empty');
+  e.currentTarget.classList.add('filled');
+  State.notepad[slot] = frag.label;
+
+  document.getElementById('frag-' + draggedFragment).classList.add('used');
+  draggedFragment = null;
+}
+
+function verifyEvidence() {
+  const who = State.notepad.who;
+  const where = State.notepad.where;
+  const code = document.getElementById('ev-code').value.trim();
+  const feedback = document.getElementById('ev-feedback');
+
+  const correct_who = 'Strike Holdings';
+  const correct_where = 'Sweet & Savory Bakery Terminal';
+  const correct_code = 'bakery.vault.bypassLock();';
+
+  if (who === correct_who && where === correct_where && code === correct_code) {
+    feedback.style.display = 'block';
+    feedback.style.background = '#d4f5d4';
+    feedback.style.color = '#1a5a1a';
+    feedback.style.border = '1.5px solid #1a5a1a';
+    feedback.textContent = '✓ Case Board Validation Verified. Level 2 Complete!';
+    addNote('case_solved', 'CASE CLOSED: Strike Holdings diverted funds via Elektron Energy billing records at Sweet & Savory Bakery Terminal.');
+    TermLog.add('✓ Case Board Validation Verified. Level 2 Complete.', 'success');
+    TermLog.show();
+
+    playDialogue([
+      { speaker: 'Bill the Lizard', text: "The trail is getting hot. This bakery billing slip ties directly back to a corporate merger between Strike and Elektron Energy. Let's track down their primary database terminal!" }
+    ], () => {
+      const btn = document.getElementById('proceed-btn');
+      btn.textContent = '▶ Case Complete! Return to Menu';
+      btn.classList.add('visible');
+    });
+    spawnParticles('🎉');
+    showToast('🏆 Level 2 Complete! Case closed.', '✅');
+  } else {
+    feedback.style.display = 'block';
+    feedback.style.background = '#f5d4d4';
+    feedback.style.color = '#5a1a1a';
+    feedback.style.border = '1.5px solid #5a1a1a';
+    let hint = '✗ Case Resolution Failed: ';
+    if (who !== correct_who) hint += 'Wrong "Who" slot. ';
+    if (where !== correct_where) hint += 'Wrong "Where" slot. ';
+    if (code !== correct_code) hint += 'Verification command incorrect or missing. ';
+    feedback.textContent = hint;
+    printError('Case Resolution Failed: Evidence connections are mismatched or validation string is invalid.');
+  }
+}
+
+// ═══════════════════════════════════════════════
+//  PARTICLES & TOAST
+// ═══════════════════════════════════════════════
+function spawnParticles(emoji) {
+  for (let i = 0; i < 6; i++) {
+    setTimeout(() => {
+      const p = document.createElement('div');
+      p.className = 'success-particle';
+      p.textContent = emoji;
+      p.style.left = (20 + Math.random() * 60) + 'vw';
+      p.style.top = (20 + Math.random() * 50) + 'vh';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 1300);
+    }, i * 80);
+  }
+}
+
+function showToast(msg, icon='') {
+  const toast = document.getElementById('reward-toast');
+  toast.innerHTML = `${icon ? icon + ' ' : ''}${msg}`;
+  toast.classList.add('visible');
+  setTimeout(() => toast.classList.remove('visible'), 3000);
+}
+
+// ═══════════════════════════════════════════════
+//  CANVAS RESIZE
+// ═══════════════════════════════════════════════
+function resizeCanvas() {
+  const vp = document.getElementById('scene-viewport');
+  const canvas = document.getElementById('scene-canvas');
+  canvas.width = vp.clientWidth;
+  canvas.height = vp.clientHeight;
+  const drawFn = SceneArt[State.currentLevel];
+  if (drawFn) drawFn(canvas);
+}
+
+window.addEventListener('resize', () => {
+  resizeCanvas();
+  if (document.getElementById('game-root').classList.contains('visible')) {
+    renderHotspots(State.currentLevel, State.currentPhase);
+  }
+});
+
+// ═══════════════════════════════════════════════
+//  TERMINAL INPUT LISTENER
+// ═══════════════════════════════════════════════
+document.getElementById('term-input').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const val = document.getElementById('term-input').value;
+    document.getElementById('term-input').value = '';
+    parseCommand(val);
+  }
+});
+
+// Click scene viewport to focus terminal
+document.getElementById('scene-viewport').addEventListener('click', () => {
+  document.getElementById('term-input').focus();
+});
+
+// Keyboard shortcut: Escape closes dialogs
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeSettings();
+    closeCredits();
+    document.getElementById('hint-popup').classList.remove('visible');
+  }
+});
+
+// ═══════════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════════
+(function init() {
+  // Load settings
+  loadGame();
+  // Focus terminal on load
+  window.addEventListener('click', () => {
+    if (document.getElementById('game-root').classList.contains('visible')) {
+      document.getElementById('term-input').focus();
+    }
+  });
+})();
+</script>
+</body>
+</html>
