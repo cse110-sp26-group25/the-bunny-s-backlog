@@ -4,9 +4,9 @@ on:
   # Lint runs on every push to any branch
   push:
 
-  # Full validation runs on PRs targeting main
+  # Full validation runs on PRs targeting ci/cd_test
   pull_request:
-    branches: [ main ]
+    branches: [ ci/cd_test ]
 
   # Manual Trigger: run on-demand from GitHub UI or CLI
   workflow_dispatch:
