@@ -1,17 +1,19 @@
 name: Guardrail Validation Pipeline
 
 on:
-  # Automated Triggers: Only run when merging into main, or opening a PR against main
+  # Lint runs on every push to any branch
+  push:
+
+  # Full validation runs on PRs targeting main
   pull_request:
     branches: [ main ]
-  push:
-    branches: [ main ]
 
-  # Manual Trigger: Allows running the pipeline on-demand via GitHub UI or CLI
+  # Manual Trigger: run on-demand from GitHub UI or CLI
   workflow_dispatch:
 
 jobs:
-  validate:
+  # --- RUNS ON EVERY PUSH ---
+  lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -21,44 +23,62 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm' # Uses package-lock.json to speed up dependencies
+          cache: 'npm'
 
       - name: Install Dependencies
         run: npm ci
 
-      # --- LINTING ---
       - name: Run ESLint
         run: npm run lint
+
+  # --- RUNS ONLY ON PULL REQUESTS TO MAIN ---
+  validate:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
 
       # --- JSON INTEGRITY ---
       - name: Validate JSON Syntax
         run: |
           echo "Checking for valid JSON syntax across all configurations..."
-          find . -name "*.json" -not -path "*/node_modules/*" -exec node -e "JSON.parse(require('fs').readFileSync('{}', 'utf8'))" \;
+          find . -name "*.json" -not -path "*/node_modules/*" | while read f; do
+            node -e "try { JSON.parse(require('fs').readFileSync('$f','utf8')); } catch(e) { console.error('Invalid JSON: $f'); process.exit(1); }"
+          done
 
       - name: Lockfile Integrity Check
         run: |
           echo "Ensuring package-lock.json hasn't been modified without permission..."
           git diff --exit-code -- package-lock.json
 
-      # --- STRICT SYNTAX PARSER (RUST-STYLE MACRO BAN) ---
+      # --- STRICT SYNTAX PARSER (PLACEHOLDER MACRO BAN) ---
       - name: Ban Placeholder Macros
         run: |
-          echo "Scanning for forbidden placeholder macros (todo!, unimplemented!)..."
+          echo "Scanning for forbidden placeholder macros (todo!(), unimplemented!())..."
           if grep -rnE "todo\!\s*\(|unimplemented\!\s*\(" --include="*.js" --exclude-dir=node_modules .; then
-            echo "❌ ERROR: Production code contains 'todo!()' or 'unimplemented!()' macros! Please resolve them before merging."
+            echo "ERROR: Production code contains todo!() or unimplemented!() macros. Resolve them before merging."
             exit 1
           fi
-          echo "✅ Code checks passed: No active todo!() or unimplemented!() macros found."
+          echo "No forbidden placeholder macros found."
 
       # --- UNIT TESTS ---
-      - name: Run Typing Engine & LocalStorage Mock Unit Tests
+      - name: Run Unit Tests
         run: npm test
 
       # --- CORE WEB CONFIGURATIONS CHECK ---
       - name: Verify Core Web Configurations
         run: |
           echo "Verifying vital deployment file locations..."
-          test -f index.html || { echo "❌ index.html is missing or misplaced!"; exit 1; }
-          test -f package.json || { echo "❌ package.json is missing!"; exit 1; }
-          test -f ct.34ea85b454.js || { echo "❌ Core engine build file is missing!"; exit 1; }
+          test -f index.html     || { echo "index.html is missing!"; exit 1; }
+          test -f package.json   || { echo "package.json is missing!"; exit 1; }
+          test -f ct.34ea85b454.js || { echo "Core engine build file is missing!"; exit 1; }

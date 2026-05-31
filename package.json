@@ -7,12 +7,16 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "lint": "eslint src/ tests/"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
+  "jest": {
+    "testEnvironment": "node"
+  },
   "devDependencies": {
     "eslint": "^10.3.0",
     "jest": "^30.3.0"
