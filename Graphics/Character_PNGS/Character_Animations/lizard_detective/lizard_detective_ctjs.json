@@ -1,0 +1,9 @@
+{
+  "name": "lizard_detective",
+  "frameWidth": 302,
+  "frameHeight": 302,
+  "frames": 6,
+  "originX": 151,
+  "originY": 151,
+  "animationSpeed": 10
+}

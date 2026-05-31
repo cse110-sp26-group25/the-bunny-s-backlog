@@ -1,0 +1,9 @@
+{
+  "name": "sheep_baker",
+  "frameWidth": 325,
+  "frameHeight": 325,
+  "frames": 6,
+  "originX": 162,
+  "originY": 162,
+  "animationSpeed": 10
+}
