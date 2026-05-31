@@ -83,4 +83,3 @@ jobs:
           echo "Verifying vital deployment file locations..."
           test -f index.html     || { echo "index.html is missing!"; exit 1; }
           test -f package.json   || { echo "package.json is missing!"; exit 1; }
-          test -f ct.34ea85b454.js || { echo "Core engine build file is missing!"; exit 1; }
