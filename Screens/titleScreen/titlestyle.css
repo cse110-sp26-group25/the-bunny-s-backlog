@@ -11,6 +11,13 @@ body {
 h1 { font-size: 2rem; margin-bottom: 1rem; }
 p  { line-height: 1.7; color: #555; }
 
+.mainTitle {
+    font-family:'Georgia, serif';
+    margin: 3vh 1vw 1vh 1vw;
+    color: green;
+    text-align: center;
+    font-size: 3rem; 
+}
 
 /* button for the level selection */
 .level-button {

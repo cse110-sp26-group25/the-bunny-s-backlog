@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Settings</title>
+    <link rel="stylesheet" href="settingsStyle.css"/>
+</head>
+<body>
+ 
+    <!-- SETTINGS PANEL -->
+    <main class="panel">
+ 
+    <!-- Panel heading -->
+    <header class="panel-header">
+        <h1>Settings</h1>
+        <hr class="divider" />
+    </header>
+ 
+    <!-- AUDIO SETTINGS -->
+    <section class="settings-list" aria-label="Audio settings">
+ 
+    <!-- Master Volume: controls overall output level -->
+        <article class="setting">
+            <header class="setting-header">
+                <label class="setting-label" for="master-slider">Master Volume</label>
+                <output class="setting-value" id="master-val" for="master-slider">80%</output>
+            </header>
+            <div class="slider-track">
+                <span class="slider-fill" id="master-fill" style="width:80%"></span>
+                <input type="range" min="0" max="100" value="80" id="master-slider"
+                    aria-label="Master volume" aria-valuetext="80%"/>
+            </div>
+    
+        <!-- Music Volume: controls background music level -->
+            <header class="setting-header">
+                <label class="setting-label" for="music-slider">Music Volume</label>
+                <output class="setting-value" id="music-val" for="music-slider">60%</output>
+            </header>
+                <div class="slider-track">
+                <span class="slider-fill" id="music-fill" style="width:60%"></span>
+                <input type="range" min="0" max="100" value="60" id="music-slider" 
+                    aria-label="Music volume" aria-valuetext="60%"/>
+            </div>
+    
+        <!-- Effects Volume: controls sound effects level -->
+            <header class="setting-header">
+                <label class="setting-label" for="effects-slider">Effects Volume</label>
+                <output class="setting-value" id="effects-val" for="effects-slider">75%</output>
+            </header>
+            <div class="slider-track">
+                <span class="slider-fill" id="effects-fill" style="width:75%"></span>
+                <input type="range" min="0" max="100" value="75" id="effects-slider"
+                    aria-label="Effects volume" aria-valuetext="75%"/>
+            </div>
+        </article>
+    </section>
+ 
+    <!-- Hard mode toggle -->
+    <section aria-label="Gameplay settings">
+ 
+      <!-- Hard Mode: increases enemy difficulty and reduces checkpoints -->
+      <div class="toggle-row">
+        <div class="toggle-info">
+          <span class="toggle-label">Hard Mode</span>
+          <small class="toggle-status" id="hard-status">DISABLED</small>
+        </div>
+        <label class="switch" aria-label="Toggle hard mode">
+          <input type="checkbox" id="hard-toggle" role="switch" aria-checked="false"/>
+          <span class="slider-switch"></span>
+        </label>
+      </div>
+ 
+    </section>
+ 
+    <!-- Save or discard changes -->
+    <footer class="panel-footer">
+      <button class="btn btn-secondary" id="reset-btn" type="button">Reset</button>
+      <button class="btn btn-primary"   id="save-btn"  type="button">Apply</button>
+    </footer>
+
+    <!-- button back to the title page -->
+    <button class = "btn btn-backbutton" onclick = "backToTitle()">Back to Title</button>
+ 
+  </main>
+ 
+  <!-- Page logic -->
+  <script src="settingsFunctions.js"></script>
+</body>
+</html>
