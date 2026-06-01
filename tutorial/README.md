@@ -1,3 +1,16 @@
+# Tutorial Level: The Morning Routine
+
+## Overview
+Welcome, Detective! This tutorial level, **"The Morning Routine,"** serves as your introduction to the world of JavaScript. Instead of traditional lectures, you will learn by interacting with the environment through the Chief Inspector's terminal. 
+
+## Educational Objectives
+By the end of this level, you will understand:
+1. **Core Syntax:** How to write valid JavaScript statements using quotes, parentheses, and semicolons.
+2. **The Object-Action Relationship:** How to interact with world objects (e.g., `desk`, `plant`) using methods.
+3. **Parameters and Arguments:** How to pass specific instructions into functions to get different results.
+4. **Logical Flow:** Understanding the importance of sequence and state (e.g., unlocking before opening).
+
+## Gameplay Loop
 | Phase | Player Goal | Visual Hotspot | Answer Key (Required Input) | Terminal Output (Success/Failure) | JavaScript Lesson Taught | Clue Unlocked / UI Update (Guiding the Student) |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
 | 1 | Calibrate the Terminal | Terminal UI | console.log("hello"); | "hello" -> System Online. | Printing Data: The foundational JS command for outputting text. | System Note: Welcome, Detective. To talk to the computer, put words inside quotes and parentheses: console.log("..."); |
@@ -10,3 +23,9 @@
 | 8 | Try opening early (Error) | Right Drawers | drawers.open(); | ERROR: The drawers are locked. Access denied. | Logic & Sequence: Code runs in order; you can't open a locked door. | Error Log / Hint: You must unlock it first! Try using a method like drawers.unlock("..."); |
 | 9 | Unlock the drawers | Right Drawers | drawers.unlock("key"); | Click. Security lock disengaged. | Variables as Arguments: Passing an inventory item into a method. | System Log: Padlock icon turns green. Notebook Note: Lock disabled. It is now safe to open. |
 | 10 | Retrieve Journal | Right Drawers | drawers.open(); | Drawers open... [Bunny's Journal Acquired]. | Parameter-less Methods: Functions with empty (). | Major Evidence: [Chief Inspector Bunny's Journal]. Level Complete! |
+
+## How to Play
+* **Input:** Type your commands into the terminal input field at the bottom of the screen.
+* **Submit:** Press the **Enter** key to execute your command.
+* **Feedback:** Watch the terminal output for success messages or debugging hints if your code results in an error.
+* **Notebook:** Keep an eye on your Notebook UI for active objectives and discovered object names.
