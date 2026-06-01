@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standalone Loading Screen</title>
+    <style>
+        /* CSS Settings */
+        :root {
+            --bg-color: #0d0d0d;
+            --text-main: #f4f4f4;
+            --text-muted: #7a7a7a;
+            --accent-color: #c62828; /* Signature Hitman Red */
+            --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            overflow: hidden;
+            /* Subtle vignette effect */
+            background: radial-gradient(circle at center, #1a1a1a 0%, #050505 100%);
+            user-select: none;
+        }
+
+        /* Top Header Area */
+        .header {
+            padding: 50px 60px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+        }
+
+        .title {
+            font-size: 4.5rem;
+            font-weight: bold;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .title span {
+            color: var(--accent-color);
+        }
+
+        /* Center Content (Loading Bar) */
+        .center-content {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .loading-container {
+            width: 70%;
+            max-width: 900px;
+        }
+
+        .hint-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            height: 20px; 
+            transition: opacity 0.3s ease;
+        }
+
+        .progress-wrapper {
+            width: 100%;
+            height: 3px;
+            background-color: #2a2a2a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-color); /* Glow effect */
+            transition: width 0.4s ease-out;
+        }
+
+        /* Bottom Footer Area */
+        .footer {
+            padding: 50px 60px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .loading-status {
+            font-size: 1.2rem;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-main);
+        }
+
+        /* Minimalist Spinner */
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top: 2px solid var(--accent-color);
+            border-right: 2px solid var(--accent-color);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="subtitle">Location</div>
+        <div class="title">Briefing<span>.</span></div>
+    </div>
+
+    <div class="center-content">
+        <div class="loading-container">
+            <div class="hint-text" id="hintText">Connecting to server...</div>
+            <div class="progress-wrapper">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="loading-status" id="statusText">
+            Loading <div class="spinner" id="spinner"></div>
+        </div>
+    </div>
+
+    <script>
+        const progressBar = document.getElementById('progressBar');
+        const hintText = document.getElementById('hintText');
+        const statusText = document.getElementById('statusText');
+        const spinner = document.getElementById('spinner');
+        
+        // Custom text hints to cycle through
+        const hints = [
+            "Connecting to server...",
+            "Encrypting data streams...",
+            "Loading local environment...",
+            "Bypassing security protocols...",
+            "Fetching target dossiers...",
+            "Synchronizing UI elements..."
+        ];
+
+        let progress = 0;
+        let hintIndex = 0;
+
+        // Function to cycle the text hints smoothly
+        const hintInterval = setInterval(() => {
+            hintText.style.opacity = 0; // Fade out
+            
+            setTimeout(() => {
+                hintIndex = (hintIndex + 1) % hints.length;
+                hintText.textContent = hints[hintIndex];
+                hintText.style.opacity = 1; // Fade in
+            }, 300); 
+            
+        }, 2500); // Change hint every 2.5 seconds
+
+        // Function to simulate a realistic, slightly randomized loading bar
+        const loadingInterval = setInterval(() => {
+            // Random jumps between 2% and 12%
+            const jump = Math.random() * 10 + 2; 
+            progress += jump;
+            
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                clearInterval(hintInterval);
+                
+                // Final UI state once loaded
+                hintText.style.opacity = 1;
+                hintText.textContent = "Initialization Complete. Press any key to start.";
+                spinner.style.display = 'none';
+                statusText.innerHTML = 'READY';
+                statusText.style.color = 'var(--accent-color)';
+            }
+            
+            progressBar.style.width = `${progress}%`;
+        }, 600); // Update bar every 0.6 seconds
+    </script>
+
+</body>
+</html>
