@@ -2,11 +2,11 @@
 :root {
     --bg-dark: #0a0a0c;
     --bg-panel: #141416;
-    --text-main: #ffffff;
-    --text-muted: #888888;
+    --text-main: #fff;
+    --text-muted: #888;
     --hitman-red: #da0019;
-    --border-color: #333333;
-    --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --border-color: #333;
+    --font-family: 'Segoe UI', tahoma, geneva, verdana, sans-serif;
     
     /* Wireframe Card Accents */
     --card-1: #da0019; /* Red */
@@ -124,7 +124,7 @@ body {
 }
 
 .action-button:hover {
-    background-color: #ff0022;
+    background-color: #f02;
 }
 
 .action-button:active {
@@ -145,12 +145,15 @@ body {
 .cards-carousel::-webkit-scrollbar {
     height: 8px;
 }
+
 .cards-carousel::-webkit-scrollbar-track {
     background: var(--bg-panel); 
 }
+
 .cards-carousel::-webkit-scrollbar-thumb {
     background: var(--border-color); 
 }
+
 .cards-carousel::-webkit-scrollbar-thumb:hover {
     background: var(--text-muted); 
 }
@@ -166,6 +169,7 @@ body {
 
 .level-card {
     background-color: var(--bg-panel);
+
     /* Make cards much longer (taller) */
     height: 75vh;
     min-height: 500px;
@@ -179,7 +183,7 @@ body {
 
 .level-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 20px rgb(0 0 0 / 50%);
 }
 
 /* Adding the wireframe colors to the top border of each card using 5n pattern */
@@ -191,7 +195,7 @@ body {
 
 .card-image-placeholder {
     flex: 1;
-    background: linear-gradient(180deg, rgba(20,20,22,0) 0%, rgba(20,20,22,1) 100%);
+    background: linear-gradient(180deg, rgb(20 20 22 / 0%) 0%, rgb(20 20 22 / 100%) 100%);
     position: relative;
 }
 
