@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hitman Style Level Selection</title>
+    <style>
+        /* --- CORE HITMAN AESTHETIC --- */
+        :root {
+            --bg-dark: #0a0a0c;
+            --bg-panel: #141416;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --hitman-red: #da0019;
+            --border-color: #333333;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            
+            /* Wireframe Card Accents */
+            --card-1: #da0019; /* Red */
+            --card-2: #4a90e2; /* Blue */
+            --card-3: #50e3c2; /* Cyan */
+            --card-4: #7ed321; /* Green */
+            --card-5: #bd10e0; /* Pink */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: var(--font-family);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            padding: 40px;
+        }
+
+        /* --- TOP HEADER (Logo) --- */
+        .top-header {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .logo-placeholder {
+            width: 150px;
+            height: 50px;
+            background-color: #1a1a1d;
+            border: 2px dashed var(--border-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- MAIN CONTENT AREA --- */
+        .main-layout {
+            display: flex;
+            flex: 1;
+            gap: 30px;
+            overflow: hidden;
+        }
+
+        /* --- LEFT PANEL (Overview / Key) --- */
+        .left-panel {
+            width: 350px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            flex-shrink: 0;
+        }
+
+        .levels-icon {
+            background-color: var(--text-main);
+            color: var(--bg-dark);
+            padding: 15px 20px;
+            font-weight: 800;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .summary-box {
+            background-color: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .summary-box h3 {
+            color: var(--hitman-red);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .summary-box p {
+            color: #b0b0b0;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .requirements {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Deploy Button inside Synopsis */
+        .action-button {
+            display: inline-block;
+            background-color: var(--hitman-red);
+            color: var(--text-main);
+            text-decoration: none;
+            text-align: center;
+            padding: 15px 20px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            cursor: pointer;
+        }
+
+        .action-button:hover {
+            background-color: #ff0022;
+        }
+
+        .action-button:active {
+            transform: scale(0.98);
+        }
+
+        /* --- RIGHT PANEL (Cards Carousel) --- */
+        .cards-carousel {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            padding-bottom: 20px;
+            flex: 1;
+            align-items: flex-start;
+        }
+
+        /* Custom Scrollbar for Carousel */
+        .cards-carousel::-webkit-scrollbar {
+            height: 8px;
+        }
+        .cards-carousel::-webkit-scrollbar-track {
+            background: var(--bg-panel); 
+        }
+        .cards-carousel::-webkit-scrollbar-thumb {
+            background: var(--border-color); 
+        }
+        .cards-carousel::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted); 
+        }
+
+        /* --- INDIVIDUAL CARDS --- */
+        .card-container {
+            width: 320px; /* Made slightly wider */
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100%; /* Take up full available height */
+        }
+
+        .level-card {
+            background-color: var(--bg-panel);
+            /* Make cards much longer (taller) */
+            height: 75vh;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-top: 4px solid transparent;
+        }
+
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Adding the wireframe colors to the top border of each card */
+        .card-container:nth-child(1) .level-card { border-top-color: var(--card-1); }
+        .card-container:nth-child(2) .level-card { border-top-color: var(--card-2); }
+        .card-container:nth-child(3) .level-card { border-top-color: var(--card-3); }
+        .card-container:nth-child(4) .level-card { border-top-color: var(--card-4); }
+        .card-container:nth-child(5) .level-card { border-top-color: var(--card-5); }
+
+        .card-image-placeholder {
+            flex: 1;
+            background: linear-gradient(180deg, rgba(20,20,22,0) 0%, rgba(20,20,22,1) 100%);
+            position: relative;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background-color: var(--hitman-red);
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            box-shadow: 0 0 8px var(--hitman-red);
+        }
+
+        .card-header {
+            background-color: var(--text-main);
+            color: var(--bg-dark);
+            padding: 20px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .level-card.active .card-header {
+            background-color: var(--hitman-red);
+            color: var(--text-main);
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Top Logo Section -->
+    <div class="top-header">
+        <div class="logo-placeholder">LOGO</div>
+    </div>
+
+    <div class="main-layout">
+        <!-- Left Panel: Icon and Key/Summary -->
+        <div class="left-panel">
+            <div class="levels-icon">
+                Destinations
+            </div>
+            <!-- This box gets updated dynamically by JavaScript -->
+            <div class="summary-box" id="overview-box">
+                <!-- Content injected via JS -->
+            </div>
+        </div>
+
+        <!-- Right Panel: Horizontally Scrolling Cards -->
+        <div class="cards-carousel">
+            
+            <!-- Card 1 -->
+            <div class="card-container">
+                <div class="level-card" onclick="selectCard(this)" 
+                     data-title="The Final Test" 
+                     data-synopsis="Infiltrate the ICA facility and eliminate the chess master Jasper Knight. Use the environment to your advantage. Security is tight, and disguises will be mandatory." 
+                     data-req="Mastery Level: 0/32">
+                    <div class="card-image-placeholder">
+                        <div class="status-dot"></div>
+                    </div>
+                    <div class="card-header">
+                        <span>The Final Test</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card-container">
+                <div class="level-card" onclick="selectCard(this)" 
+                     data-title="Nightcall" 
+                     data-synopsis="Infiltrate the heavily guarded beach house in Hawke's Bay under the cover of darkness. Retrieve the intel from the secure computer network and extract before the militia arrives." 
+                     data-req="Mastery Level: 3/57">
+                    <div class="card-image-placeholder">
+                        <div class="status-dot"></div>
+                    </div>
+                    <div class="card-header">
+                        <span>Nightcall</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card-container">
+                <div class="level-card" onclick="selectCard(this)" 
+                     data-title="The Finish Line" 
+                     data-synopsis="Miami, USA. Eliminate tech mogul Robert Knox and his daughter Sierra during the Global Innovation Race. The crowds are massive, providing both cover and complications." 
+                     data-req="Mastery Level: 8/111">
+                    <div class="card-image-placeholder">
+                        <div class="status-dot"></div>
+                    </div>
+                    <div class="card-header">
+                        <span>The Finish Line</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card-container">
+                <div class="level-card" onclick="selectCard(this)" 
+                     data-title="A Silver Tongue" 
+                     data-synopsis="Locate and eliminate the targets within the specified parameters. Leave no trace behind. The target is highly paranoid and rarely travels without a heavily armed escort." 
+                     data-req="Mastery Level: 0/39">
+                    <div class="card-image-placeholder">
+                        <div class="status-dot"></div>
+                    </div>
+                    <div class="card-header">
+                        <span>A Silver Tongue</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card-container">
+                <div class="level-card" onclick="selectCard(this)" 
+                     data-title="Three-Headed Serpent" 
+                     data-synopsis="Navigate the dense jungles of Santa Fortuna, Colombia to dismantle the Delgado cartel leadership. You must eliminate all three heads of the operation simultaneously to avoid an uprising." 
+                     data-req="Mastery Level: 6/100">
+                    <div class="card-image-placeholder">
+                        <div class="status-dot"></div>
+                    </div>
+                    <div class="card-header">
+                        <span>Serpent</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Interactive JavaScript -->
+    <script>
+        function selectCard(cardElement) {
+            // Remove active class from all cards
+            document.querySelectorAll('.level-card').forEach(card => card.classList.remove('active'));
+            
+            // Add active class to the clicked card
+            cardElement.classList.add('active');
+
+            // Extract data attributes from the clicked HTML element
+            const title = cardElement.getAttribute('data-title');
+            const synopsis = cardElement.getAttribute('data-synopsis');
+            const req = cardElement.getAttribute('data-req');
+
+            // Find the overview box
+            const overviewBox = document.getElementById('overview-box');
+
+            // Inject the new HTML into the overview box, including the button
+            overviewBox.innerHTML = `
+                <h3>${title}</h3>
+                <p>${synopsis}</p>
+                <div class="requirements">${req}</div>
+                <a href="#" class="action-button">Deploy / Play</a>
+            `;
+        }
+
+        // Initialize the screen by clicking the first card automatically when the page loads
+        window.onload = () => {
+            const firstCard = document.querySelector('.level-card');
+            if (firstCard) {
+                selectCard(firstCard);
+            }
+        };
+    </script>
+</body>
+</html>
