@@ -4,6 +4,10 @@
 
 An investigator puzzle game featuring cute animal detectives, driven entirely by strict Object-Oriented Programming (OOP) typing mechanics. Built for CSE 110 (Spring 2026) by Group 25.
 
+Our game is a puzzle-themed typing game, helping users learn (familiarize themselves with) the syntax of JavaScript. Story-wise, you play as an interim lizard-detective since your bunny-detective friend has left the community/town to solve a case. But the case your bunny-detective friend is investigating and attempting to solve is taking longer than expected, so the animals in your community are beginning to come to you to get help with their own cases/mysteries. Since you're not an actual detective though, you're forced to use the journal left by your bunny-detective friend to help you in solving these mysteries, specifically by typing syntax-accurate JavaScript code.
+
+The game interface features a split-screen design. The left side mimics a bunny's journal, blending narrative lessons with environmental notes structured like a live code editor. The right side displays the visual game environment alongside a terminal text box, which the player uses to command a lizard character. For example, a player might search a plant pot to find a key to a drawer. However, because the drawer is currently declared as a `const` in the program, its state cannot be changed. To progress, the player must edit the code to change the variable to a `let`. Once the code is updated, they can type JavaScript syntax into the terminal, such as calling a method on the lizard object, to successfully execute the action and open the drawer.
+
 ---
 
 ## 1. Project Overview & Core Loop
