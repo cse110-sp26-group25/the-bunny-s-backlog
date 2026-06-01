@@ -29,7 +29,10 @@ jobs:
         run: npm ci
 
       - name: Run Linting (JS, HTML, CSS)
-        run: npm run lint
+        run: |
+          npx eslint .
+          npm run lint:html
+          npm run lint:css
 
   # --- RUNS ONLY ON PULL REQUESTS TO MAIN ---
   validate:
@@ -50,7 +53,10 @@ jobs:
 
       # --- LINTING ---
       - name: Run Linting (JS, HTML, CSS)
-        run: npm run lint
+        run: |
+          npx eslint .
+          npm run lint:html
+          npm run lint:css
 
       # --- JSON INTEGRITY ---
       - name: Validate JSON Syntax
