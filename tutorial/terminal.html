@@ -1,0 +1,20 @@
+<div id="terminal-screen" style="background:#0a0a0c; color:#fff; padding:20px; font-family:monospace;">
+    <div id="bunny-dialogue" style="color:red; font-size:1.2rem;"></div>
+    <div id="output" style="height:300px; border:1px solid #333; margin-top:20px;"></div>
+    <input type="text" id="terminal-input" style="width:100%; background:transparent; color:#fff;">
+</div>
+
+<script type="module">
+    import { runTutorialValidator } from './terminal_logic.js';
+
+    const input = document.getElementById('terminal-input');
+    const output = document.getElementById('output');
+
+    input.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+            const result = runTutorialValidator(input.value);
+            output.innerHTML += `<p>> ${input.value}</p><p>${result}</p>`;
+            input.value = '';
+        }
+    });
+</script>
