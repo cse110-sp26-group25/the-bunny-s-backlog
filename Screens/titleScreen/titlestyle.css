@@ -1,19 +1,32 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  font-family: 'Georgia', serif;
+  font-family: Georgia, serif;
   background: #f5f4f0;
   color: #1a1a1a;
   min-height: 100vh;
   padding-bottom: 48px;
 }
 
-h1 { font-size: 2rem; margin-bottom: 1rem; }
-p  { line-height: 1.7; color: #555; }
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
 
-.mainTitle {
-    font-family:'Georgia, serif';
-    margin: 3vh 1vw 1vh 1vw;
+p {
+  line-height: 1.7;
+  color: #555;
+}
+
+.main-title {
+    font-family: Georgia, serif;
+    margin: 3vh 1vw 1vh;
     color: green;
     text-align: center;
     font-size: 3rem; 
@@ -61,7 +74,7 @@ p  { line-height: 1.7; color: #555; }
     font-size: 3rem;
 }
 
-/* button for credits*/
+/* button for credits */
 .credits-button {
     position: absolute;
     left: 55.9%;
@@ -76,7 +89,7 @@ p  { line-height: 1.7; color: #555; }
 }
 
 
-/* button for settings*/
+/* button for settings */
 .settings-button {
     position: absolute;
     left: 55.9%;
