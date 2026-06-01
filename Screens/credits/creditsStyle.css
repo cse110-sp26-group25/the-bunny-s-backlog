@@ -301,3 +301,36 @@ hr.crawl-sep::after {
   background: rgba(255, 232, 124, .18);
   color: var(--clr-gold);
 }
+
+
+/* ═══════════════════════════════════════════════
+   MOBILE LAYOUT
+   Activated by src/platform.js when viewport width <= 768px.
+   The crawl is already responsive thanks to clamp() typography,
+   but the 22° perspective tilt is exaggerated on a tall portrait
+   viewport and the vignettes swallow too much vertical space.
+   We soften both and bring the controls bar into thumb reach.
+═══════════════════════════════════════════════ */
+body.mobile .crawl-plane {
+  transform: rotateX(15deg);
+}
+
+body.mobile .vignette-top {
+  height: 18vh;
+}
+
+body.mobile .vignette-bottom {
+  height: 16vh;
+}
+
+body.mobile #controls {
+  bottom: 1rem;
+  right: 1rem;
+  gap: .4rem;
+}
+
+body.mobile .ctrl-btn {
+  padding: .6rem 1rem;
+  font-size: .8rem;
+  min-height: 40px;
+}

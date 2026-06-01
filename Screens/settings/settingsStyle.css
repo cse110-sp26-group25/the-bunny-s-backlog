@@ -334,3 +334,59 @@ input[type="range"]:focus { outline: none; }
     box-shadow: 0 0 28px rgba(42,127,255,0.5);
     transform: translateY(-1px);
 }
+
+
+/* MOBILE LAYOUT
+   Activated by src/platform.js when viewport width <= 768px.
+   The desktop layout assumes a wide aspect ratio (70.6vw panel,
+   vw/vh-sized controls). On a phone this collapses to a sliver and
+   the toggle becomes untappable. Here we widen the panel, switch
+   controls to fixed pixel sizes so touch targets are reachable,
+   and let the panel scroll if content overflows portrait height. */
+body.mobile {
+    overflow-y: auto;
+    padding: 4vh 0;
+}
+
+body.mobile main.panel {
+    width: 92vw;
+    height: auto;
+    min-height: 0;
+    padding: 4vw;
+}
+
+body.mobile .panel-header h1 {
+    font-size: 24px;
+}
+
+body.mobile .slider-track {
+    height: 6px;
+    margin-bottom: 4vh;
+}
+
+body.mobile input[type="range"]::-webkit-slider-thumb,
+body.mobile input[type="range"]::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+}
+
+body.mobile .switch {
+    width: 56px;
+    height: 32px;
+}
+
+body.mobile .slider-switch::before {
+    width: 24px;
+    height: 24px;
+    left: 4px;
+    top: 4px;
+}
+
+body.mobile .switch input:checked + .slider-switch::before {
+    transform: translateX(24px);
+}
+
+body.mobile .btn-backbutton {
+    min-height: 48px;
+    font-size: 13px;
+}

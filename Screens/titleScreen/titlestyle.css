@@ -121,3 +121,34 @@ footer.bottom-bar {
     letter-spacing: 0.08em;
     margin-left: auto;
 }
+
+
+/* MOBILE LAYOUT
+   Activated by src/platform.js when viewport width <= 768px.
+   The desktop layout pins buttons absolutely across the viewport,
+   which collapses on narrow screens. Here we drop absolute positioning
+   and let the buttons flow as a single stacked column with comfortable
+   tap targets. */
+body.mobile {
+    padding-bottom: 64px; /* clears the fixed footer */
+}
+
+body.mobile .mainTitle {
+    font-size: 2.25rem;
+    margin: 2vh 4vw 2vh 4vw;
+}
+
+body.mobile .level-button,
+body.mobile .continue-button,
+body.mobile .something-button,
+body.mobile .credits-button,
+body.mobile .settings-button {
+    position: static;
+    display: block;
+    width: 92vw;
+    height: auto;
+    min-height: 64px;
+    margin: 1.2vh auto;
+    padding: 1rem;
+    font-size: 1.5rem;
+}
