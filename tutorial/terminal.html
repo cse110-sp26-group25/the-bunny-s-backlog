@@ -1,20 +1,37 @@
-<div id="terminal-screen" style="background:#0a0a0c; color:#fff; padding:20px; font-family:monospace;">
-    <div id="bunny-dialogue" style="color:red; font-size:1.2rem;"></div>
-    <div id="output" style="height:300px; border:1px solid #333; margin-top:20px;"></div>
-    <input type="text" id="terminal-input" style="width:100%; background:transparent; color:#fff;">
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Detective Terminal</title>
+    <link rel="stylesheet" href="terminal_style.css">
+</head>
+<body>
 
-<script type="module">
-    import { runTutorialValidator } from './terminal_logic.js';
+    <div id="terminal-screen">
+        <div id="bunny-dialogue"></div>
+        <div id="output"></div>
+        <input type="text" id="terminal-input" placeholder="Type command here..." autofocus>
+    </div>
 
-    const input = document.getElementById('terminal-input');
-    const output = document.getElementById('output');
+    <script type="module">
+        import { runTutorialValidator } from './terminal_logic.js';
 
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const result = runTutorialValidator(input.value);
-            output.innerHTML += `<p>> ${input.value}</p><p>${result}</p>`;
-            input.value = '';
-        }
-    });
-</script>
+        const input = document.getElementById('terminal-input');
+        const output = document.getElementById('output');
+        const dialogue = document.getElementById('bunny-dialogue');
+
+        dialogue.textContent = "Chief Inspector Bunny: 'Good morning, Detective. Calibrate the terminal to begin.'";
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const result = runTutorialValidator(input.value);
+                output.innerHTML += `<p>> ${input.value}</p><p>${result}</p>`;
+                input.value = '';
+                
+                // Keep output scrolled to the bottom
+                output.scrollTop = output.scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
