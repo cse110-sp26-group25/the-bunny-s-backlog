@@ -81,7 +81,7 @@ If we aren't skipping the constants, then upon the first input the game will out
 ### Transition "cutscene" 
 
 - the baker sheep will come into the office saying _Help! Help! Someone broke into my bakery! Detective please I need your help_
-- Then the lizard will be prompted (maybe through a hotspot on the sheep or a popup) that _I should tell the sheep that I'm not actually a detective._ and direct the user to make a print statement
+- Then the lizard will be prompted (maybe through a hotspot on the sheep or a popup) that _I should tell the sheep that I'm not actually a detective._ and direct the user to make a print statement (maybe use `console.warn()`) 
 - the baker will say something about how he really needs the lizards help, maybe offering baked goods, or just gathering evidence for the bunny detective to review when they come back
 - the lizard/user reluctantly agrees to come with the sheep to the bakery 
 - fade to black, the level has ended 
