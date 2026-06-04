@@ -12,13 +12,13 @@ _dialouge from characters or bunny's notebook_
 ## Please Read
 Honestly I'm this unsure as to what exactly is being added to evidence, but there is certain information that needs to be stored / shouldn't require hovering over a hotspot.
 
-Especially because the next levels require writing functions / larger peices of code, which the user should only submitting a couple lines of at a time in building this larger program. 
+Especially because the next levels require writing functions / larger peices of code, which the user should build gradually by only submitting a few lines at a time. 
 
-This information / the program they're building needs to be displayed somewhere on the sidepannel. I will indicate whenever such information arises, but I cannot/will not at this time convey where this information should be updated. 
+This information / the program they're building needs to be displayed somewhere on the sidepannel. I will indicate whenever such information arises, but I cannot at this time convey where this information should be updated. 
 If we have latter decided on where something should go, I will mention that explicitly. If I do not mention any specific location, assume this decision was left up to YOUR DISCRETION as the implementer. Do not ask us where to put it, WE DO NOT KNOW, and time will be wasted while you wait for a responce. I will include suggestions wherever possible, or enough context for you to make an edecuated decisions. Once you have made this decision, please update these reference docs accordingly.  
 
-If any code changes are made (like using different logic / syntax) please be mindful and cross reverence with the other levles. 
-There is a high chance the skill is being used elsewhere in later levels, where players will be expected to use this skill without specefic instuction / less hanholding. Ensure no other clue is dependednt on the current lesson before any changes are made. Please note that the differntion of some paramaters being string and othes being objects is intentional. Strings are typically related to incorporial actions, while objects typically reference the room/enviornment. The distinction is important, as it cues to the player that said object is an interactable field, while a string is not. 
+If any code changes are made (like using different logic / syntax) please be mindful and cross refference with the other levles. 
+There is a high chance the skill is being used elsewhere in later levels, where players will be expected to use this skill without specefic instuction / less hanholding. Ensure no other clue is dependednt on the current lesson before any changes are made. Please note that the differntion of some paramaters being strings and othes being objects is intentional. Strings are typically related to the lizards behavior, while objects typically reference the room/enviornment. The distinction is important, as it cues to the player that said object is an interactable field, while a string is not. 
 
 The hotspots are mostly flexible. If you feel their is a better way to convey the information, or you think a different position in the scene might make more sence just make a note of the change in this document.  
 
