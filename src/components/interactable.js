@@ -1,13 +1,3 @@
-/**
- * Interactable — a simple clickable item in the game viewport.
- *   1. `action` names what should happen (e.g. 'changeBackground').
- *   2. `Interactable.actions[name]` holds the handler that performs it.
- *   3. A host may instead set `onActivate(interactable)` for one-off behavior.
- *
- * If nothing is wired up, activate() is a safe no-op (with a console warning),
- * so unfinished interactables never throw.
- *
- */
 class Interactable {
   /**
    * @param {object} spec

@@ -7,6 +7,7 @@
     "test": "tests"
   },
   "scripts": {
+    "start": "node scripts/serve.js",
     "test": "jest",
     "lint": "npm run lint:js && npm run lint:html && npm run lint:css",
     "lint:js": "eslint src/ tests/",
