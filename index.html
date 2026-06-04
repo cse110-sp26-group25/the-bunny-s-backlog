@@ -11,6 +11,17 @@
   </head>
   <body>
     <h1>The Bunny's Backlog</h1>
-    <p>Welcome to the game.</p>
+    <p class="hint">
+      Hover (or tab to) a glowing object to see the command you'd type to
+      inspect it.
+    </p>
+
+    <!-- Game viewport: the 24x18 region of the full 34x20 grid.
+         Hotspots are injected by src/main.js. -->
+    <div id="viewport" aria-label="Game viewport"></div>
+
+    <script src="src/hotspot.js"></script>
+    <script src="src/interactable.js"></script>
+    <script src="src/main.js"></script>
   </body>
 </html>
