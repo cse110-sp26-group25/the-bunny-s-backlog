@@ -1,0 +1,114 @@
+name: Guardrail Validation Pipeline
+
+on:
+  # Lint runs on every push to any branch
+  push:
+
+  # Full validation runs on PRs targeting main
+  pull_request:
+    branches: [ main ]
+
+  # Manual Trigger: run on-demand from GitHub UI or CLI
+  workflow_dispatch:
+
+jobs:
+  # --- RUNS ON EVERY PUSH ---
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Linting (JS, HTML, CSS)
+        run: |
+          npx eslint .
+          npm run lint:html
+          npm run lint:css
+
+  # --- RUNS ONLY ON PULL REQUESTS TO MAIN ---
+  validate:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # --- LINTING ---
+      - name: Run Linting (JS, HTML, CSS)
+        run: |
+          npx eslint .
+          npm run lint:html
+          npm run lint:css
+
+      # --- JSON INTEGRITY ---
+      - name: Validate JSON Syntax
+        run: |
+          echo "Checking for valid JSON syntax across all configurations..."
+          find . -name "*.json" -not -path "*/node_modules/*" | while read f; do
+            node -e "try { JSON.parse(require('fs').readFileSync('$f','utf8')); } catch(e) { console.error('Invalid JSON: $f'); process.exit(1); }"
+          done
+
+      - name: Lockfile Integrity Check
+        run: |
+          echo "Ensuring package-lock.json hasn't been modified without permission..."
+          git diff --exit-code -- package-lock.json
+
+      # --- STRICT SYNTAX PARSER (BAN UNFINISHED WORK) ---
+      - name: Ban TODOs and Unfinished Work
+        run: |
+          echo "Scanning for 'TODO' markers in JS, HTML, and CSS..."
+          # Search for 'TODO' case-insensitively. 
+          # Exclude node_modules and the workflow directory to avoid false positives.
+          if grep -rinE "TODO" --include="*.js" --include="*.html" --include="*.css" --exclude-dir={node_modules,.github} .; then
+            echo "ERROR: Unfinished work detected! Remove all 'TODO' markers before merging."
+            exit 1
+          fi
+          echo "No 'TODO' markers found."
+
+      # --- UNIT TESTS ---
+      - name: Run Unit Tests
+        run: npm test
+
+      # --- CORE WEB CONFIGURATIONS CHECK ---
+      - name: Verify Core Web Configurations
+        run: |
+          echo "Verifying vital deployment file locations..."
+          test -f index.html     || { echo "index.html is missing!"; exit 1; }
+          test -f package.json   || { echo "package.json is missing!"; exit 1; }
+
+      # --- ASSET INTEGRITY CHECK ---
+      - name: Verify Local Assets (Dead Links)
+        run: |
+          echo "Verifying local assets linked in index.html exist..."
+          node -e "
+            const fs = require('fs');
+            const html = fs.readFileSync('index.html', 'utf8');
+            const links = [...html.matchAll(/href=\"(?!http)(.*?)\"/g), ...html.matchAll(/src=\"(?!http)(.*?)\"/g)].map(m => m[1].split('?')[0].split('#')[0]).filter(Boolean);
+            let failed = false;
+            for (const link of links) {
+              if (!fs.existsSync(link)) {
+                console.error('ERROR: Dead link found -> ' + link);
+                failed = true;
+              }
+            }
+            if (failed) process.exit(1);
+            console.log('All local links in index.html are valid.');
+          "

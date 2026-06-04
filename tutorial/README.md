@@ -1,0 +1,31 @@
+# Tutorial Level: The Morning Routine
+
+## Overview
+Welcome, Detective! This tutorial level, **"The Morning Routine,"** serves as your introduction to the world of JavaScript. Instead of traditional lectures, you will learn by interacting with the environment through the Chief Inspector's terminal. 
+
+## Educational Objectives
+By the end of this level, you will understand:
+1. **Core Syntax:** How to write valid JavaScript statements using quotes, parentheses, and semicolons.
+2. **The Object-Action Relationship:** How to interact with world objects (e.g., `desk`, `plant`) using methods.
+3. **Parameters and Arguments:** How to pass specific instructions into functions to get different results.
+4. **Logical Flow:** Understanding the importance of sequence and state (e.g., unlocking before opening).
+
+## Gameplay Loop
+| Phase | Player Goal | Visual Hotspot | Answer Key (Required Input) | Terminal Output (Success/Failure) | JavaScript Lesson Taught | Clue Unlocked / UI Update (Guiding the Student) |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| 1 | Calibrate the Terminal | Terminal UI | console.log("hello"); | "hello" -> System Online. | Printing Data: The foundational JS command for outputting text. | System Note: Welcome, Detective. To talk to the computer, put words inside quotes and parentheses: console.log("..."); |
+| 2 | Scan the room | None (General) | scan("office"); | Room scanned. 3 interactive zones: desk, plant, drawers. | Functions & Strings: Passing a string argument into a function. | System Log: Zones detected. Added to Notebook: desk, plant, drawers. Hint: Use inspect("target"); to look closer. |
+| 3 | Check the desk | Center Desk | inspect("desk"); | Desk contains: coffee_mug, open_book, clipboard. | Repetition: Reinforcing how to use string parameters. | Visual Clue: UI popup shows the desk items. Notebook Note: Objects have actions. Connect them with a dot! Example: object.action(); |
+| 4 | Read the wrong item (Trial) | Center Desk | desk.read("open_book"); | It's just a dictionary. Nothing useful here. | Exploration: Showing students that code can execute without solving the puzzle. | Bunny Dialogue Popup: "That's just my dictionary. Try reading the clipboard instead!" |
+| 5 | Read the right item | Center Desk | desk.read("clipboard"); | Note reads: 'Keep journal locked in drawers. Hide key in foliage.' | Dot Notation: object.method("argument") syntax. | Notebook Clue: Journal is in drawers. Key is in the plant. Hint: Inspect the plant next. |
+| 6 | Find the key | Left Plant | inspect("plant"); | Scanning plant... Glint of metal detected! | Applying clues: Using previous knowledge on a new target. | Visual Clue: The silver key hovering over the plant glows. |
+| 7 | Pick up the key | Left Plant | self.take("key"); | [Item Acquired: Silver Key] | The 'Self' Scope: Explaining that the player is an object too. | Inventory Update: [Silver Key] added. Notebook Note: You have the key. Now target the drawers. |
+| 8 | Try opening early (Error) | Right Drawers | drawers.open(); | ERROR: The drawers are locked. Access denied. | Logic & Sequence: Code runs in order; you can't open a locked door. | Error Log / Hint: You must unlock it first! Try using a method like drawers.unlock("..."); |
+| 9 | Unlock the drawers | Right Drawers | drawers.unlock("key"); | Click. Security lock disengaged. | Variables as Arguments: Passing an inventory item into a method. | System Log: Padlock icon turns green. Notebook Note: Lock disabled. It is now safe to open. |
+| 10 | Retrieve Journal | Right Drawers | drawers.open(); | Drawers open... [Bunny's Journal Acquired]. | Parameter-less Methods: Functions with empty (). | Major Evidence: [Chief Inspector Bunny's Journal]. Level Complete! |
+
+## How to Play
+* **Input:** Type your commands into the terminal input field at the bottom of the screen.
+* **Submit:** Press the **Enter** key to execute your command.
+* **Feedback:** Watch the terminal output for success messages or debugging hints if your code results in an error.
+* **Notebook:** Keep an eye on your Notebook UI for active objectives and discovered object names.

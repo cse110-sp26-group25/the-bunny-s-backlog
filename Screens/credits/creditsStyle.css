@@ -1,0 +1,311 @@
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS
+   All colours, sizes, and timing in one place so
+   any future redesign only touches these variables.
+═══════════════════════════════════════════════ */
+:root {
+  --clr-void:       #000007;   /* deep-space background                  */
+  --clr-gold:       #ffe87c;   /* primary accent — crawl text            */
+  --clr-gold-dim:   #c8a84b;   /* subdued gold for roles / labels        */
+  --clr-gold-glow:  rgb(255 232 124 / 18%); /* bloom around headings */
+  --clr-star:       #fff;   /* star particles                         */
+  --clr-horizon:    #000007;   /* fade-out at the bottom of the viewport */
+  --font-display: 'Cinzel Decorative', serif;
+  --font-heading: 'Cinzel', serif;
+  --font-body:    'EB Garamond', serif;
+  --crawl-duration: 50s;       /* total scroll duration — tweak freely   */
+  --crawl-width:    55ch;      /* maximum line width of the crawl column */
+}
+
+/* ═══════════════════════════════════════════════
+   RESET & BASE
+═══════════════════════════════════════════════ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;           /* hide scrollbars — the illusion is everything */
+  background: var(--clr-void);
+  color: var(--clr-gold);
+}
+
+/* ═══════════════════════════════════════════════
+   STAR FIELD CANVAS
+   Positioned behind every other layer; filled
+   dynamically via JS to give depth parallax.
+═══════════════════════════════════════════════ */
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   PERSPECTIVE STAGE
+   The 3-D container that creates the vanishing-
+   point illusion for the crawling text block.
+═══════════════════════════════════════════════ */
+.stage {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  perspective: 300px;           /* shallow perspective = more dramatic tilt  */
+  perspective-origin: 50% 20%;  /* vanishing point sits in the upper-mid area */
+  display: flex;
+  align-items: flex-end;        /* crawl enters from the bottom              */
+  justify-content: center;
+}
+
+/* ═══════════════════════════════════════════════
+   CRAWL PLANE
+   The flat surface that rotates along X to
+   simulate the iconic receding-into-space angle.
+   transform-origin at the bottom keeps the text
+   anchored to the "floor" of the viewport.
+═══════════════════════════════════════════════ */
+.crawl-plane {
+  width: 100%;
+  max-width: 900px;
+  height: 100%;
+  transform-origin: 50% 100%;
+  transform: rotateX(22deg);    /* tilt angle — adjust for desired drama      */
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════
+   CRAWL TRACK
+   The element that physically moves upward.
+   It starts below the viewport and scrolls up
+   until all content has passed.
+═══════════════════════════════════════════════ */
+.crawl-track {
+  width: var(--crawl-width);
+
+  /* Position and movement are set entirely by JS so the
+     translate distance is always exactly right for the content height. */
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════════════
+   TYPOGRAPHY — CRAWL CONTENT
+   Three levels: LOGO, SECTION HEADER, BODY
+═══════════════════════════════════════════════ */
+
+/* Studio / game logo at the very top of the crawl */
+.crawl-logo {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 900;
+  text-align: center;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  color: var(--clr-gold);
+  text-shadow:
+    0 0 30px var(--clr-gold-glow),
+    0 0 60px var(--clr-gold-glow);
+  margin-bottom: 2.4rem;
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid var(--clr-gold-dim);
+}
+
+/* Opening story blurb — italic, slightly dimmed */
+.crawl-intro {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  line-height: 1.85;
+  text-align: justify;
+  color: var(--clr-gold);
+  margin-bottom: 3.5rem;
+}
+
+/* Section divider title (e.g. "DIRECTED BY") */
+.crawl-section {
+  font-family: var(--font-heading);
+  font-size: clamp(.7rem, 1.5vw, .9rem);
+  font-weight: 600;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--clr-gold-dim);
+  margin-bottom: .8rem;
+  margin-top: 3rem;
+}
+
+/* Primary name in a credit block */
+.crawl-name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  font-weight: 700;
+  text-align: center;
+  color: var(--clr-gold);
+  letter-spacing: .06em;
+  margin-bottom: .25rem;
+}
+
+/* Secondary label beneath a name (title, role) */
+.crawl-role {
+  font-family: var(--font-body);
+  font-size: clamp(.85rem, 1.8vw, 1rem);
+  text-align: center;
+  color: var(--clr-gold-dim);
+  letter-spacing: .08em;
+  margin-bottom: 1.5rem;
+}
+
+/* Decorative separator — hr reset + glyph via ::after */
+hr.crawl-sep {
+  border: none;
+  text-align: center;
+  font-size: 1.4rem;
+  color: var(--clr-gold-dim);
+  letter-spacing: .6em;
+  margin: 2rem 0;
+}
+
+hr.crawl-sep::after {
+  content: '✦ ✦ ✦';
+}
+
+/* Body paragraph (background info, thanks, etc.) */
+.crawl-body {
+  font-family: var(--font-body);
+  font-size: clamp(.95rem, 2vw, 1.15rem);
+  line-height: 1.9;
+  text-align: center;
+  color: var(--clr-gold);
+  margin-bottom: 1.8rem;
+}
+
+/* Closing dedication line */
+.crawl-dedication {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  text-align: center;
+  color: var(--clr-gold);
+  margin-top: 4rem;
+  margin-bottom: 1rem;
+  letter-spacing: .04em;
+}
+
+/* ═══════════════════════════════════════════════
+   VIGNETTE OVERLAYS
+   Top and bottom gradients mask the edges so
+   text fades smoothly into / out of view,
+   reinforcing the cinematic illusion.
+═══════════════════════════════════════════════ */
+.vignette-top,
+.vignette-bottom {
+  position: fixed;
+  left: 0; right: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.vignette-top {
+  top: 0;
+  height: 30vh;
+  background: linear-gradient(to bottom, var(--clr-void) 20%, transparent);
+}
+
+.vignette-bottom {
+  bottom: 0;
+  height: 28vh;
+  background: linear-gradient(to top, var(--clr-void) 30%, transparent);
+}
+
+/* ═══════════════════════════════════════════════
+   INTRO TITLE CARD
+   Full-screen "A long time ago…" style overlay
+   that fades out before the crawl begins.
+═══════════════════════════════════════════════ */
+#intro-card {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  background: var(--clr-void);
+
+  /* CSS handles the entire fade-out lifecycle */
+  animation: intro-fade 5s ease forwards;
+}
+
+@keyframes intro-fade {
+  0%   { opacity: 0; }      /* card fades in     */
+  25%  { opacity: 1; }      /* holds at full     */
+  70%  { opacity: 1; }      /* still visible     */
+  100% {
+    opacity: 0;
+    pointer-events: none;
+  } /* fades & disables  */
+}
+
+.intro-eyebrow {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(.85rem, 2vw, 1.1rem);
+  color: var(--clr-gold-dim);
+  letter-spacing: .1em;
+}
+
+.intro-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4.5rem);
+  font-weight: 900;
+  color: var(--clr-gold);
+  text-align: center;
+  line-height: 1.15;
+  letter-spacing: .06em;
+  text-shadow:
+    0 0 40px rgb(255 232 124 / 45%),
+    0 0 80px rgb(255 232 124 / 20%);
+}
+
+/* ═══════════════════════════════════════════════
+   CONTROLS BAR
+   Pause / speed buttons, semi-transparent,
+   positioned at the lower-right corner.
+═══════════════════════════════════════════════ */
+#controls {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 20;
+  display: flex;
+  gap: .6rem;
+  opacity: 0;                   /* hidden until crawl starts              */
+  transition: opacity .5s;
+}
+
+#controls.visible { opacity: 1; }
+
+.ctrl-btn {
+  background: rgb(255 232 124 / 8%);
+  border: 1px solid rgb(255 232 124 / 30%);
+  color: var(--clr-gold-dim);
+  font-family: var(--font-heading);
+  font-size: .75rem;
+  letter-spacing: .12em;
+  padding: .45rem .85rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: background .2s, color .2s;
+}
+
+.ctrl-btn:hover {
+  background: rgb(255 232 124 / 18%);
+  color: var(--clr-gold);
+}
