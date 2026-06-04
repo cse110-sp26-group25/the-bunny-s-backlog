@@ -34,6 +34,22 @@ const saveData = JSON.parse(localStorage.getItem("bunnysBacklogSave"));
 | 7 | `terminalHistory` | Array | Stores important terminal commands or messages that should remain in the terminal log. | `["self.search(plantPot);", "Success: You found a hidden key."]` |
 | 8 | `settings` | Object | Stores player settings, such as volume, muted status, text speed, and reduced motion. | `{ "volume": 1, "muted": false }` |
 | 9 | `tutorialCompleted` | Boolean | Tracks whether the tutorial level has been completed. | `false` |
+| 10 | `levelProgress` | Object | Tracks which levels are unlocked and completed. This supports level selection and continue-game behavior. | `{ "level_001": { "unlocked": true, "completed": false } }` |
+
+## Current Level IDs
+
+Use the same level ID everywhere when saving, loading, selecting levels, or resuming progress.
+
+| Level | ID |
+|---|---|
+| Tutorial | `tutorial_morning_routine` |
+| Level 1 | `level_001` |
+| Level 2 | `level_002` |
+| Level 3 | `level_003` |
+| Level 4 | `level_004` |
+| Level 5 | `level_005` |
+
+If a level group chooses a different final ID, update the shared `LEVEL_IDS` object in `local_storage.js` and use that value everywhere.
 
 ## Information Needed From Other Groups
 
