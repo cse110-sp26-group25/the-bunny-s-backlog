@@ -21,7 +21,9 @@ global.localStorage = {
 const {
   SAVE_KEY,
   TUTORIAL_LEVEL_ID,
+  LEVEL_IDS,
   createDefaultSettings,
+  createDefaultLevelProgress,
   createDefaultSaveData,
   saveGame,
   loadGame,
@@ -29,6 +31,14 @@ const {
   loadSafeGame,
   loadSettings,
   saveSettingsData,
+  loadLevelProgress,
+  saveCurrentLevel,
+  saveCheckpoint,
+  unlockLevel,
+  markLevelComplete,
+  isLevelUnlocked,
+  isLevelComplete,
+  getNextLevelId,
   createDefaultTutorialState,
   saveTutorialState,
   loadTutorialState,
@@ -41,7 +51,7 @@ beforeEach(() => localStorage.clear());
 test('creates the documented default save data', () => {
   expect(createDefaultSaveData()).toEqual([
     1,
-    'tutorial_office',
+    TUTORIAL_LEVEL_ID,
     'start',
     [],
     {},
@@ -54,7 +64,8 @@ test('creates the documented default save data', () => {
       effectsVolume: 75,
       hardMode: false
     },
-    false
+    false,
+    createDefaultLevelProgress()
   ]);
 });
 
@@ -122,6 +133,36 @@ test('saves settings without overwriting other save data', () => {
   });
 });
 
+test('loads default level progress from index 10', () => {
+  expect(loadLevelProgress()).toEqual(createDefaultLevelProgress());
+});
+
+test('saves current level and checkpoint', () => {
+  saveCurrentLevel(LEVEL_IDS.LEVEL_1);
+  saveCheckpoint('found_first_clue');
+
+  const saveData = loadGame();
+  expect(saveData[1]).toBe(LEVEL_IDS.LEVEL_1);
+  expect(saveData[2]).toBe('found_first_clue');
+});
+
+test('unlocks and completes levels in official order', () => {
+  expect(isLevelUnlocked(LEVEL_IDS.LEVEL_2)).toBe(false);
+
+  markLevelComplete(LEVEL_IDS.LEVEL_1);
+
+  expect(isLevelComplete(LEVEL_IDS.LEVEL_1)).toBe(true);
+  expect(isLevelUnlocked(LEVEL_IDS.LEVEL_2)).toBe(true);
+  expect(getNextLevelId(LEVEL_IDS.LEVEL_1)).toBe(LEVEL_IDS.LEVEL_2);
+});
+
+test('can unlock a level without completing it', () => {
+  unlockLevel(LEVEL_IDS.LEVEL_3);
+
+  expect(isLevelUnlocked(LEVEL_IDS.LEVEL_3)).toBe(true);
+  expect(isLevelComplete(LEVEL_IDS.LEVEL_3)).toBe(false);
+});
+
 test('loadSafeGame clears corrupted JSON and returns defaults', () => {
   localStorage.setItem(SAVE_KEY, '{bad json}');
 
@@ -161,6 +202,10 @@ test('saves and reloads tutorial progress', () => {
     { text: '[Item Acquired: Silver Key]', cls: 'ok' }
   ]);
   expect(saveData[9]).toBe(false);
+  expect(saveData[10][TUTORIAL_LEVEL_ID]).toEqual({
+    unlocked: true,
+    completed: false
+  });
   expect(loadTutorialState()).toEqual({
     phase: 8,
     inventory: ['key'],
@@ -188,6 +233,11 @@ test('saves completed tutorial state', () => {
   expect(saveData[2]).toBe('phase_11');
   expect(saveData[6]).toEqual(getTutorialNotebookPages(11, true));
   expect(saveData[9]).toBe(true);
+  expect(saveData[10][TUTORIAL_LEVEL_ID]).toEqual({
+    unlocked: true,
+    completed: true
+  });
+  expect(saveData[10][LEVEL_IDS.LEVEL_1].unlocked).toBe(true);
   expect(loadTutorialState().complete).toBe(true);
 });
 
@@ -215,5 +265,9 @@ test('clears tutorial state without deleting settings', () => {
     musicVolume: 30,
     effectsVolume: 40,
     hardMode: true
+  });
+  expect(loadLevelProgress()[TUTORIAL_LEVEL_ID]).toEqual({
+    unlocked: true,
+    completed: false
   });
 });

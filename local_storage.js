@@ -23,6 +23,24 @@ const DEFAULT_SETTINGS = {
 
 const TUTORIAL_LEVEL_ID = "tutorial_morning_routine";
 
+const LEVEL_IDS = {
+  TUTORIAL: TUTORIAL_LEVEL_ID,
+  LEVEL_1: "level_001",
+  LEVEL_2: "level_002",
+  LEVEL_3: "level_003",
+  LEVEL_4: "level_004",
+  LEVEL_5: "level_005"
+};
+
+const LEVEL_ORDER = [
+  LEVEL_IDS.TUTORIAL,
+  LEVEL_IDS.LEVEL_1,
+  LEVEL_IDS.LEVEL_2,
+  LEVEL_IDS.LEVEL_3,
+  LEVEL_IDS.LEVEL_4,
+  LEVEL_IDS.LEVEL_5
+];
+
 // ---------------------------------------------------------
 // createDefaultSettings()
 // ---------------------------------------------------------
@@ -33,10 +51,28 @@ function createDefaultSettings() {
   return Object.assign({}, DEFAULT_SETTINGS);
 }
 
+// ---------------------------------------------------------
+// createDefaultLevelProgress()
+// ---------------------------------------------------------
+// Creates the default progress map for tutorial plus five
+// game levels. Level IDs must match the IDs used by level
+// selection and the level files.
+// ---------------------------------------------------------
+function createDefaultLevelProgress() {
+  return {
+    [LEVEL_IDS.TUTORIAL]: { unlocked: true, completed: false },
+    [LEVEL_IDS.LEVEL_1]: { unlocked: true, completed: false },
+    [LEVEL_IDS.LEVEL_2]: { unlocked: false, completed: false },
+    [LEVEL_IDS.LEVEL_3]: { unlocked: false, completed: false },
+    [LEVEL_IDS.LEVEL_4]: { unlocked: false, completed: false },
+    [LEVEL_IDS.LEVEL_5]: { unlocked: false, completed: false }
+  };
+}
+
 function createDefaultSaveData() {
   return [
     1,                  // index 0: save version
-    "tutorial_office",  // index 1: current level
+    LEVEL_IDS.TUTORIAL, // index 1: current level
     "start",            // index 2: current checkpoint
     [],                 // index 3: inventory
     {},                 // index 4: clues found
@@ -44,7 +80,8 @@ function createDefaultSaveData() {
     [],                 // index 6: unlocked notebook pages
     [],                 // index 7: terminal history
     createDefaultSettings(), // index 8: settings
-    false               // index 9: tutorial completed
+    false,              // index 9: tutorial completed
+    createDefaultLevelProgress() // index 10: level progress
   ];
 }
 
@@ -129,6 +166,121 @@ function saveSettingsData(settings) {
 }
 
 // ---------------------------------------------------------
+// loadLevelProgress()
+// ---------------------------------------------------------
+// Gets the level progress object from index 10. Missing
+// levels are filled in so older saves still work.
+// ---------------------------------------------------------
+function loadLevelProgress() {
+  const saveData = loadSafeGame();
+  return Object.assign(createDefaultLevelProgress(), saveData[10]);
+}
+
+// ---------------------------------------------------------
+// saveLevelProgress(levelProgress)
+// ---------------------------------------------------------
+// Saves the full level progress object into index 10.
+// ---------------------------------------------------------
+function saveLevelProgress(levelProgress) {
+  const saveData = loadSafeGame();
+  saveData[10] = Object.assign(createDefaultLevelProgress(), levelProgress);
+  saveGame(saveData);
+}
+
+// ---------------------------------------------------------
+// saveCurrentLevel(levelId)
+// ---------------------------------------------------------
+// Saves the level the player should resume from.
+// ---------------------------------------------------------
+function saveCurrentLevel(levelId) {
+  const saveData = loadSafeGame();
+  saveData[1] = levelId;
+  saveGame(saveData);
+}
+
+// ---------------------------------------------------------
+// saveCheckpoint(checkpointId)
+// ---------------------------------------------------------
+// Saves the player's checkpoint inside the current level.
+// ---------------------------------------------------------
+function saveCheckpoint(checkpointId) {
+  const saveData = loadSafeGame();
+  saveData[2] = checkpointId;
+  saveGame(saveData);
+}
+
+// ---------------------------------------------------------
+// unlockLevel(levelId)
+// ---------------------------------------------------------
+// Marks a level as available in the level progress map.
+// ---------------------------------------------------------
+function unlockLevel(levelId) {
+  const levelProgress = loadLevelProgress();
+  levelProgress[levelId] = Object.assign(
+    { unlocked: false, completed: false },
+    levelProgress[levelId],
+    { unlocked: true }
+  );
+  saveLevelProgress(levelProgress);
+}
+
+// ---------------------------------------------------------
+// markLevelComplete(levelId)
+// ---------------------------------------------------------
+// Marks a level complete and unlocks the next level in the
+// official level order, if one exists.
+// ---------------------------------------------------------
+function markLevelComplete(levelId) {
+  const levelProgress = loadLevelProgress();
+  levelProgress[levelId] = Object.assign(
+    { unlocked: false, completed: false },
+    levelProgress[levelId],
+    { unlocked: true, completed: true }
+  );
+
+  const nextLevelId = getNextLevelId(levelId);
+  if (nextLevelId) {
+    levelProgress[nextLevelId] = Object.assign(
+      { unlocked: false, completed: false },
+      levelProgress[nextLevelId],
+      { unlocked: true }
+    );
+  }
+
+  saveLevelProgress(levelProgress);
+}
+
+// ---------------------------------------------------------
+// isLevelUnlocked(levelId)
+// ---------------------------------------------------------
+// Returns true when a level is available to play.
+// ---------------------------------------------------------
+function isLevelUnlocked(levelId) {
+  const levelProgress = loadLevelProgress();
+  return Boolean(levelProgress[levelId]?.unlocked);
+}
+
+// ---------------------------------------------------------
+// isLevelComplete(levelId)
+// ---------------------------------------------------------
+// Returns true when a level has been completed.
+// ---------------------------------------------------------
+function isLevelComplete(levelId) {
+  const levelProgress = loadLevelProgress();
+  return Boolean(levelProgress[levelId]?.completed);
+}
+
+// ---------------------------------------------------------
+// getNextLevelId(levelId)
+// ---------------------------------------------------------
+// Finds the next level in the official level order.
+// ---------------------------------------------------------
+function getNextLevelId(levelId) {
+  const index = LEVEL_ORDER.indexOf(levelId);
+  return index >= 0 ? LEVEL_ORDER[index + 1] || null : null;
+}
+
+// ---------------------------------------------------------
 // createDefaultTutorialState()
 // ---------------------------------------------------------
 // Creates the default saved state for the tutorial level.
@@ -169,6 +321,18 @@ function saveTutorialState(tutorialState) {
   saveData[6] = getTutorialNotebookPages(state.phase, state.complete);
   saveData[7] = state.terminalHistory.slice();
   saveData[9] = state.complete;
+  saveData[10] = Object.assign(createDefaultLevelProgress(), saveData[10]);
+  saveData[10][TUTORIAL_LEVEL_ID] = {
+    unlocked: true,
+    completed: state.complete
+  };
+  if (state.complete) {
+    saveData[10][LEVEL_IDS.LEVEL_1] = Object.assign(
+      { unlocked: false, completed: false },
+      saveData[10][LEVEL_IDS.LEVEL_1],
+      { unlocked: true }
+    );
+  }
 
   saveGame(saveData);
 }
@@ -213,6 +377,11 @@ function clearTutorialState() {
   saveData[6] = [];
   saveData[7] = [];
   saveData[9] = false;
+  saveData[10] = Object.assign(createDefaultLevelProgress(), saveData[10]);
+  saveData[10][TUTORIAL_LEVEL_ID] = {
+    unlocked: true,
+    completed: false
+  };
   saveGame(saveData);
 }
 
@@ -245,7 +414,10 @@ if (typeof module !== "undefined") {
     SAVE_KEY,
     DEFAULT_SETTINGS,
     TUTORIAL_LEVEL_ID,
+    LEVEL_IDS,
+    LEVEL_ORDER,
     createDefaultSettings,
+    createDefaultLevelProgress,
     createDefaultSaveData,
     saveGame,
     loadGame,
@@ -253,6 +425,15 @@ if (typeof module !== "undefined") {
     loadSafeGame,
     loadSettings,
     saveSettingsData,
+    loadLevelProgress,
+    saveLevelProgress,
+    saveCurrentLevel,
+    saveCheckpoint,
+    unlockLevel,
+    markLevelComplete,
+    isLevelUnlocked,
+    isLevelComplete,
+    getNextLevelId,
     createDefaultTutorialState,
     saveTutorialState,
     loadTutorialState,
