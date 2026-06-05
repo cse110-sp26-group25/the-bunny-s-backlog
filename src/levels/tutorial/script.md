@@ -1,4 +1,4 @@
-# Tutorial Level Script: Calibrating the Office Terminal
+# Tutorial Level Script: Bunny's Notebook
 
 ## Layout & Spatial Coordination Notes (For UX & Design Team)
 
