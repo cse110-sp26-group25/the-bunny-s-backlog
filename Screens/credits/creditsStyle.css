@@ -4,17 +4,17 @@
    any future redesign only touches these variables.
 ═══════════════════════════════════════════════ */
 :root {
-  --clr-void:       #000007;   /* deep-space background                  */
-  --clr-gold:       #ffe87c;   /* primary accent — crawl text            */
-  --clr-gold-dim:   #c8a84b;   /* subdued gold for roles / labels        */
-  --clr-gold-glow:  rgb(255 232 124 / 18%); /* bloom around headings */
-  --clr-star:       #fff;   /* star particles                         */
-  --clr-horizon:    #000007;   /* fade-out at the bottom of the viewport */
+  --clr-void: #000007;
+  --clr-gold: #ffe87c;
+  --clr-gold-dim: #c8a84b;
+  --clr-gold-glow: rgb(255 232 124 / 18%);
+  --clr-star: #fff;
+  --clr-horizon: #000007;
   --font-display: 'Cinzel Decorative', serif;
   --font-heading: 'Cinzel', serif;
-  --font-body:    'EB Garamond', serif;
-  --crawl-duration: 50s;       /* total scroll duration — tweak freely   */
-  --crawl-width:    55ch;      /* maximum line width of the crawl column */
+  --font-body: 'EB Garamond', serif;
+  --crawl-duration: 50s;
+  --crawl-width: 55ch;
 }
 
 /* ═══════════════════════════════════════════════
@@ -28,17 +28,17 @@
   padding: 0;
 }
 
-html, body {
-  width: 100%; height: 100%;
-  overflow: hidden;           /* hide scrollbars — the illusion is everything */
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   background: var(--clr-void);
   color: var(--clr-gold);
 }
 
 /* ═══════════════════════════════════════════════
    STAR FIELD CANVAS
-   Positioned behind every other layer; filled
-   dynamically via JS to give depth parallax.
 ═══════════════════════════════════════════════ */
 #starfield {
   position: fixed;
@@ -48,33 +48,27 @@ html, body {
 
 /* ═══════════════════════════════════════════════
    PERSPECTIVE STAGE
-   The 3-D container that creates the vanishing-
-   point illusion for the crawling text block.
 ═══════════════════════════════════════════════ */
 .stage {
   position: fixed;
   inset: 0;
   z-index: 1;
-  perspective: 300px;           /* shallow perspective = more dramatic tilt  */
-  perspective-origin: 50% 20%;  /* vanishing point sits in the upper-mid area */
+  perspective: 300px;
+  perspective-origin: 50% 20%;
   display: flex;
-  align-items: flex-end;        /* crawl enters from the bottom              */
+  align-items: flex-end;
   justify-content: center;
 }
 
 /* ═══════════════════════════════════════════════
    CRAWL PLANE
-   The flat surface that rotates along X to
-   simulate the iconic receding-into-space angle.
-   transform-origin at the bottom keeps the text
-   anchored to the "floor" of the viewport.
 ═══════════════════════════════════════════════ */
 .crawl-plane {
   width: 100%;
   max-width: 900px;
   height: 100%;
   transform-origin: 50% 100%;
-  transform: rotateX(22deg);    /* tilt angle — adjust for desired drama      */
+  transform: rotateX(22deg);
   display: flex;
   justify-content: center;
   overflow: hidden;
@@ -82,21 +76,14 @@ html, body {
 
 /* ═══════════════════════════════════════════════
    CRAWL TRACK
-   The element that physically moves upward.
-   It starts below the viewport and scrolls up
-   until all content has passed.
 ═══════════════════════════════════════════════ */
 .crawl-track {
   width: var(--crawl-width);
-
-  /* Position and movement are set entirely by JS so the
-     translate distance is always exactly right for the content height. */
   will-change: transform;
 }
 
 /* ═══════════════════════════════════════════════
    TYPOGRAPHY — CRAWL CONTENT
-   Three levels: LOGO, SECTION HEADER, BODY
 ═══════════════════════════════════════════════ */
 
 /* Studio / game logo at the very top of the crawl */
@@ -116,7 +103,7 @@ html, body {
   border-bottom: 1px solid var(--clr-gold-dim);
 }
 
-/* Opening story blurb — italic, slightly dimmed */
+/* Opening story blurb */
 .crawl-intro {
   font-family: var(--font-body);
   font-style: italic;
@@ -127,7 +114,7 @@ html, body {
   margin-bottom: 3.5rem;
 }
 
-/* Section divider title (e.g. "DIRECTED BY") */
+/* Section divider title */
 .crawl-section {
   font-family: var(--font-heading);
   font-size: clamp(.7rem, 1.5vw, .9rem);
@@ -151,7 +138,7 @@ html, body {
   margin-bottom: .25rem;
 }
 
-/* Secondary label beneath a name (title, role) */
+/* Secondary label beneath a name */
 .crawl-role {
   font-family: var(--font-body);
   font-size: clamp(.85rem, 1.8vw, 1rem);
@@ -161,7 +148,7 @@ html, body {
   margin-bottom: 1.5rem;
 }
 
-/* Decorative separator — hr reset + glyph via ::after */
+/* Decorative separator */
 hr.crawl-sep {
   border: none;
   text-align: center;
@@ -175,7 +162,7 @@ hr.crawl-sep::after {
   content: '✦ ✦ ✦';
 }
 
-/* Body paragraph (background info, thanks, etc.) */
+/* Body paragraph */
 .crawl-body {
   font-family: var(--font-body);
   font-size: clamp(.95rem, 2vw, 1.15rem);
@@ -199,14 +186,12 @@ hr.crawl-sep::after {
 
 /* ═══════════════════════════════════════════════
    VIGNETTE OVERLAYS
-   Top and bottom gradients mask the edges so
-   text fades smoothly into / out of view,
-   reinforcing the cinematic illusion.
 ═══════════════════════════════════════════════ */
 .vignette-top,
 .vignette-bottom {
   position: fixed;
-  left: 0; right: 0;
+  left: 0;
+  right: 0;
   z-index: 2;
   pointer-events: none;
 }
@@ -225,8 +210,6 @@ hr.crawl-sep::after {
 
 /* ═══════════════════════════════════════════════
    INTRO TITLE CARD
-   Full-screen "A long time ago…" style overlay
-   that fades out before the crawl begins.
 ═══════════════════════════════════════════════ */
 #intro-card {
   position: fixed;
@@ -238,19 +221,18 @@ hr.crawl-sep::after {
   justify-content: center;
   gap: 1.2rem;
   background: var(--clr-void);
-
-  /* CSS handles the entire fade-out lifecycle */
   animation: intro-fade 5s ease forwards;
 }
 
 @keyframes intro-fade {
-  0%   { opacity: 0; }      /* card fades in     */
-  25%  { opacity: 1; }      /* holds at full     */
-  70%  { opacity: 1; }      /* still visible     */
+  0% { opacity: 0; }
+  25% { opacity: 1; }
+  70% { opacity: 1; }
+  
   100% {
     opacity: 0;
     pointer-events: none;
-  } /* fades & disables  */
+  }
 }
 
 .intro-eyebrow {
@@ -276,8 +258,6 @@ hr.crawl-sep::after {
 
 /* ═══════════════════════════════════════════════
    CONTROLS BAR
-   Pause / speed buttons, semi-transparent,
-   positioned at the lower-right corner.
 ═══════════════════════════════════════════════ */
 #controls {
   position: fixed;
@@ -286,11 +266,13 @@ hr.crawl-sep::after {
   z-index: 20;
   display: flex;
   gap: .6rem;
-  opacity: 0;                   /* hidden until crawl starts              */
+  opacity: 0;
   transition: opacity .5s;
 }
 
-#controls.visible { opacity: 1; }
+#controls.visible {
+  opacity: 1;
+}
 
 .ctrl-btn {
   background: rgb(255 232 124 / 8%);
