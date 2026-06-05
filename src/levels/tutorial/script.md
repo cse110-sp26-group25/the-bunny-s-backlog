@@ -1,257 +1,284 @@
-# Terminal Detective: Tutorial Level Script
+# Tutorial Level Script: Calibrating the Office Terminal
 
-## Tutorial Level: Calibrating the Interrogation Terminal
+## Layout & Spatial Coordination Notes (For UX & Design Team)
 
-### Phase 1: Reading Bunny's Notebook
+Design Alignment Guardrail: To support an intuitive left-to-right scanning motion across the room's workspace artwork, both physical interactable targets are anchored to the left side of the viewport.
 
-**Context:** The game starts with Bill the Lizard at his desk in a dimly lit office. A side panel flashes, forcing Chief Inspector Bunny's notebook to open to teach the player how to interact with the environment.
+plantPot Hotspot Layer: Positioned directly to the left of the main desk bounding box.
 
-**Side Panel (Bunny's Notebook):**  
-"Welcome to the team, Rookie! To start any good investigation, we need to inspect the crime scene materials. We always start our terminal sweep by telling ourselves to scan our target data files! Try typing: `self.search(suspectFiles)`"
+lockedDrawer Hotspot Layer: Positioned on the far-left screen border.
 
-**Player Input:**
+## Three-Zone UI Configuration
 
-```javascript
-self.search(suspectFiles)
-```
+The Center Viewport: 2D interactive graphic environment of Chief Bunny’s office workspace.
 
----
+The Slide Panel (Right Side): Contextual layout container that swaps between Bunny's Notebook (lessons) and the Evidence Tracker (variable grid).
 
-### Phase 2: Opening the Suspect Directory
+The Terminal Console (Bottom): Active interactive text-input command line for player execution.
 
-* **Context:** The terminal executes the search. A crisp paper-shuffling sound effect plays through the speakers. The background updates from the blank office view to a close-up of **the desk in the middle of the screen**, revealing three physical folders with animal pictures on them.
-* **Terminal Output:** `[SYSTEM INFO]: Directory mapping successful. Suspect files loaded to desk layout.`
-* **Lizard Dialogue:** _"The desk is clear now. Let's look closer at these case folders to see who the precinct brought in."_
+## Phase 1: Booting & Environment Mapping
 
----
+### Context
 
-### Phase 3: Activating the Folders (Biometric Data)
+The game opens on Bill the Lizard leaning back at his desk in a dimly lit office. He drops his face into his hands, staring at a blank terminal screen. Suddenly, a chime loops, and the right-hand slide panel forcefully pops open directly to Page 1 of Bunny's Notebook.
 
-* **Context:** The player hovers over and clicks on the file folders hotspot on the desk. The terminal plays a sequence of clear animal audio cues: a deep **hooting noise** for the owl, a sharp **barking noise** for the dog, and a rapid **squeaking noise** for the mouse. The screen transitions to show a giant folder open in the center of the viewport.
+### UI Slide Panel (Bunny's Notebook)
 
-* **On-Screen Display (Text on Folder):**
+"Thanks so much for helping me patch my terminal systems while I'm away, Rookie! ૮꒰˶ᵔ ᵕ ᵔ˶꒱ა
 
-```javascript
-const suspect1 = {
-  earShape: ____,
-  height: ___,
-  sound: ___,
-}
-```
+I actually left a little welcome gift for you in my office! The bad news? I think I forgot to take it out of my super-secret locked drawer before I stepped out ૮꒰˶´ ꒳ `꒱ა. But don't worry, the key is hidden somewhere in the room!
 
-**Lizard Dialogue:**  
-"Ah, look at this object structure! This tells us exactly what parameters we need to refer to when checking each suspect's physical profile. Let's get our function ready."
+I usually start all my big investigations by telling my terminal to run an environment sweep. Try typing this exact single-parameter command into the console below to map our workspace:
 
----
+self.search("look around room")"
 
-### Phase 4: Meeting the Police Officer
+### Environment Matrix State
 
-**Context:** A grizzly Police Officer character steps into the frame next to Bill's desk, looking overwhelmed by paperwork.
+Center Viewport: Dark office scene. All room assets are unclickable.
 
-**Officer:**  
-"Wow, that's a lot of suspects to get through, Rookie. We need a fast, automated way to cross-reference their traits against the witness statement. Before you write any advanced safety logic, you need to establish a master code framework. Start by setting up the function header!"
+Evidence Tracker: Hidden / Uninitialized state.
 
----
-
-### Phase 5: Learning the Function Lesson
-
-**Context:** The side panel automatically flips to the first lesson page in Bunny's Notebook to guide the player through function creation.
-
-**Side Panel (Bunny's Notebook):**  
-"Sometimes I need to perform a repetitive task on similar objects over and over again. To help save time, I can write a function to prep how I will behave to some object. Once I prepare a function like `eatCarrot(someCarrot) {}` by writing the actions I want to take inside the curly brackets `{}`, I can call that function over and over on different objects without rewriting my code! `someCarrot` acts as a placeholder so I can ready my actions before I perform them on the real thing!"
-
-**Player Input:**
+### Player Input
 
 ```javascript
-function crossRef(suspect) {
+self.search("look around room")
 ```
 
-**Terminal Output:**  
-`... [Function Wrapper Opened]`
+### Terminal Output
 
----
+```plaintext
+[SYSTEM]: Scanning local grid coordinates...
+[SUCCESS]: Environment data parsed successfully. 
+[LOG]: 2 physical assets mapped to volatile memory.
+```
 
-### Phase 6: The Interrogation Warning (The Try Block)
+### Post-Action UI Update
 
-* **Context:** The function framework is open. The terminal prompt indents, waiting for the first internal instruction.
+Visuals: Green bounding boxes pulse around a heavy filing drawer unit (far left) and a leafy potted plant sitting to the left of the desk.
 
-* **Officer:** _"Perfect, the wrapper is ready. Now listen up: these criminal files are highly confidential and encrypted. If we try to read an invalid file directly, it could throw a system error and crash your terminal. The very first action inside your function must be a safe attempt to read the file. Open a `try` block and read the data parameter!"_
+Evidence Tracker Auto-Initializes: (The Scope column remains hidden from view during this phase to avoid data spoilers)
 
-* **Player Input:**
+| Variable Identifier | Value | Location |
+|---|---|---|
+| plantPot | [Physical Asset] | Left side of desk |
+| lockedDrawer | [Locked Security Unit] | Far left of screen |
+
+### Character Dialogue
+
+Bill the Lizard: "Terrific. Ten minutes on the clock and Bunny's already got me running automated sweeps. Looks like the terminal indexed two local objects into memory: plantPot and lockedDrawer. Both on my left. Let's inspect the plant first."
+
+## Phase 2: Targeted Inspection (Multi-Argument Syntax)
+
+### Context
+
+The player shifts their focus back to the center viewport, moving their cursor over the plant asset situated to the left of the desk.
+
+Associated Hotspot: plantPot
+
+Hover Tooltip: [Interact]: Is there something hidden under this plantPot?
+
+On-Click Trigger: Clicking the plant forces Bunny's Notebook to automatically flip to Page 2.
+
+### UI Slide Panel (Bunny's Notebook)
+
+"Sometimes a basic sweep isn't enough—we need to be much more specific! We can pass multiple arguments into our search behaviors by separating them with a comma.
+
+For example: self.search("behind", someObject).
+
+But you have to be super careful! The data entries inside our system are incredibly sensitive... you could say they are caseSensitive ૮꒰ - ﻌ •꒱ა! JavaScript cares immensely about lowercase and uppercase letters. Also, parameter order matters completely! Your target direction string always comes first, and the environmental object variable comes second.
+
+Let's look directly beneath the plant: self.search("under", plantPot)"
+
+### Player Input
 
 ```javascript
-try { self.readFile(suspect) }
+self.search("under", plantPot)
 ```
 
-**Terminal Output:**  
-`... [Safe Execution Block Established]`
+### Terminal Output
 
----
+```plaintext
+[SYSTEM]: Evaluating relative spatial parameters...
+[LOG]: Position offset applied to object target: plantPot.
+[SUCCESS]: Target physical asset uncovered.
+```
 
-### Phase 7: Tracking Contradictions (The Lesson on Catch)
+### Post-Action UI Update
 
-**Context:** The try block is successfully logged. The Police Officer points to a chalkboard on the wall showing a list of suspect descriptions provided by the witness.
+Visuals: The plant pot asset slides horizontally to the side, revealing a glinting, brass physical key sitting on the floorboards.
 
-**Officer:**  
-"These files contain information regarding the suspects. We're looking for someone who matches the description the Bat gave us last night! If anyone doesn't match that description, it would be an Error to keep them here. For every suspect, let's keep track of the number of errors, or contradictory evidence. Let's see what the Notebook says about catching errors."
+Evidence Tracker Updates:
 
----
+| Variable Identifier | Value | Location |
+|---|---|---|
+| plantPot | [Shifted Baseline] | Left side of desk |
+| lockedDrawer | [Locked Security Unit] | Far left of screen |
+| key | [Physical Brass Asset] | Floorboards |
 
-### Phase 8: Reading the Catch and Counter Rules
+### Character Dialogue
 
-**Context:** The side panel updates, showing Bunny's guide on handling exceptions and using numerical counters.
+Bill the Lizard: "Hiding a physical brass key right under the decor. Truly cutting-edge security, Inspector. Alright, let's take this key object and try it on the lockedDrawer variable on the far left."
 
-**Side Panel (Bunny's Notebook):**  
-"After we try something, we use catch to keep track of the errors that occurred! We specify which particular errors we're looking for inside `catch(errorType)` and how we should respond inside `{responseToError}`. Example: `catch(moldyCarrot) { self.throwAway(carrot) }`. Sometimes we don't need to track different objects, but rather a count of occurrences. To do this, we use a count variable, like `contradiction`. To add to this counter, we use `++` to increment by 1!"
+## Phase 3: The Immutability Glitch (The Lockout Error)
 
----
+### Context
 
-### Phase 9: Catching the First Error (notBigEars)
+The player clicks on the heavy steel filing drawer unit situated on the far left of the screen layout.
 
-**Context:** The player is ready to write the first error handler. The Officer speaks the explicit error token aloud so the user knows what to filter for.
+Associated Hotspot: lockedDrawer
 
-**Officer:**  
-"The Bat said the suspect had big ears. So, our first contradiction happens if the system flags the `notBigEars` error. Let's write a catch block to increment our contradiction counter if that happens!"
+Hover Tooltip: [Interact]: Try unlocking the drawer mechanism.
 
-**Player Input:**
+On-Click Trigger: The notebook stays on Page 2, but the terminal console flashing header updates to display a helpful baseline usage reminder: Invoke unlock routine: self.unlock(target, tool).
+
+### Player Input
 
 ```javascript
-catch (notBigEars) { contradiction++ }
+self.unlock(lockedDrawer, key)
 ```
 
-**Terminal Output:**  
-`... [Error Handler 1/3 Bound]`
+### Terminal Output (Error State)
 
----
+```plaintext
+[TERMINAL ERROR]: TypeError: Assignment to constant variable.
+[CRITICAL]: Execution halted. Cannot alter immutable object state.
+```
 
-### Phase 10: Catching the Second Error (`notSmall`)
+### Post-Action UI Update
 
-* **Context:** The first error condition is stored in memory. The terminal waits for the next structural catch block.
+Visuals: The key slips smoothly into the drawer lock, but an overlay padlock graphic flashes bright red on the drawer texture. The cylinder refuses to turn.
 
-* **Officer:** _"Excellent. Next up, the witness stated the thief was small. If the file returns a **`notSmall`** error, that's another contradiction we need to log. Write the second catch block!"_
+Evidence Tracker Updates: The hidden Scope / Type column instantly pops into visual existence, exposing the security flags:
 
-* **Player Input:**
+| Variable Identifier | Scope / Type | Value | Location |
+|---|---|---|---|
+| plantPot | const (Object) | [Shifted Baseline] | Left side of desk |
+| lockedDrawer | const (Object) | [Locked Security Unit] | Far left of screen |
+| key | const (Object) | [Physical Brass Asset] | Floorboards |
+
+### Character Dialogue
+
+Bill the Lizard: "You've got to be kidding me. The physical key slots straight into the lock cylinder, but the internal terminal software just threw a mutability error and froze the mechanism. Look at the tracker—why is a desk drawer hardcoded against modifications as a const? Let me look at Page 3 of Bunny's notes."
+
+## Phase 4: Modifying Memory Scope (Variable Reassignment)
+
+### Context
+
+The player opens Page 3 of Bunny's Notebook to decipher the newly revealed const protection block.
+
+### UI Slide Panel (Bunny's Notebook)
+
+"Oh no! I completely forgot to mention our precinct security layout! ૮꒰˶´ ꒳ `꒱ა
+
+To protect core office objects from being altered by outside hackers, our database initializes environmental references using const. A variable declared with const is immutable—meaning once its initial value is assigned, it can absolutely never be changed! Look at your tracker panel; it's locked down tight as a constant.
+
+If we want an object's properties or status to change dynamically during an investigation, we must declare it using let, which lets our terminal modify its data state!
+
+Let's override the restriction on the drawer by re-scoping it in our current terminal layer. Type this line:
+
+let lockedDrawer"
+
+### Player Input (Action 4A - Memory Scope Override)
 
 ```javascript
-catch (notSmall) { contradiction++ }
+let lockedDrawer
 ```
 
-**Terminal Output:**  
-`... [Error Handler 2/3 Bound]`
+### Terminal Output
 
----
+```plaintext
+[SUCCESS]: Variable scope override successful.
+[LOG]: Identifier 'lockedDrawer' reallocated to mutable memory space.
+```
 
-### Phase 11: Catching the Third Error (doesNotSqueak)
+### Post-Action UI Update
 
-**Context:** The second block is saved. The player must now handle the final acoustic trait discrepancy.
+Evidence Tracker Updates: The locked scope updates seamlessly to reflect the change:
 
-**Officer:**  
-"Last one! The witness distinctly heard them squeak. If the terminal throws a `doesNotSqueak` error, tick that contradiction counter up one more time and close out the function!"
+| Variable Identifier | Scope / Type | Value | Location |
+|---|---|---|---|
+| plantPot | const (Object) | [Shifted Baseline] | Left side of desk |
+| lockedDrawer | let (Object) | [Mutable Security Unit] | Far left of screen |
+| key | const (Object) | [Physical Brass Asset] | Floorboards |
 
-**Player Input:**
+### Character Dialogue
+
+Bill the Lizard: "Alright, the registry tracking grid updated. The drawer is no longer marked as an immutable constant. Let's run that unlock command one more time to break through to Phase 5."
+
+## Phase 5: Opening Bunny's Drawer (The Unlock Trigger)
+
+### Context
+
+With the scope safely updated to a mutable let variable, the console is cleared to accept the re-execution statement. This final code block serves as the strict conditional gatekeeper that unlocks Phase 5.
+
+### Player Input (Action 4B - Final Execution)
 
 ```javascript
-catch (doesNotSqueak) { contradiction++ }
-}
+self.unlock(lockedDrawer, key)
 ```
 
-**Terminal Output:**  
-`SUCCESS: function crossRef() successfully compiled with 3 error filters.`
+### Terminal Output
 
----
+```plaintext
+[SYSTEM]: Executing function unlock() on target variable...
+[SUCCESS]: Lock cylinder rotated 180°. Structural pins disengaged.
+[LOG]: Interactive sequence completed. Drawer opened.
+```
 
-### Phase 12: Executing the Cross-Reference on Suspect 1
+### Post-Action UI Update
 
-* **Context:** The complete interrogation algorithm is loaded into the terminal. The desk hotspot highlights, pointing to the first case file (the Owl).
+Visuals: The steel drawer unit swings wide open, revealing a bright blue cardboard parcel labeled "Welcome Pack for our New Network Tech!" inside. The main puzzle loop is finalized.
 
-* **Officer:** _"The program is completely live, Bill! Let's put it to work. Run your `crossRef` function on our first suspect, the owl, to see how many contradictions pop up."_
+Notebook Update: The notebook instantly swaps to an urgent exit prompt.
 
-* **Player Input:**
+## Phase 6: The Client Threat (The Output Warning)
+
+### Context
+
+Before Bill can pull out his welcome package, a heavy rattling pounding sound loop triggers through the office speakers. A highly hyperactive, panicked Sheep wearing a flour-dusted chef's hat and apron bursts through the main precinct door, waving his hooves wildly in the air.
+
+## 1
+
+### The Client Bursts In
+
+### Narrative Transition
+
+The Baker Sheep rushes straight up to Bill's desk layout, completely blocking the open drawer view.
+
+Baker Sheep: "Help! Help! Someone broke into my pastry shop down the main street! The flour is everywhere, my terminal network lines are cut, my receipts are totally corrupted! Detective, you have to grab your badge and help me find the thief!"
+
+## 2
+
+### Clarifying Professional Identity
+
+### Terminal Requirement
+
+A system prompt box flashes directly over Bill the Lizard's avatar face plate.
+
+System Hint: I need to make sure this panicked pastry chef knows I am simply an underpaid network technician, not the chief detective...
+
+Bunny's Notebook panel displays the final syntax instruction: Execute a warning message to print your true workplace role directly to the terminal interface.
+
+### Player Input
 
 ```javascript
-crossRef(owl)
+console.warn("I am just a lizard technician")
 ```
 
-**Terminal Output:**
+### Terminal Output
 
-```text
-[PROCESSING]: Reading file: Oliver_the_Owl.dat...
-[CAUGHT]: notBigEars -> contradiction incremented.
-[CAUGHT]: doesNotSqueak -> contradiction incremented.
->> Evaluation Finished. Total Errors Found: 2
+```plaintext
+[WARNING]: I am just a lizard technician
 ```
 
----
+### Post-Action Dialogue & Level Exit
 
-### Phase 13: Executing the Cross-Reference on Suspect 2
+Baker Sheep: "I don't care if you're a technician, a database engineer, or an alligator! The Chief Detective's chair is empty, but your terminal console is fully logged in! You're the only person in this building with a working console window! Please, I'll pay you in fresh cinnamon rolls, hot biscuits, glazed turnovers—whatever you want! Just come audit my kitchen terminals before the logs wipe themselves!"
 
-**Context:** The terminal displays the evaluation readout for the owl. The officer gestures to the second folder.
+Bill the Lizard: (Sighs heavily, pulling off his IT maintenance visor) "Look, I'm just supposed to be running software updates today... but if your store transaction logs are actively corrupted, I can at least dump your raw database files to a backup drive before they overwrite. Keep your biscuits warm, pal. Let's go look at your bakery."
 
-**Officer:**  
-"Two contradictions for the owl! He clearly doesn't match the profile. Now let's run the program on our second file slot: the dog."
+### Visual Transition
 
-**Player Input:**
+The terminal console screen runs a crisp, spinning gold detective badge loading graphic over the entire workspace view, and the entire interface smoothly fades down to absolute black to prepare the game engine assets for the next stage.
 
-```javascript
-crossRef(dog)
-```
-
-**Terminal Output:**
-
-```text
-[PROCESSING]: Reading file: Barnaby_the_Dog.dat...
-[CAUGHT]: notBigEars -> contradiction incremented.
->> Evaluation Finished. Total Errors Found: 1
-```
-
----
-
-### Phase 14: Executing the Cross-Reference on Suspect 3
-
-* **Context:** The dog returns 1 contradiction. The final folder highlights on the desk mesh.
-
-* **Officer:** _"Only one error for the dog, but a true detective needs a perfect match. Run the cross-reference on our final suspect: the mouse!"_
-
-* **Player Input:**
-
-```javascript
-crossRef(mouse)
-```
-
-**Terminal Output:**
-
-```text
-[PROCESSING]: Reading file: Mitzi_the_Mouse.dat...
->> Evaluation Finished. Total Errors Found: 0
-```
-
-**Officer:**  
-"Look at that! Zero errors! We found our culprit!"
-
----
-
-### Phase 15: Learning Template Literals (${})
-
-**Context:** The Officer turns to the terminal screen and preps Bill for the formal booking declaration.
-
-**Officer:**  
-"Now we need to issue a formal accusation to lock this case down. Instead of just printing plain text, I want to teach you a professional trick called a Template Literal. By using backticks and wrapping an object name inside `${}`, we can inject our suspect variable directly into our statement string dynamically. Let's make the official accusation!"
-
-**Player Input:**
-
-```javascript
-console.log(`I accuse ${suspect3}`)
-```
-
-**Terminal Output:**  
-`OUTPUT: I accuse Mitzi the Mouse`
-
----
-
-### Phase 16: Closing the Case (Level Transition)
-
-* **Context:** The terminal flashes green. The cell door animations slam shut on the background panel, locking the mouse away securely.
-
-* **Officer:** _"Outstanding work, Rookie! You mapped the files, tracked down the exact contradictions using customized catch handling, and used a clean string expression to seal the deal. You're a natural terminal detective. Grab your gear—we just got a priority call from the local bakery down the street, and they need a coder right away!"_
-
-* **Context:** The terminal screen plays a quick badge animation, and the scene fades to black to prepare for Level 1.
+[TRANSITION TO LEVEL 1: THE CRUST & CRUMB BAKERY]
