@@ -1,32 +1,20 @@
 const levels = [
     {
+        id: "tutorial",
+        title: "Tutorial",
+        synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal.",
+        completed: true
+    },
+    {
         id: "level1",
         title: "Level 1",
-        synopsis: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-        completed: true
+        synopsis: "The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.",
+        completed: false
     },
     {
         id: "level2",
         title: "Level 2",
-        synopsis: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-        completed: false
-    },
-    {
-        id: "level3",
-        title: "Level 3",
-        synopsis: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-        completed: false
-    },
-    {
-        id: "level4",
-        title: "Level 4",
-        synopsis: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        completed: false
-    },
-    {
-        id: "level5",
-        title: "Level 5",
-        synopsis: "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra.",
+        synopsis: "The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.",
         completed: false
     }
 ];
@@ -76,7 +64,7 @@ function selectCard(index) {
     overviewBox.innerHTML = `
         <h3>${level.title}</h3>
         <p>${level.synopsis}</p>
-        <a href="#" class="action-button">Play</a>
+        <a href="../../src/game.html?level=${level.id}" class="action-button">Play</a>
     `;
 }
 
