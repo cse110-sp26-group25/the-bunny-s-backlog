@@ -176,26 +176,14 @@
        Revealed once the crawl starts. Lets users
        pause or speed up without fiddling with CSS.
   ───────────────────────────────────────────────── -->
-    <nav id="controls" role="toolbar" aria-label="Credits playback controls">
-      <button class="ctrl-btn" id="btnPause" aria-label="Pause credits">
-        PAUSE
-      </button>
-      <button class="ctrl-btn" id="btnSlow" aria-label="Slow down credits">
-        SLOWER
-      </button>
-      <button class="ctrl-btn" id="btnFast" aria-label="Speed up credits">
-        FASTER
-      </button>
-      <button
-        class="ctrl-btn"
-        id="btnTitle"
-        aria-label="Return to title screen"
-        onclick="window.location.href = '/Screens/titleScreen/title.html'"
-      >
-        BACK
-      </button>
-    </nav>
+  <nav id="controls" role="toolbar" aria-label="Credits playback controls">
+    <button class="ctrl-btn" id="btnPause"  aria-label="Pause credits">PAUSE</button>
+    <button class="ctrl-btn" id="btnSlow"   aria-label="Slow down credits">SLOWER</button>
+    <button class="ctrl-btn" id="btnFast"   aria-label="Speed up credits">FASTER</button>
+    <button class="ctrl-btn" id="btnTitle"  aria-label="Return to title screen" onclick="backToTitle()">BACK</button>
+  </nav>
 
-    <script src="creditsFunctions.js"></script>
-  </body>
+  <script src="creditsFunctions.js"></script>
+
+</body>
 </html>
