@@ -1,6 +1,6 @@
 # The Bunny's Backlog 🐰🦎
 
-[![Deployment Status](https://github.com/cse110-sp26-group25/the-bunny-s-backlog/actions/workflows/deploy.yml/badge.svg)](https://github.com/cse110-sp26-group25/the-bunny-s-backlog/actions)
+[![Deployment Status](https://cse110-sp26-group25.github.io/the-bunny-s-backlog/src/game.html)
 
 An investigator puzzle game featuring cute animal detectives, driven entirely by strict Object-Oriented Programming (OOP) typing mechanics. Built for CSE 110 (Spring 2026) by Group 25.
 

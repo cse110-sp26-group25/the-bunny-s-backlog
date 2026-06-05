@@ -1,175 +1,177 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Credits</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game Credits</title>
 
-  <!-- ─────────────────────────────────────────────
+    <!-- ─────────────────────────────────────────────
        FONTS
        Cinzel Decorative → epic title / logo lettering
        Cinzel           → section headers & names
        EB Garamond      → body copy / role labels
   ───────────────────────────────────────────────── -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
-    rel="stylesheet"
-  />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
 
-  <link rel="stylesheet" href="creditsStyle.css" />
-</head>
+    <link rel="stylesheet" href="creditsStyle.css" />
+  </head>
 
-<body>
-
-  <!-- ─────────────────────────────────────────────
+  <body>
+    <!-- ─────────────────────────────────────────────
        LAYER 0 — STAR FIELD
        Canvas drawn and animated by StarField module.
   ───────────────────────────────────────────────── -->
-  <canvas id="starfield" aria-hidden="true"></canvas>
+    <canvas id="starfield" aria-hidden="true"></canvas>
 
-  <!-- ─────────────────────────────────────────────
+    <!-- ─────────────────────────────────────────────
        LAYER 1 — INTRO TITLE CARD
        Displays the game name before the crawl begins.
        Pointer events are disabled after the fade-out
        animation completes (via the keyframe rule).
   ───────────────────────────────────────────────── -->
-  <header id="intro-card" aria-label="Game title card">
-    <p class="intro-eyebrow">From the lizard who can't stop screaming</p>
-    <h1 class="intro-title">The Bunny</h1>
-  </header>
+    <header id="intro-card" aria-label="Game title card">
+      <p class="intro-eyebrow">From the lizard who can't stop screaming</p>
+      <h1 class="intro-title">The Bunny</h1>
+    </header>
 
-  <!-- ─────────────────────────────────────────────
+    <!-- ─────────────────────────────────────────────
        LAYER 2 — PERSPECTIVE STAGE & CRAWL
        The 3-D container holds the crawl plane which
        holds the crawl track. All content is inside
        the track.
   ───────────────────────────────────────────────── -->
-  <main class="stage" aria-label="Scrolling game credits">
-    <section class="crawl-plane">
-      <article class="crawl-track" id="crawlTrack">
+    <main class="stage" aria-label="Scrolling game credits">
+      <section class="crawl-plane">
+        <article class="crawl-track" id="crawlTrack">
+          <!-- ── GAME LOGO / TITLE ────────────────── -->
+          <h2 class="crawl-logo">The Bunny</h2>
 
-        <!-- ── GAME LOGO / TITLE ────────────────── -->
-        <h2 class="crawl-logo">The Bunny</h2>
-
-        <!-- ── OPENING STORY TEXT ───────────────── -->
-        <p class="crawl-intro">
+          <!-- ── OPENING STORY TEXT ───────────────── -->
+          <p class="crawl-intro">
             In the fractured age of Spring 2026, Thomas Powell set out to find
-            programmers who could read their claude generated code.
-            Only the brave — or the reckless — dared answer, one
-            company of developers sat down, drank an unimaginable amount of
-            coffee, and built a game about it.
-        </p>
+            programmers who could read their claude generated code. Only the
+            brave — or the reckless — dared answer, one company of developers
+            sat down, drank an unimaginable amount of coffee, and built a game
+            about it.
+          </p>
 
-        <p class="crawl-intro">
-          What follows is a record of those responsible. Their names are
-          inscribed here, in the light of distant stars, so that history
-          may know who to thank — or blame.
-        </p>
+          <p class="crawl-intro">
+            What follows is a record of those responsible. Their names are
+            inscribed here, in the light of distant stars, so that history may
+            know who to thank — or blame.
+          </p>
 
-        <hr class="crawl-sep" aria-hidden="true" />
+          <hr class="crawl-sep" aria-hidden="true" />
 
-        <!-- ── SECTION: DIRECTION ───────────────── -->
-        <section class="crawl-credit-group">
-          <h3 class="crawl-section">Directed by</h3>
-          <p class="crawl-name">Shawn Wang, Pranav Ganesan</p>
-          <p class="crawl-role">Game Director &amp; Team Lead</p>
-        </section>
+          <!-- ── SECTION: DIRECTION ───────────────── -->
+          <section class="crawl-credit-group">
+            <h3 class="crawl-section">Directed by</h3>
+            <p class="crawl-name">Shawn Wang, Pranav Ganesan</p>
+            <p class="crawl-role">Game Director &amp; Team Lead</p>
+          </section>
 
-        <!-- ── SECTION: DESIGN ──────────────────── -->
-        <section class="crawl-credit-group">
-          <h3 class="crawl-section">Designers</h3>
-          <p class="crawl-section">Game Designers</p>
-          <p class="crawl-name">Chan Han</p>
-          <p class="crawl-name">Sahana Rangaraj</p>
-          <p class="crawl-name">Pranav Ganesan</p>
-          <p class="crawl-section">UI Designers</p>
-          <p class="crawl-name">Shawn Wang</p>
-        </section>
+          <!-- ── SECTION: DESIGN ──────────────────── -->
+          <section class="crawl-credit-group">
+            <h3 class="crawl-section">Designers</h3>
+            <p class="crawl-section">Game Designers</p>
+            <p class="crawl-name">Chan Han</p>
+            <p class="crawl-name">Sahana Rangaraj</p>
+            <p class="crawl-name">Pranav Ganesan</p>
+            <p class="crawl-section">UI Designers</p>
+            <p class="crawl-name">Shawn Wang</p>
+          </section>
 
-        <hr class="crawl-sep" aria-hidden="true" />
+          <hr class="crawl-sep" aria-hidden="true" />
 
-        <!-- ── SECTION: ENGINEERING ─────────────── -->
-        <section class="crawl-credit-group">
-          <h3 class="crawl-section">Backend</h3>
-          <p class="crawl-role">Game Logic Designer</p>
-          <p class="crawl-name">Quinton Fu</p>
-          <p class="crawl-role">Local Storage Developer</p>
-          <p class="crawl-name">Jordan Tran</p>
-          <p class="crawl-role">Mobile Detection Developers</p>
-          <p class="crawl-name">John Hermosura</p>
-          <p class="crawl-name">Wayne Su</p>
-        </section>
+          <!-- ── SECTION: ENGINEERING ─────────────── -->
+          <section class="crawl-credit-group">
+            <h3 class="crawl-section">Backend</h3>
+            <p class="crawl-role">Game Logic Designer</p>
+            <p class="crawl-name">Quinton Fu</p>
+            <p class="crawl-role">Local Storage Developer</p>
+            <p class="crawl-name">Jordan Tran</p>
+            <p class="crawl-role">Mobile Detection Developers</p>
+            <p class="crawl-name">John Hermosura</p>
+            <p class="crawl-name">Wayne Su</p>  
+            <p class="crawl-name">Hojoon Kim</p>
+          </section>
 
-        <hr class="crawl-sep" aria-hidden="true" />
+          <hr class="crawl-sep" aria-hidden="true" />
 
-        <!-- ── BACKGROUND LORE SECTION ──────────── -->
-        <section class="crawl-credit-group">
+          <!-- ── BACKGROUND LORE SECTION ──────────── -->
+          <section class="crawl-credit-group">
             <h3 class="crawl-section">About the Game</h3>
             <p class="crawl-body">
-                The Bunny is a modified point-and-click adventure that encourages
-                users to type inputs in order to access information rather than 
-                clicking on hotspots. 
+              The Bunny is a modified point-and-click adventure that encourages
+              users to type inputs in order to access information rather than
+              clicking on hotspots.
             </p>
             <p class="crawl-body">
-                We have ultimately opted out of using a game engine in favor of
-                coding exclusively in HTML, CSS, and JavaScipt. This was a decision 
-                that went back and forth in our design procecss as we changed our ideas
-                about what our project was going to ultimately be.
+              We have ultimately opted out of using a game engine in favor of
+              coding exclusively in HTML, CSS, and JavaScipt. This was a
+              decision that went back and forth in our design procecss as we
+              changed our ideas about what our project was going to ultimately
+              be.
             </p>
-        </section>
+          </section>
 
-        <hr class="crawl-sep" aria-hidden="true" />
+          <hr class="crawl-sep" aria-hidden="true" />
 
-        <!-- ── SECTION: SPECIAL THANKS ──────────── -->
-        <section class="crawl-credit-group">
+          <!-- ── SECTION: SPECIAL THANKS ──────────── -->
+          <section class="crawl-credit-group">
             <h3 class="crawl-section">Special Thanks</h3>
             <p class="crawl-body">
-                Our TA, Ayla, who was always beside us when we needed her, even
-                when things didn't go our way
+              Our TA, Ayla, who was always beside us when we needed her, even
+              when things didn't go our way
             </p>
             <p class="crawl-body">
-                Prof Powell, who kept riffing on projects in hopes we would 
-                learn from previous mistakes
+              Prof Powell, who kept riffing on projects in hopes we would learn
+              from previous mistakes
             </p>
             <p class="crawl-body">
-                Claude, who was our biggest workhorse. We would've neve been 
-                able to make this without it.
+              Claude, who was our biggest workhorse. We would've neve been able
+              to make this without it.
             </p>
-        </section>
+          </section>
 
-        <hr class="crawl-sep" aria-hidden="true" />
+          <hr class="crawl-sep" aria-hidden="true" />
 
-        <!-- ── CLOSING DEDICATION ────────────────── -->
-        <blockquote class="crawl-dedication">
-          "AI is not reliable"
-          <cite class="crawl-body">— Thomas Powell (EVERY SINGLE CLASS)</cite>
-        </blockquote>
+          <!-- ── CLOSING DEDICATION ────────────────── -->
+          <blockquote class="crawl-dedication">
+            "AI is not reliable"
+            <cite class="crawl-body">— Thomas Powell (EVERY SINGLE CLASS)</cite>
+          </blockquote>
 
-        <!-- ── VERSION / COPYRIGHT ───────────────── -->
-        <footer class="crawl-footer">
-          <p class="crawl-section">
-            Version 1.0.0 &nbsp;·&nbsp; &copy; 2026 KnowIdeas
-          </p>
-          <small class="crawl-body">
-                No animals were harmed in the making of this game
-          </small>
-        </footer>
+          <!-- ── VERSION / COPYRIGHT ───────────────── -->
+          <footer class="crawl-footer">
+            <p class="crawl-section">
+              Version 1.0.0 &nbsp;·&nbsp; &copy; 2026 KnowIdeas
+            </p>
+            <small class="crawl-body">
+              No animals were harmed in the making of this game
+            </small>
+          </footer>
+        </article>
+        <!-- /.crawl-track -->
+      </section>
+      <!-- /.crawl-plane -->
+    </main>
+    <!-- /.stage -->
 
-      </article><!-- /.crawl-track -->
-    </section><!-- /.crawl-plane -->
-  </main><!-- /.stage -->
-
-  <!-- ─────────────────────────────────────────────
+    <!-- ─────────────────────────────────────────────
        LAYER 3 — VIGNETTE MASKS
        Simple CSS gradients that hide the hard edges
        where text enters and exits view.
   ───────────────────────────────────────────────── -->
-  <div class="vignette-top"    aria-hidden="true"></div>
-  <div class="vignette-bottom" aria-hidden="true"></div>
+    <div class="vignette-top" aria-hidden="true"></div>
+    <div class="vignette-bottom" aria-hidden="true"></div>
 
-  <!-- ─────────────────────────────────────────────
+    <!-- ─────────────────────────────────────────────
        LAYER 4 — PLAYBACK CONTROLS
        Revealed once the crawl starts. Lets users
        pause or speed up without fiddling with CSS.
@@ -178,7 +180,7 @@
     <button class="ctrl-btn" id="btnPause"  aria-label="Pause credits">PAUSE</button>
     <button class="ctrl-btn" id="btnSlow"   aria-label="Slow down credits">SLOWER</button>
     <button class="ctrl-btn" id="btnFast"   aria-label="Speed up credits">FASTER</button>
-    <button class="ctrl-btn" id="btnTitle"  aria-label="Return to title screen" onclick="window.location.href='/Screens/titleScreen/title.html'">BACK</button>
+    <button class="ctrl-btn" id="btnTitle"  aria-label="Return to title screen" onclick="backToTitle()">BACK</button>
   </nav>
 
   <script src="creditsFunctions.js"></script>

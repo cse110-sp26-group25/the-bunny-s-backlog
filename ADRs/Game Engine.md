@@ -1,10 +1,10 @@
 ---
 # These are optional metadata elements. Feel free to remove any of them.
-status: {proposed}
-date: {2026-5-14 when the decision was last updated}
+status: proposed
+date: 2026-5-14
 decision-makers: {Shawn, Kabyan, Sahana, Quinton, Pranav, Wayne, Jordan, Hojoon}
-consulted: {Ayla}
-informed: {}
+consulted: Ayla
+informed:
 ---
 
 # Game Engine Usage

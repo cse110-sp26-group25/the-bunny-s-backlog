@@ -17,31 +17,31 @@
     <!-- Generic player shell. All level content is injected from level.json;
          load it with ?level=<folder> (defaults to "tutorial"). -->
     <div id="app">
-      <div class="lp">
-        <div id="scene-vp">
-          <div id="scene-bg"></div>
-          <div id="scene-vig"></div>
+      <main class="lp">
+        <section id="scene-vp" aria-label="Investigation scene">
+          <div id="scene-bg" aria-hidden="true"></div>
+          <div id="scene-vig" aria-hidden="true"></div>
           <!-- Hotspots are injected here by ui.js from level.hotspots. -->
           <div id="hud">
-            <div id="phase-badge">
+            <p id="phase-badge">
               PHASE <span id="ph-num">1</span> / <span id="ph-total">10</span>
-            </div>
-            <div id="inv-bar"></div>
+            </p>
+            <ul id="inv-bar" aria-label="Inventory"></ul>
           </div>
           <div id="tlog-wrap">
-            <div id="tlog-scroll"></div>
+            <output id="tlog-scroll" role="log" aria-live="polite"></output>
             <button id="tlog-x">&#x2715; Return to Scene</button>
           </div>
           <button id="proceed-btn">&#x25B6; Continue</button>
-        </div>
-        <div id="term-area">
-          <div id="term-status">
-            <div class="tstat">
+        </section>
+        <section id="term-area" aria-label="Command terminal">
+          <div id="term-status" role="status">
+            <span class="tstat">
               Words: <span class="v" id="ts-words">0/0</span>
-            </div>
-            <div class="tstat">
+            </span>
+            <span class="tstat">
               Clues: <span class="v" id="ts-clues">0/0</span>
-            </div>
+            </span>
             <button id="ts-rst" title="Restart">&#x21BA; Restart</button>
           </div>
           <div id="term-row">
@@ -49,6 +49,7 @@
             <input
               id="term-in"
               type="text"
+              aria-label="Command input"
               autocomplete="off"
               autocorrect="off"
               autocapitalize="none"
@@ -57,41 +58,86 @@
             />
             <span id="term-kh">&#x21B5; Enter</span>
           </div>
-        </div>
-      </div>
-      <div id="sidebar">
-        <div id="sb-head">
+        </section>
+      </main>
+      <aside id="sidebar">
+        <header id="sb-head">
           <span class="nb-ic">&#x1F4D3;</span>
           <span class="nb-ti">Bunny&#x2019;s Notebook</span>
           <span class="nb-su">FIELD EDITION</span>
-        </div>
-        <div id="sb-tabs">
-          <div class="sbt active" data-tab="dialogue">
+        </header>
+        <div id="sb-tabs" role="tablist" aria-label="Notebook sections">
+          <button
+            class="sbt active"
+            type="button"
+            role="tab"
+            id="tab-dialogue"
+            aria-controls="panel-dialogue"
+            aria-selected="true"
+            data-tab="dialogue"
+          >
             <span class="ti">&#x1F430;</span>Bunny
-          </div>
-          <div class="sbt" data-tab="notes">
+          </button>
+          <button
+            class="sbt"
+            type="button"
+            role="tab"
+            id="tab-notes"
+            aria-controls="panel-notes"
+            aria-selected="false"
+            data-tab="notes"
+          >
             <span class="ti">&#x1F4CB;</span>Lizard&#x2019;s Notes
-          </div>
-          <div class="sbt" data-tab="lessons">
+          </button>
+          <button
+            class="sbt"
+            type="button"
+            role="tab"
+            id="tab-lessons"
+            aria-controls="panel-lessons"
+            aria-selected="false"
+            data-tab="lessons"
+          >
             <span class="ti">&#x1F4D6;</span>Bunny&#x2019;s Lessons
-          </div>
+          </button>
         </div>
-        <div class="sbp active" id="panel-dialogue">
+        <section
+          class="sbp active"
+          id="panel-dialogue"
+          role="tabpanel"
+          aria-labelledby="tab-dialogue"
+        >
           <div id="dlg-panel"></div>
-        </div>
-        <div class="sbp" id="panel-notes">
-          <div id="notes-list">
-            <div class="empty">No notes yet.<br />Start investigating!</div>
-          </div>
-        </div>
-        <div class="sbp" id="panel-lessons">
-          <div id="lessons-list">
-            <div class="empty">No lessons unlocked yet.</div>
-          </div>
-        </div>
-      </div>
+        </section>
+        <section
+          class="sbp"
+          id="panel-notes"
+          role="tabpanel"
+          aria-labelledby="tab-notes"
+        >
+          <ul id="notes-list">
+            <li class="empty">No notes yet.<br />Start investigating!</li>
+          </ul>
+        </section>
+        <section
+          class="sbp"
+          id="panel-lessons"
+          role="tabpanel"
+          aria-labelledby="tab-lessons"
+        >
+          <ul id="lessons-list">
+            <li class="empty">No lessons unlocked yet.</li>
+          </ul>
+        </section>
+      </aside>
     </div>
-    <div class="ovbg" id="win-bg">
+    <div
+      class="ovbg"
+      id="win-bg"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="win-title"
+    >
       <div class="ov-box">
         <div
           id="win-emojis"
@@ -111,7 +157,7 @@
         <button class="ovbtn" id="win-restart">&#x21BA; Play Again</button>
       </div>
     </div>
-    <div id="toast"></div>
+    <div id="toast" role="status" aria-live="polite"></div>
     <script src="../local_storage.js"></script>
     <script src="engine/storage.js"></script>
     <script src="components/hotspot.js"></script>
