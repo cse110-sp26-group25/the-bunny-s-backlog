@@ -236,13 +236,17 @@ const ControlsBar = (() => {
 })();
 
 
-/* ──────────────────────────────────────────────────
-   BOOT SEQUENCE
+function backToTitle() {
+    window.location.href = "/Screens/titleScreen/title.html";
+}
+
+
+/* BOOT SEQUENCE
    Runs after the DOM is fully parsed. Initialises
    each module in dependency order, then waits for
    the intro card animation to complete before
-   starting the crawl.
-────────────────────────────────────────────────── */
+   starting the crawl. */
+
 document.addEventListener('DOMContentLoaded', () => {
 
   // How long the intro title card takes before we start the crawl (ms).
