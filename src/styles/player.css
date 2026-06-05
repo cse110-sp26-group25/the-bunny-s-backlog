@@ -190,6 +190,7 @@ body {
   gap: 4px;
   flex-wrap: wrap;
   justify-content: flex-end;
+  list-style: none;
 }
 
 .inv-chip {
@@ -471,6 +472,8 @@ body {
   font-family: Nunito, sans-serif;
   font-size: 0.66rem;
   font-weight: 600;
+  appearance: none;
+  border: none;
   border-right: 1.5px solid var(--ink);
   background: var(--tan);
   color: var(--ink-mid);
@@ -606,6 +609,11 @@ body {
   color: #555;
   margin-left: auto;
   font-family: Nunito, sans-serif;
+}
+
+#notes-list,
+#lessons-list {
+  list-style: none;
 }
 
 .nb-entry {
