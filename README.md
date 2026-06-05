@@ -1,6 +1,6 @@
 # The Bunny's Backlog 🐰🦎
 
-An investigator puzzle game featuring cute animal characters, driven entirely by fundamental JavaScript syntax mechanics. Built for CSE 110 (Spring 2026) by Group 25.
+An investigator puzzle game featuring cute animal characters, driven entirely by fundamental JavaScript syntax mechanics. Built for CSE 110 (Spring 2026) by Group 25, KnowIdeas.
 
 Our game is a puzzle-themed typing game designed to help users (around 12 years old) familiarize themselves with the syntax of JavaScript. Story-wise, you play as Bill the Lizard, a tech-support locksmith who steps into an empty office to do routine software updates, only to find that Chief Detective Bunny has suddenly gone missing. Because the town's detective chair is empty and the office security system is operational, the community looks to you to help run commands and crack their active mysteries. Since you're not an actual detective, you are forced to rely on the sliding handwritten journal left by Bunny to help you decode these mysteries, specifically by typing syntax-accurate JavaScript code.
 
