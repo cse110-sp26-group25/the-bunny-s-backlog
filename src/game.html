@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <title>The Bunny's Backlog</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/player.css" />
+  </head>
+  <body>
+    <!-- Generic player shell. All level content is injected from level.json;
+         load it with ?level=<folder> (defaults to "tutorial"). -->
+    <div id="app">
+      <main class="lp">
+        <section id="scene-vp" aria-label="Investigation scene">
+          <div id="scene-bg" aria-hidden="true"></div>
+          <div id="scene-vig" aria-hidden="true"></div>
+          <!-- Hotspots are injected here by ui.js from level.hotspots. -->
+          <div id="hud">
+            <p id="phase-badge">
+              PHASE <span id="ph-num">1</span> / <span id="ph-total">10</span>
+            </p>
+            <ul id="inv-bar" aria-label="Inventory"></ul>
+          </div>
+          <div id="tlog-wrap">
+            <output id="tlog-scroll" role="log" aria-live="polite"></output>
+            <button id="tlog-x">&#x2715; Return to Scene</button>
+          </div>
+          <button id="proceed-btn">&#x25B6; Continue</button>
+        </section>
+        <section id="term-area" aria-label="Command terminal">
+          <div id="term-status" role="status">
+            <span class="tstat">
+              Words: <span class="v" id="ts-words">0/0</span>
+            </span>
+            <span class="tstat">
+              Clues: <span class="v" id="ts-clues">0/0</span>
+            </span>
+            <button id="ts-rst" title="Restart">&#x21BA; Restart</button>
+          </div>
+          <div id="term-row">
+            <span id="term-prompt">&gt;_</span>
+            <input
+              id="term-in"
+              type="text"
+              aria-label="Command input"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="none"
+              spellcheck="false"
+              placeholder="type a command and press Enter&#x2026;"
+            />
+            <span id="term-kh">&#x21B5; Enter</span>
+          </div>
+        </section>
+      </main>
+      <aside id="sidebar">
+        <header id="sb-head">
+          <span class="nb-ic">&#x1F4D3;</span>
+          <span class="nb-ti">Bunny&#x2019;s Notebook</span>
+          <span class="nb-su">FIELD EDITION</span>
+        </header>
+        <div id="sb-tabs" role="tablist" aria-label="Notebook sections">
+          <button
+            class="sbt active"
+            type="button"
+            role="tab"
+            id="tab-dialogue"
+            aria-controls="panel-dialogue"
+            aria-selected="true"
+            data-tab="dialogue"
+          >
+            <span class="ti">&#x1F430;</span>Bunny
+          </button>
+          <button
+            class="sbt"
+            type="button"
+            role="tab"
+            id="tab-notes"
+            aria-controls="panel-notes"
+            aria-selected="false"
+            data-tab="notes"
+          >
+            <span class="ti">&#x1F4CB;</span>Lizard&#x2019;s Notes
+          </button>
+          <button
+            class="sbt"
+            type="button"
+            role="tab"
+            id="tab-lessons"
+            aria-controls="panel-lessons"
+            aria-selected="false"
+            data-tab="lessons"
+          >
+            <span class="ti">&#x1F4D6;</span>Bunny&#x2019;s Lessons
+          </button>
+        </div>
+        <section
+          class="sbp active"
+          id="panel-dialogue"
+          role="tabpanel"
+          aria-labelledby="tab-dialogue"
+        >
+          <div id="dlg-panel"></div>
+        </section>
+        <section
+          class="sbp"
+          id="panel-notes"
+          role="tabpanel"
+          aria-labelledby="tab-notes"
+        >
+          <ul id="notes-list">
+            <li class="empty">No notes yet.<br />Start investigating!</li>
+          </ul>
+        </section>
+        <section
+          class="sbp"
+          id="panel-lessons"
+          role="tabpanel"
+          aria-labelledby="tab-lessons"
+        >
+          <ul id="lessons-list">
+            <li class="empty">No lessons unlocked yet.</li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+    <div
+      class="ovbg"
+      id="win-bg"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="win-title"
+    >
+      <div class="ov-box">
+        <div
+          id="win-emojis"
+          style="font-size: 2.2rem; margin-bottom: 8px"
+        ></div>
+        <h2 id="win-title">Level Complete!</h2>
+        <p><em id="win-subtitle"></em></p>
+        <div class="ov-final" id="win-message"></div>
+        <p
+          id="win-footnote"
+          style="
+            font-family: &quot;Courier Prime&quot;, monospace;
+            font-size: 0.72rem;
+            color: #888;
+          "
+        ></p>
+        <button class="ovbtn" id="win-restart">&#x21BA; Play Again</button>
+      </div>
+    </div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <script src="../local_storage.js"></script>
+    <script src="engine/storage.js"></script>
+    <script src="components/hotspot.js"></script>
+    <script src="engine/loader.js"></script>
+    <script src="engine/game.js"></script>
+    <script src="engine/ui.js"></script>
+    <script src="engine/player.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
