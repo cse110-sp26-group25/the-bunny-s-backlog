@@ -72,6 +72,8 @@ Bunny's notebook: Explains how to use catch, that contradiction is a count varia
 
 The user will first be propted to do this with noBigEars, the the other two. When the character / police officer is speaking he should list out the errors by their names (ex noBigEars) so the user knows what to type. 
 
+edit: Forgot to include this before, but the owl has small ears, is small, and does not squeak while the dog has big ears and is small but also does not squeak. 
+
 
 ### 5th Action 
 Origionally we were going to have them write a finally, and use an if statement to accuse the victim if there were 0 errors, but I think that might be too much, 
