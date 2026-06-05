@@ -1,19 +1,12 @@
-// ---------------------------------------------------------
-// Local Storage System for The Bunny's Backlog
-// ---------------------------------------------------------
-// This file handles saving, loading, and clearing player data.
-// The data is stored in the browser using localStorage.
-// Since localStorage only stores strings, the save array is
-// converted into a JSON string when saving, then parsed back
-// into an array when loading.
-// ---------------------------------------------------------
+/**
+ * Shared local storage helpers for The Bunny's Backlog. This file owns the
+ * game-wide save array used for settings and level-select progress.
+ */
 
-// name/key used to store the save data 
-// must stay same everywhere in project
+/** The browser localStorage key for the shared save array. */
 const SAVE_KEY = "bunnysBacklogSave";
 
-// default settings used by the settings screen
-// these values are stored at index 8 in the save array
+/** Default settings stored at index 8 in the shared save array. */
 const DEFAULT_SETTINGS = {
   masterVolume: 80,
   musicVolume: 60,
@@ -23,6 +16,7 @@ const DEFAULT_SETTINGS = {
 
 const TUTORIAL_LEVEL_ID = "tutorial_morning_routine";
 
+/** Stable level ids used by level-select progress. */
 const LEVEL_IDS = {
   TUTORIAL: TUTORIAL_LEVEL_ID,
   LEVEL_1: "level_001",
@@ -32,6 +26,7 @@ const LEVEL_IDS = {
   LEVEL_5: "level_005"
 };
 
+/** The order used to unlock the next level after completion. */
 const LEVEL_ORDER = [
   LEVEL_IDS.TUTORIAL,
   LEVEL_IDS.LEVEL_1,
@@ -41,23 +36,22 @@ const LEVEL_ORDER = [
   LEVEL_IDS.LEVEL_5
 ];
 
-// ---------------------------------------------------------
-// createDefaultSettings()
-// ---------------------------------------------------------
-// Creates a fresh settings object so callers can edit it
-// without changing DEFAULT_SETTINGS.
-// ---------------------------------------------------------
+/**
+ * Creates a fresh settings object so callers can edit it without combining
+ * DEFAULT_SETTINGS.
+ *
+ * @returns {{masterVolume:number, musicVolume:number, effectsVolume:number,
+ *            hardMode:boolean}}
+ */
 function createDefaultSettings() {
   return Object.assign({}, DEFAULT_SETTINGS);
 }
 
-// ---------------------------------------------------------
-// createDefaultLevelProgress()
-// ---------------------------------------------------------
-// Creates the default progress map for tutorial plus five
-// game levels. Level IDs must match the IDs used by level
-// selection and the level files.
-// ---------------------------------------------------------
+/**
+ * Creates the default progress map for the tutorial plus future levels.
+ *
+ * @returns {object}
+ */
 function createDefaultLevelProgress() {
   return {
     [LEVEL_IDS.TUTORIAL]: { unlocked: true, completed: false },
@@ -69,6 +63,11 @@ function createDefaultLevelProgress() {
   };
 }
 
+/**
+ * Creates the full shared save array used by local_storage.js.
+ *
+ * @returns {Array}
+ */
 function createDefaultSaveData() {
   return [
     1,                  // index 0: save version
@@ -85,23 +84,20 @@ function createDefaultSaveData() {
   ];
 }
 
-// ---------------------------------------------------------
-// saveGame(saveData)
-// ---------------------------------------------------------
-// Saves the current game data into localStorage.
-// The saveData array must be converted into a JSON string
-// because localStorage cannot directly store arrays or objects.
-// ---------------------------------------------------------
+/**
+ * Saves the shared save array into browser localStorage.
+ *
+ * @param {Array} saveData
+ */
 function saveGame(saveData) {
   localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
 }
 
-// ---------------------------------------------------------
-// loadGame()
-// ---------------------------------------------------------
-// Loads the save data from localStorage.
-// If no save file exists, it creates a new default save.
-// ---------------------------------------------------------
+/**
+ * Loads the shared save array from browser localStorage.
+ *
+ * @returns {Array}
+ */
 function loadGame() {
   const savedString = localStorage.getItem(SAVE_KEY);
 
@@ -114,23 +110,19 @@ function loadGame() {
   return JSON.parse(savedString);
 }
 
-// ---------------------------------------------------------
-// clearSave()
-// ---------------------------------------------------------
-// Deletes the saved game data from localStorage.
-// This can be used for a "New Game" or "Reset Save" button.
-// ---------------------------------------------------------
+/**
+ * Deletes the shared save array from browser localStorage.
+ */
 function clearSave() {
   localStorage.removeItem(SAVE_KEY);
 }
 
-// ---------------------------------------------------------
-// loadSafeGame()
-// ---------------------------------------------------------
-// Loads the save data without letting corrupted localStorage
-// crash the settings page or game. If the saved JSON is bad,
-// the broken save is cleared and default save data is used.
-// ---------------------------------------------------------
+/**
+ * Loads the shared save array safely. Corrupted JSON is cleared and replaced
+ * with default save data.
+ *
+ * @returns {Array}
+ */
 function loadSafeGame() {
   try {
     return loadGame();
@@ -140,80 +132,76 @@ function loadSafeGame() {
   }
 }
 
-// ---------------------------------------------------------
-// loadSettings()
-// ---------------------------------------------------------
-// Gets the settings object from index 8 of the save array.
-// Missing settings are filled in from DEFAULT_SETTINGS so
-// new settings can be added later without breaking old saves.
-// ---------------------------------------------------------
+/**
+ * Loads player settings from index 8 of the shared save array.
+ *
+ * @returns {object}
+ */
 function loadSettings() {
   const saveData = loadSafeGame();
   return Object.assign({}, DEFAULT_SETTINGS, saveData[8]);
 }
 
-// ---------------------------------------------------------
-// saveSettingsData(settings)
-// ---------------------------------------------------------
-// Saves the settings object into index 8 of the save array.
-// This preserves the rest of the player's save data instead
-// of overwriting inventory, level progress, or tutorial state.
-// ---------------------------------------------------------
+/**
+ * Saves player settings into index 8 without overwriting other save data.
+ *
+ * @param {object} settings
+ */
 function saveSettingsData(settings) {
   const saveData = loadSafeGame();
   saveData[8] = Object.assign({}, DEFAULT_SETTINGS, settings);
   saveGame(saveData);
 }
 
-// ---------------------------------------------------------
-// loadLevelProgress()
-// ---------------------------------------------------------
-// Gets the level progress object from index 10. Missing
-// levels are filled in so older saves still work.
-// ---------------------------------------------------------
+/**
+ * Loads level-select progress from index 10, filling missing levels with
+ * defaults.
+ *
+ * @returns {object}
+ */
 function loadLevelProgress() {
   const saveData = loadSafeGame();
   return Object.assign(createDefaultLevelProgress(), saveData[10]);
 }
 
-// ---------------------------------------------------------
-// saveLevelProgress(levelProgress)
-// ---------------------------------------------------------
-// Saves the full level progress object into index 10.
-// ---------------------------------------------------------
+/**
+ * Saves the full level-select progress object into index 10.
+ *
+ * @param {object} levelProgress
+ */
 function saveLevelProgress(levelProgress) {
   const saveData = loadSafeGame();
   saveData[10] = Object.assign(createDefaultLevelProgress(), levelProgress);
   saveGame(saveData);
 }
 
-// ---------------------------------------------------------
-// saveCurrentLevel(levelId)
-// ---------------------------------------------------------
-// Saves the level the player should resume from.
-// ---------------------------------------------------------
+/**
+ * Saves the current level id into index 1.
+ *
+ * @param {string} levelId
+ */
 function saveCurrentLevel(levelId) {
   const saveData = loadSafeGame();
   saveData[1] = levelId;
   saveGame(saveData);
 }
 
-// ---------------------------------------------------------
-// saveCheckpoint(checkpointId)
-// ---------------------------------------------------------
-// Saves the player's checkpoint inside the current level.
-// ---------------------------------------------------------
+/**
+ * Saves the current checkpoint id into index 2.
+ *
+ * @param {string} checkpointId
+ */
 function saveCheckpoint(checkpointId) {
   const saveData = loadSafeGame();
   saveData[2] = checkpointId;
   saveGame(saveData);
 }
 
-// ---------------------------------------------------------
-// unlockLevel(levelId)
-// ---------------------------------------------------------
-// Marks a level as available in the level progress map.
-// ---------------------------------------------------------
+/**
+ * Marks a level as unlocked in the level-select progress map.
+ *
+ * @param {string} levelId
+ */
 function unlockLevel(levelId) {
   const levelProgress = loadLevelProgress();
   levelProgress[levelId] = Object.assign(
@@ -224,12 +212,12 @@ function unlockLevel(levelId) {
   saveLevelProgress(levelProgress);
 }
 
-// ---------------------------------------------------------
-// markLevelComplete(levelId)
-// ---------------------------------------------------------
-// Marks a level complete and unlocks the next level in the
-// official level order, if one exists.
-// ---------------------------------------------------------
+/**
+ * Marks a level complete and unlocks the next level in LEVEL_ORDER, if one
+ * exists.
+ *
+ * @param {string} levelId
+ */
 function markLevelComplete(levelId) {
   const levelProgress = loadLevelProgress();
   levelProgress[levelId] = Object.assign(
@@ -250,43 +238,42 @@ function markLevelComplete(levelId) {
   saveLevelProgress(levelProgress);
 }
 
-// ---------------------------------------------------------
-// isLevelUnlocked(levelId)
-// ---------------------------------------------------------
-// Returns true when a level is available to play.
-// ---------------------------------------------------------
+/**
+ * Checks whether a level is available to play.
+ *
+ * @param {string} levelId
+ * @returns {boolean}
+ */
 function isLevelUnlocked(levelId) {
   const levelProgress = loadLevelProgress();
   return Boolean(levelProgress[levelId]?.unlocked);
 }
 
-// ---------------------------------------------------------
-// isLevelComplete(levelId)
-// ---------------------------------------------------------
-// Returns true when a level has been completed.
-// ---------------------------------------------------------
+/**
+ * Checks whether a level has been completed.
+ *
+ * @param {string} levelId
+ * @returns {boolean}
+ */
 function isLevelComplete(levelId) {
   const levelProgress = loadLevelProgress();
   return Boolean(levelProgress[levelId]?.completed);
 }
 
-// ---------------------------------------------------------
-// getNextLevelId(levelId)
-// ---------------------------------------------------------
-// Finds the next level in the official level order.
-// ---------------------------------------------------------
+/**
+ * Finds the next level id in LEVEL_ORDER.
+ *
+ * @param {string} levelId
+ * @returns {?string}
+ */
 function getNextLevelId(levelId) {
   const index = LEVEL_ORDER.indexOf(levelId);
   return index >= 0 ? LEVEL_ORDER[index + 1] || null : null;
 }
 
-// ---------------------------------------------------------
-// module.exports
-// ---------------------------------------------------------
-// Makes the local storage helpers available to Jest tests.
-// The typeof check keeps this file safe when it runs directly
-// in the browser, where module may not exist.
-// ---------------------------------------------------------
+/**
+ * Exports helpers for Jest while keeping this file browser-safe.
+ */
 if (typeof module !== "undefined") {
   module.exports = {
     SAVE_KEY,

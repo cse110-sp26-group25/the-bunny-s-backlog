@@ -1,23 +1,26 @@
-// ---------------------------------------------------------
-// LevelStorage
-// ---------------------------------------------------------
-// This class handles saving, loading, and clearing progress
-// for the current level. It is separate from local_storage.js,
-// which is used for settings and level-select progress.
-// ---------------------------------------------------------
+/**
+ * Persists the current level's resume state in browser localStorage. This is
+ * separate from local_storage.js, which owns settings and level-select progress,
+ * but it notifies that shared layer when a level is completed.
+ */
 class LevelStorage {
+  /**
+   * Creates a storage adapter for current-level progress.
+   *
+   * @param {Storage} [storage] - localStorage-compatible storage object.
+   * @param {{markLevelComplete:function(string):void}} [progressStorage]
+   */
   constructor(storage, progressStorage) {
     this.storage = storage || LevelStorage.browserStorage();
     this.progressStorage = progressStorage || LevelStorage.progressStorageApi();
   }
 
-  // ---------------------------------------------------------
-  // browserStorage()
-  // ---------------------------------------------------------
-  // Gets the browser's localStorage object when the game is
-  // running in a browser. Jest can pass a mock storage object
-  // into the constructor, so tests do not need a browser.
-  // ---------------------------------------------------------
+  /**
+   * Gets the browser's localStorage object when available. Tests can pass a
+   * mock storage object into the constructor instead.
+   *
+   * @returns {?Storage}
+   */
   static browserStorage() {
     if (typeof localStorage === "undefined") {
       return null;
@@ -25,25 +28,22 @@ class LevelStorage {
     return localStorage;
   }
 
-  // ---------------------------------------------------------
-  // keyFor(levelId)
-  // ---------------------------------------------------------
-  // Builds the localStorage key for one level's in-level
-  // progress. Example:
-  // bunnysBacklog.level.tutorial_morning_routine
-  // ---------------------------------------------------------
+  /**
+   * Builds the localStorage key for one level's in-level progress.
+   *
+   * @param {string} levelId
+   * @returns {string}
+   */
   static keyFor(levelId) {
     return "bunnysBacklog.level." + levelId;
   }
 
-  // ---------------------------------------------------------
-  // progressStorageApi()
-  // ---------------------------------------------------------
-  // Finds shared progress helpers from local_storage.js when
-  // that file is loaded in the browser. This keeps current
-  // level resume data in LevelStorage, while completed levels
-  // still update level-select progress.
-  // ---------------------------------------------------------
+  /**
+   * Finds shared progress helpers from local_storage.js when that file is
+   * loaded in the browser before storage.js.
+   *
+   * @returns {?{markLevelComplete:function(string):void}}
+   */
   static progressStorageApi() {
     const root = typeof globalThis === "undefined" ? {} : globalThis;
     if (typeof root.markLevelComplete !== "function") {
@@ -55,12 +55,12 @@ class LevelStorage {
     };
   }
 
-  // ---------------------------------------------------------
-  // defaultLevelState()
-  // ---------------------------------------------------------
-  // Creates a fresh state object for the refactored Game
-  // class. This is the shape LevelPlayer saves after commands.
-  // ---------------------------------------------------------
+  /**
+   * Builds a fresh state object matching the refactored Game progress shape.
+   *
+   * @returns {{phase:number, inventory:string[], unlocked:object,
+   *            errors:number, complete:boolean, terminalHistory:object[]}}
+   */
   static defaultLevelState() {
     return {
       phase: 1,
@@ -72,12 +72,13 @@ class LevelStorage {
     };
   }
 
-  // ---------------------------------------------------------
-  // normalize(levelState)
-  // ---------------------------------------------------------
-  // Creates a clean level state object with only the fields
-  // the current game needs to restore progress.
-  // ---------------------------------------------------------
+  /**
+   * Creates a clean level state object with only the fields the current game
+   * needs to restore progress. Invalid fields are replaced with defaults.
+   *
+   * @param {object} levelState
+   * @returns {?object}
+   */
   static normalize(levelState) {
     if (!levelState || typeof levelState !== "object") {
       return null;
@@ -108,12 +109,13 @@ class LevelStorage {
     };
   }
 
-  // ---------------------------------------------------------
-  // load(levelId)
-  // ---------------------------------------------------------
-  // Loads saved progress for one level. If no save exists, it
-  // returns null so the Game can start fresh.
-  // ---------------------------------------------------------
+  /**
+   * Loads saved progress for one level. If no save exists, returns null so the
+   * Game can start fresh. Corrupted JSON is cleared and treated as no save.
+   *
+   * @param {string} levelId
+   * @returns {?object}
+   */
   load(levelId) {
     if (!this.storage || !levelId) {
       return null;
@@ -128,13 +130,13 @@ class LevelStorage {
     }
   }
 
-  // ---------------------------------------------------------
-  // save(levelId, levelState)
-  // ---------------------------------------------------------
-  // Saves the current level's progress. When a level is
-  // complete, this also notifies local_storage.js so
-  // level-select progress is updated.
-  // ---------------------------------------------------------
+  /**
+   * Saves the current level's progress. When the normalized state is complete,
+   * also marks the level complete in the shared level-select progress layer.
+   *
+   * @param {string} levelId
+   * @param {object} levelState
+   */
   save(levelId, levelState) {
     if (!this.storage || !levelId) {
       return;
@@ -152,12 +154,12 @@ class LevelStorage {
     }
   }
 
-  // ---------------------------------------------------------
-  // clear(levelId)
-  // ---------------------------------------------------------
-  // Deletes the current level's saved progress. This is used
-  // when the player resets the level.
-  // ---------------------------------------------------------
+  /**
+   * Deletes the current level's saved progress. Used when the player resets the
+   * level; settings and level-select progress are left untouched.
+   *
+   * @param {string} levelId
+   */
   clear(levelId) {
     if (!this.storage || !levelId) {
       return;
