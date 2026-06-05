@@ -188,7 +188,7 @@ let lockedDrawer
 
 ```plaintext
 [SUCCESS]: Variable scope override successful.
-[LOG]: Identifier 'lockedDrawer' reallocated to mutable memory space.
+[LOG]: Identifier 'lockedDrawer' reallocated and bound to mutable memory space.
 ```
 
 ### Post-Action UI Update
