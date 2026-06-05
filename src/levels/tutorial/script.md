@@ -1,284 +1,91 @@
-# Tutorial Level Script: Bunny's Notebook
-
-## Layout & Spatial Coordination Notes (For UX & Design Team)
-
-Design Alignment Guardrail: To support an intuitive left-to-right scanning motion across the room's workspace artwork, both physical interactable targets are anchored to the left side of the viewport.
-
-plantPot Hotspot Layer: Positioned directly to the left of the main desk bounding box.
-
-lockedDrawer Hotspot Layer: Positioned on the far-left screen border.
-
-## Three-Zone UI Configuration
-
-The Center Viewport: 2D interactive graphic environment of Chief Bunny’s office workspace.
-
-The Slide Panel (Right Side): Contextual layout container that swaps between Bunny's Notebook (lessons) and the Evidence Tracker (variable grid).
-
-The Terminal Console (Bottom): Active interactive text-input command line for player execution.
-
-## Phase 1: Booting & Environment Mapping
-
-### Context
-
-The game opens on Bill the Lizard leaning back at his desk in a dimly lit office. He drops his face into his hands, staring at a blank terminal screen. Suddenly, a chime loops, and the right-hand slide panel forcefully pops open directly to Page 1 of Bunny's Notebook.
-
-### UI Slide Panel (Bunny's Notebook)
-
-"Thanks so much for helping me patch my terminal systems while I'm away, Rookie! ૮꒰˶ᵔ ᵕ ᵔ˶꒱ა
-
-I actually left a little welcome gift for you in my office! The bad news? I think I forgot to take it out of my super-secret locked drawer before I stepped out ૮꒰˶´ ꒳ `꒱ა. But don't worry, the key is hidden somewhere in the room!
-
-I usually start all my big investigations by telling my terminal to run an environment sweep. Try typing this exact single-parameter command into the console below to map our workspace:
-
+Level 0: Bunny's Notebook
+🛠️ Layout & Design Coordination Notes
+Visual Setup: Simple three-zone screen. The left side features the 2D detective office art. The bottom is the code input box. The right side holds the sliding handbook and an evidence checklist panel.
+The Rules: Text in quotes "" represent strings (actions/directions like "under"). Bare words without quotes represent objects you can touch in the room (variables like plantPot).
+Phase 1: Reading the Notebook First
+Context: The game opens with Bill the Lizard sitting at his desk, staring blankly at a dark computer screen. A soft chime rings, and the side panel pops open directly to the first page of Bunny's Notebook.
+Slide Panel (Bunny's Notebook - Page 1):
+"Thanks so much for helping me look after the office while I'm away, Rookie! ૮꒰˶ᵔ ᵕ ᵔ˶꒱ა
+I actually left a little welcome gift for you! The bad news? I think I forgot to take it out of my super-secret locked drawer before I stepped out ૮꒰˶´ ꒳ `꒱ა. But don't worry, the key is hidden somewhere in the room!
+I usually start all my mysteries by running a quick room scan to see what I can interact with. Try typing this behavior to look around the office:
 self.search("look around room")"
-
-### Environment Matrix State
-
-Center Viewport: Dark office scene. All room assets are unclickable.
-
-Evidence Tracker: Hidden / Uninitialized state.
-
-### Player Input
-
-```javascript
+Player Input:
+JavaScript
 self.search("look around room")
-```
-
-### Terminal Output
-
-```plaintext
-[SYSTEM]: Scanning local grid coordinates...
-[SUCCESS]: Environment data parsed successfully. 
-[LOG]: 2 physical assets mapped to volatile memory.
-```
-
-### Post-Action UI Update
-
-Visuals: Green bounding boxes pulse around a heavy filing drawer unit (far left) and a leafy potted plant sitting to the left of the desk.
-
-Evidence Tracker Auto-Initializes: (The Scope column remains hidden from view during this phase to avoid data spoilers)
-
-| Variable Identifier | Value | Location |
-|---|---|---|
-| plantPot | [Physical Asset] | Left side of desk |
-| lockedDrawer | [Locked Security Unit] | Far left of screen |
-
-### Character Dialogue
-
-Bill the Lizard: "Terrific. Ten minutes on the clock and Bunny's already got me running automated sweeps. Looks like the terminal indexed two local objects into memory: plantPot and lockedDrawer. Both on my left. Let's inspect the plant first."
-
-## Phase 2: Targeted Inspection (Multi-Argument Syntax)
-
-### Context
-
-The player shifts their focus back to the center viewport, moving their cursor over the plant asset situated to the left of the desk.
-
-Associated Hotspot: plantPot
-
-Hover Tooltip: [Interact]: Is there something hidden under this plantPot?
-
-On-Click Trigger: Clicking the plant forces Bunny's Notebook to automatically flip to Page 2.
-
-### UI Slide Panel (Bunny's Notebook)
-
-"Sometimes a basic sweep isn't enough—we need to be much more specific! We can pass multiple arguments into our search behaviors by separating them with a comma.
-
-For example: self.search("behind", someObject).
-
-But you have to be super careful! The data entries inside our system are incredibly sensitive... you could say they are caseSensitive ૮꒰ - ﻌ •꒱ა! JavaScript cares immensely about lowercase and uppercase letters. Also, parameter order matters completely! Your target direction string always comes first, and the environmental object variable comes second.
-
-Let's look directly beneath the plant: self.search("under", plantPot)"
-
-### Player Input
-
-```javascript
+* **System Output:** 
+  ```bash
+  Scanning room...
+  Found: plantPot
+  Found: lockedDrawer
+Side Panel Update (Evidence Checklist):
+🌿 plantPot
+🗄️ lockedDrawer
+Bill the Lizard: "Alright, looks like Bunny's notebook was right. The computer screen found two things I can interact with on my left: a plantPot and a lockedDrawer. Let's click on that plant and see if anything is there."
+Phase 2: The Multi-Parameter Plant
+Context: The player moves their mouse to the left and clicks on the plant pot asset.
+Plant Hotspot Message: "Is there something hidden under this plantPot?"
+Slide Panel (Bunny's Notebook - Page 2):
+"Sometimes a basic search isn't enough—we need to be way more specific! We can give our actions extra details by separating them with a comma.
+For example, if I wanted to look behind a chair, I would type: self.search("behind", someChair).
+But you have to be super careful! Our computer system is incredibly sensitive... you could say it's case-sensitive ૮꒰ - ﻌ •꒱ა! Capital letters and lowercase letters matter immensely. Also, the order matters! The direction word in quotes always comes first, and the object variable comes second."
+Player Input:
 self.search("under", plantPot)
-```
-
-### Terminal Output
-
-```plaintext
-[SYSTEM]: Evaluating relative spatial parameters...
-[LOG]: Position offset applied to object target: plantPot.
-[SUCCESS]: Target physical asset uncovered.
-```
-
-### Post-Action UI Update
-
-Visuals: The plant pot asset slides horizontally to the side, revealing a glinting, brass physical key sitting on the floorboards.
-
-Evidence Tracker Updates:
-
-| Variable Identifier | Value | Location |
-|---|---|---|
-| plantPot | [Shifted Baseline] | Left side of desk |
-| lockedDrawer | [Locked Security Unit] | Far left of screen |
-| key | [Physical Brass Asset] | Floorboards |
-
-### Character Dialogue
-
-Bill the Lizard: "Hiding a physical brass key right under the decor. Truly cutting-edge security, Inspector. Alright, let's take this key object and try it on the lockedDrawer variable on the far left."
-
-## Phase 3: The Immutability Glitch (The Lockout Error)
-
-### Context
-
-The player clicks on the heavy steel filing drawer unit situated on the far left of the screen layout.
-
-Associated Hotspot: lockedDrawer
-
-Hover Tooltip: [Interact]: Try unlocking the drawer mechanism.
-
-On-Click Trigger: The notebook stays on Page 2, but the terminal console flashing header updates to display a helpful baseline usage reminder: Invoke unlock routine: self.unlock(target, tool).
-
-### Player Input
-
-```javascript
+* **System Output:** 
+  ```bash
+  Searching under the plantPot...
+  Success! You found a brass key!
+Side Panel Update (Evidence Checklist):
+🌿 plantPot
+🗄️ lockedDrawer
+🔑 key
+Bill the Lizard: "A physical key hidden right under the leaves. Classic, Inspector. Let's take this key object and try it on the lockedDrawer on the far left."
+Phase 3: The Constant Blocker (The Error)
+Context: The player clicks on the locked drawer asset on the far left of the screen.
+Drawer Hotspot Message: "The drawer is locked tight. Try using your unlock routine: self.unlock(target, tool)"
+Player Input:
+JavaScript
 self.unlock(lockedDrawer, key)
-```
-
-### Terminal Output (Error State)
-
-```plaintext
-[TERMINAL ERROR]: TypeError: Assignment to constant variable.
-[CRITICAL]: Execution halted. Cannot alter immutable object state.
-```
-
-### Post-Action UI Update
-
-Visuals: The key slips smoothly into the drawer lock, but an overlay padlock graphic flashes bright red on the drawer texture. The cylinder refuses to turn.
-
-Evidence Tracker Updates: The hidden Scope / Type column instantly pops into visual existence, exposing the security flags:
-
-| Variable Identifier | Scope / Type | Value | Location |
-|---|---|---|---|
-| plantPot | const (Object) | [Shifted Baseline] | Left side of desk |
-| lockedDrawer | const (Object) | [Locked Security Unit] | Far left of screen |
-| key | const (Object) | [Physical Brass Asset] | Floorboards |
-
-### Character Dialogue
-
-Bill the Lizard: "You've got to be kidding me. The physical key slots straight into the lock cylinder, but the internal terminal software just threw a mutability error and froze the mechanism. Look at the tracker—why is a desk drawer hardcoded against modifications as a const? Let me look at Page 3 of Bunny's notes."
-
-## Phase 4: Modifying Memory Scope (Variable Reassignment)
-
-### Context
-
-The player opens Page 3 of Bunny's Notebook to decipher the newly revealed const protection block.
-
-### UI Slide Panel (Bunny's Notebook)
-
-"Oh no! I completely forgot to mention our precinct security layout! ૮꒰˶´ ꒳ `꒱ა
-
-To protect core office objects from being altered by outside hackers, our database initializes environmental references using const. A variable declared with const is immutable—meaning once its initial value is assigned, it can absolutely never be changed! Look at your tracker panel; it's locked down tight as a constant.
-
-If we want an object's properties or status to change dynamically during an investigation, we must declare it using let, which lets our terminal modify its data state!
-
-Let's override the restriction on the drawer by re-scoping it in our current terminal layer. Type this line:
-
+* **System Output (Error State):**
+  ```bash
+  🔴 ERROR: TypeError: Assignment to constant variable.
+  This object is a CONSTANT and cannot be changed!
+Bill the Lizard: "Wait, what? The key fits into the lock perfectly, but the computer screen just flashed a red error message. It says it's a 'constant variable' and froze up. Let me check the notebook to see what that means."
+Phase 4: Changing the Variables
+Context: The player opens Page 3 of Bunny's Notebook to figure out the error.
+Side Panel (Bunny's Notebook - Page 3):
+"Oh no! I completely forgot to mention our office security! ૮꒰˶´ ꒳ `꒱ა
+To protect important office things from being messed with, our computer sets them up using const. A variable made with const is totally unchangeable—meaning once it's set, it stays that way forever! Look at your evidence page; it's locked down tight as a constant.
+If we want a variable's status to actually change—like turning a drawer from locked to unlocked—we have to declare it using let. Using let 'lets' our computer change its state!
+Let's fix the drawer so we can unlock it. Type this line to let it change:
 let lockedDrawer"
-
-### Player Input (Action 4A - Memory Scope Override)
-
-```javascript
+Player Input:
 let lockedDrawer
-```
-
-### Terminal Output
-
-```plaintext
-[SUCCESS]: Variable scope override successful.
-[LOG]: Identifier 'lockedDrawer' reallocated and bound to mutable memory space.
-```
-
-### Post-Action UI Update
-
-Evidence Tracker Updates: The locked scope updates seamlessly to reflect the change:
-
-| Variable Identifier | Scope / Type | Value | Location |
-|---|---|---|---|
-| plantPot | const (Object) | [Shifted Baseline] | Left side of desk |
-| lockedDrawer | let (Object) | [Mutable Security Unit] | Far left of screen |
-| key | const (Object) | [Physical Brass Asset] | Floorboards |
-
-### Character Dialogue
-
-Bill the Lizard: "Alright, the registry tracking grid updated. The drawer is no longer marked as an immutable constant. Let's run that unlock command one more time to break through to Phase 5."
-
-## Phase 5: Opening Bunny's Drawer (The Unlock Trigger)
-
-### Context
-
-With the scope safely updated to a mutable let variable, the console is cleared to accept the re-execution statement. This final code block serves as the strict conditional gatekeeper that unlocks Phase 5.
-
-### Player Input (Action 4B - Final Execution)
-
-```javascript
+* **System Output:**
+  ```bash
+🟢 SUCCESS: lockedDrawer can now be changed!
+Bill the Lizard: "Okay, the computer log updated. The drawer isn't a permanent constant anymore. Let's try that unlock command one more time!"
+Phase 5: Unlocking the Prize
+Context: The player retries the unlock sequence on the newly updated variable.
+Player Input:
+JavaScript
 self.unlock(lockedDrawer, key)
-```
-
-### Terminal Output
-
-```plaintext
-[SYSTEM]: Executing function unlock() on target variable...
-[SUCCESS]: Lock cylinder rotated 180°. Structural pins disengaged.
-[LOG]: Interactive sequence completed. Drawer opened.
-```
-
-### Post-Action UI Update
-
-Visuals: The steel drawer unit swings wide open, revealing a bright blue cardboard parcel labeled "Welcome Pack for our New Network Tech!" inside. The main puzzle loop is finalized.
-
-Notebook Update: The notebook instantly swaps to an urgent exit prompt.
-
-## Phase 6: The Client Threat (The Output Warning)
-
-### Context
-
-Before Bill can pull out his welcome package, a heavy rattling pounding sound loop triggers through the office speakers. A highly hyperactive, panicked Sheep wearing a flour-dusted chef's hat and apron bursts through the main precinct door, waving his hooves wildly in the air.
-
-## 1
-
-### The Client Bursts In
-
-### Narrative Transition
-
-The Baker Sheep rushes straight up to Bill's desk layout, completely blocking the open drawer view.
-
-Baker Sheep: "Help! Help! Someone broke into my pastry shop down the main street! The flour is everywhere, my terminal network lines are cut, my receipts are totally corrupted! Detective, you have to grab your badge and help me find the thief!"
-
-## 2
-
-### Clarifying Professional Identity
-
-### Terminal Requirement
-
-A system prompt box flashes directly over Bill the Lizard's avatar face plate.
-
-System Hint: I need to make sure this panicked pastry chef knows I am simply an underpaid network technician, not the chief detective...
-
-Bunny's Notebook panel displays the final syntax instruction: Execute a warning message to print your true workplace role directly to the terminal interface.
-
-### Player Input
-
-```javascript
+* **System Output:**
+  ```bash
+  🟢 SUCCESS: Click! The lock turns. The drawer is open!
+Visuals: The drawer art changes to show it wide open, revealing a bright blue box inside.
+Phase 6: The Panicked Pastry Chef
+Context: Before Bill can grab his welcome package, a loud pounding sound plays. A hyperactive, frantic Baker Sheep wearing a flour-covered chef's hat bursts through the door, waving his hooves.
+Baker Sheep: "Help! Help! Someone broke into my pastry shop down the street! There is flour everywhere, my computer lines are ruined, and my receipts are totally messed up! Detective, you have to grab your badge and help me find the thief! ૮꒰˵😭 🍧 ˵꒱ა"
+System Hint Prompt: (Flashes over Bill's face) I need to make sure this panicked chef knows I'm just an ordinary computer technician, not the chief detective...
+Side Panel (Bunny's Notebook - Final Page):
+"If you ever need to print a big warning message directly to the screen to tell someone something important, use console.warn("your message")! ૮꒰˶ᵔ ᵕ ᵔ˶꒱ა"
+Player Input:
+JavaScript
 console.warn("I am just a lizard technician")
-```
-
-### Terminal Output
-
-```plaintext
-[WARNING]: I am just a lizard technician
-```
-
-### Post-Action Dialogue & Level Exit
-
-Baker Sheep: "I don't care if you're a technician, a database engineer, or an alligator! The Chief Detective's chair is empty, but your terminal console is fully logged in! You're the only person in this building with a working console window! Please, I'll pay you in fresh cinnamon rolls, hot biscuits, glazed turnovers—whatever you want! Just come audit my kitchen terminals before the logs wipe themselves!"
-
-Bill the Lizard: (Sighs heavily, pulling off his IT maintenance visor) "Look, I'm just supposed to be running software updates today... but if your store transaction logs are actively corrupted, I can at least dump your raw database files to a backup drive before they overwrite. Keep your biscuits warm, pal. Let's go look at your bakery."
-
-### Visual Transition
-
-The terminal console screen runs a crisp, spinning gold detective badge loading graphic over the entire workspace view, and the entire interface smoothly fades down to absolute black to prepare the game engine assets for the next stage.
-
+* **System Output:**
+  ```bash
+  ⚠️ WARNING: I am just a lizard technician
+Baker Sheep: "I don't care if you're a technician, an engineer, or an alligator! The Chief Detective's chair is empty, but your screen is working! You're the only person in this building who can run commands right now! Please, I'll pay you in fresh cinnamon rolls, hot biscuits, glazed turnovers—whatever you want! Just come look at my kitchen computers before the evidence disappears!"
+Bill the Lizard: "(Sighs heavily and takes off his tech visor) Look, I'm just supposed to be doing software updates today... but if your store computer records are actively breaking, I can at least back them up to a drive before they get deleted. Keep your biscuits warm, pal. Let's go look at your bakery."
+Visual Transition: The screen shows a cute gold detective badge graphic spinning on the screen, and the entire office layout smoothly fades to black.
 [TRANSITION TO LEVEL 1: THE CRUST & CRUMB BAKERY]
