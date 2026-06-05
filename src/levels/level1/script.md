@@ -46,7 +46,7 @@ displayCase.forEach( dessert => { } )
 
 ## Context
 
-The player prepares to type inside the action brackets { }. A helpful hotspot prompt on the console screen shows the player their choices for accessing fields based on the real items in image_a960f9.jpg: dessert.name, dessert.hasFruit, or dessert.isFlaky.
+The code input box at the bottom updates visually, displaying a large { and } symbol on either side of the blinking cursor to show the player they are now typing actions directly inside the function's brackets. A helpful hotspot prompt on the console screen shows the player their choices for accessing fields based on the real items in image_a960f9.jpg: dessert.name, dessert.hasFruit, or dessert.isFlaky.
 
 ### Slide Panel (Bunny's Notebook - Page 2)
 
@@ -82,7 +82,7 @@ Added to list: "Croissant"
 
 ### Character Dialogue
 
-**Bill the Lizard:** "Alright, the list updated, but looking at the side panel... these items are completely out of order compared to how the baker usually arranges them. Let's let the baker know what we found anyway."
+**Bill the Lizard:** "Alright, the list updated. But looking at the side panel, these items are completely out of order. That's some crumby luck. Let's show the baker what the system found anyway."
 
 # Phase 3: The Messy List
 
@@ -147,7 +147,7 @@ Applying .sheepOrdering() rules...
 
 ### Character Dialogue
 
-**Bill the Lizard:** "There we go. The list matches the proper bakery order now. That should give the police exactly what they need to cross-reference the stolen treats."
+**Bill the Lizard:** "There we go. At least things are looking pie-fectly neat now. The list matches the proper bakery order, which should give the police exactly what they need."
 
 # Phase 5: The Witness Arrives
 
@@ -173,7 +173,7 @@ Baker Sheep processes the clues provided by the bat witness and turns back towar
 
 **Baker Sheep:** "I think they already have some suspects down at the police office! You should go with Bat and check them out to see if they match his description!"
 
-**Bill the Lizard:** "(Nods, looking at the newly sorted evidence) Round ears, small, and squeaky. Sounds like we have a solid profile to work with. Lead the way, Bat."
+**Bill the Lizard:** "(Sighs softly and closes the console input panel) Round ears, small, and squeaky. Sounds like we have a solid profile to go on. Lead the way, Bat. Let's see who we're dealing with."
 
 ## Visual Transition
 
