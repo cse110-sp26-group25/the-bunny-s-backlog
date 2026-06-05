@@ -38,12 +38,7 @@ const {
   markLevelComplete,
   isLevelUnlocked,
   isLevelComplete,
-  getNextLevelId,
-  createDefaultTutorialState,
-  saveTutorialState,
-  loadTutorialState,
-  clearTutorialState,
-  getTutorialNotebookPages
+  getNextLevelId
 } = require('../local_storage');
 
 beforeEach(() => localStorage.clear());
@@ -170,104 +165,3 @@ test('loadSafeGame clears corrupted JSON and returns defaults', () => {
   expect(localStorage.getItem(SAVE_KEY)).toBeNull();
 });
 
-test('loads default tutorial state when no tutorial save exists', () => {
-  expect(loadTutorialState()).toEqual(createDefaultTutorialState());
-});
-
-test('saves and reloads tutorial progress', () => {
-  saveTutorialState({
-    phase: 8,
-    inventory: ['key'],
-    drawerUnlocked: false,
-    errors: 2,
-    complete: false,
-    terminalHistory: [
-      { text: '> self.take("key");', cls: 'cmd' },
-      { text: '[Item Acquired: Silver Key]', cls: 'ok' }
-    ]
-  });
-
-  const saveData = loadGame();
-  expect(saveData[1]).toBe(TUTORIAL_LEVEL_ID);
-  expect(saveData[2]).toBe('phase_8');
-  expect(saveData[3]).toEqual(['key']);
-  expect(saveData[5][TUTORIAL_LEVEL_ID]).toEqual({
-    drawerUnlocked: false,
-    errors: 2,
-    complete: false
-  });
-  expect(saveData[6]).toEqual(getTutorialNotebookPages(8, false));
-  expect(saveData[7]).toEqual([
-    { text: '> self.take("key");', cls: 'cmd' },
-    { text: '[Item Acquired: Silver Key]', cls: 'ok' }
-  ]);
-  expect(saveData[9]).toBe(false);
-  expect(saveData[10][TUTORIAL_LEVEL_ID]).toEqual({
-    unlocked: true,
-    completed: false
-  });
-  expect(loadTutorialState()).toEqual({
-    phase: 8,
-    inventory: ['key'],
-    drawerUnlocked: false,
-    errors: 2,
-    complete: false,
-    terminalHistory: [
-      { text: '> self.take("key");', cls: 'cmd' },
-      { text: '[Item Acquired: Silver Key]', cls: 'ok' }
-    ]
-  });
-});
-
-test('saves completed tutorial state', () => {
-  saveTutorialState({
-    phase: 11,
-    inventory: ['key'],
-    drawerUnlocked: true,
-    errors: 1,
-    complete: true,
-    terminalHistory: []
-  });
-
-  const saveData = loadGame();
-  expect(saveData[2]).toBe('phase_11');
-  expect(saveData[6]).toEqual(getTutorialNotebookPages(11, true));
-  expect(saveData[9]).toBe(true);
-  expect(saveData[10][TUTORIAL_LEVEL_ID]).toEqual({
-    unlocked: true,
-    completed: true
-  });
-  expect(saveData[10][LEVEL_IDS.LEVEL_1].unlocked).toBe(true);
-  expect(loadTutorialState().complete).toBe(true);
-});
-
-test('clears tutorial state without deleting settings', () => {
-  saveSettingsData({
-    masterVolume: 20,
-    musicVolume: 30,
-    effectsVolume: 40,
-    hardMode: true
-  });
-  saveTutorialState({
-    phase: 7,
-    inventory: ['key'],
-    drawerUnlocked: false,
-    errors: 3,
-    complete: false,
-    terminalHistory: [{ text: '> inspect("plant");', cls: 'cmd' }]
-  });
-
-  clearTutorialState();
-
-  expect(loadTutorialState()).toEqual(createDefaultTutorialState());
-  expect(loadSettings()).toEqual({
-    masterVolume: 20,
-    musicVolume: 30,
-    effectsVolume: 40,
-    hardMode: true
-  });
-  expect(loadLevelProgress()[TUTORIAL_LEVEL_ID]).toEqual({
-    unlocked: true,
-    completed: false
-  });
-});

@@ -6,6 +6,8 @@ This document explains what information is stored in local storage and what each
 
 The game should use local storage to keep important player progress after the player refreshes the page, closes the tab, or returns later. Temporary UI states, such as hover popups or current animations, should not be saved unless they affect permanent progress.
 
+`local_storage.js` defines the shared save key, default save array, settings helpers, and level-select progress helpers. Refactored in-level gameplay should use the `LevelStorage` class in `src/engine/storage.js`; that class saves the current level's refresh/resume state separately and marks shared level-select progress complete when a level is finished.
+
 ## Basic Storage Format
 
 The save data is stored as one array, then converted into a JSON string before being saved in `localStorage`.
@@ -25,14 +27,14 @@ const saveData = JSON.parse(localStorage.getItem("bunnysBacklogSave"));
 | Index | Name | Type | Description | Example |
 |---|---|---|---|---|
 | 0 | `saveVersion` | Number | Tracks the version of the save format. This helps if the save structure changes later. | `1` |
-| 1 | `currentLevel` | String | Stores the level the player is currently on. | `"tutorial_office"` |
-| 2 | `currentCheckpoint` | String | Stores the player's current progress point inside the level. | `"found_hidden_key"` |
+| 1 | `currentLevel` | String | Stores the level the player is currently on. | `"tutorial_morning_routine"` |
+| 2 | `currentCheckpoint` | String | Stores the player's current progress point for shared progress systems. | `"found_hidden_key"` |
 | 3 | `inventory` | Array | Stores item IDs for items the player has collected. | `["hidden_key", "case_journal"]` |
 | 4 | `cluesFound` | Object | Tracks which clues have already been discovered by the player. | `{ "plant_key": true }` |
-| 5 | `objectStates` | Object | Tracks permanent object changes in the scene, such as locked, opened, searched, visible, or collected states. | `{ "desk_drawer": { "locked": false, "opened": true } }` |
+| 5 | `objectStates` | Object | Tracks permanent object changes in shared progress, such as locked, opened, searched, visible, or collected states. | `{ "desk_drawer": { "locked": false, "opened": true } }` |
 | 6 | `unlockedNotebookPages` | Array | Stores notebook/tutorial pages the player has unlocked. | `["objects", "scope", "methods"]` |
-| 7 | `terminalHistory` | Array | Stores important terminal commands or messages that should remain in the terminal log. | `["self.search(plantPot);", "Success: You found a hidden key."]` |
-| 8 | `settings` | Object | Stores player settings, such as volume, muted status, text speed, and reduced motion. | `{ "volume": 1, "muted": false }` |
+| 7 | `terminalHistory` | Array | Stores terminal lines that should replay after reload. Each line has text and CSS class. | `[{ "text": "> scan(\"office\");", "cls": "cmd" }]` |
+| 8 | `settings` | Object | Stores player settings, such as volume and hard mode. | `{ "masterVolume": 80, "musicVolume": 60, "effectsVolume": 75, "hardMode": false }` |
 | 9 | `tutorialCompleted` | Boolean | Tracks whether the tutorial level has been completed. | `false` |
 | 10 | `levelProgress` | Object | Tracks which levels are unlocked and completed. This supports level selection and continue-game behavior. | `{ "level_001": { "unlocked": true, "completed": false } }` |
 
@@ -49,7 +51,35 @@ Use the same level ID everywhere when saving, loading, selecting levels, or resu
 | Level 4 | `level_004` |
 | Level 5 | `level_005` |
 
-If a level group chooses a different final ID, update the shared `LEVEL_IDS` object in `local_storage.js` and use that value everywhere.
+If a level group chooses a different final ID, update the shared `LEVEL_IDS` object in `local_storage.js`, update any matching ids in `LevelStorage`, and use that value everywhere.
+
+## Storage Layers
+
+The project currently has two local storage layers:
+
+- `local_storage.js` stores user settings and level-select/overall game progress in the shared `bunnysBacklogSave` array.
+- `src/engine/storage.js` stores the current level's resume state through the `LevelStorage` class and calls `markLevelComplete(levelId)` from `local_storage.js` when a saved level state is complete.
+
+The refactored game calls `LevelStorage`:
+
+- `load(levelId)` once when the level starts
+- `save(levelId, levelState)` after every player command
+- `clear(levelId)` when the player resets the level
+
+For `tutorial_morning_routine`, `LevelStorage` stores this state under `bunnysBacklog.level.tutorial_morning_routine`:
+
+```js
+{
+  phase: 1,
+  inventory: [],
+  unlocked: {},
+  errors: 0,
+  complete: false,
+  terminalHistory: []
+}
+```
+
+When `LevelStorage.save()` receives a state with `complete: true`, it calls `markLevelComplete(levelId)` from `local_storage.js` so level-select progress is updated in the shared array.
 
 ## Information Needed From Other Groups
 
@@ -79,4 +109,4 @@ Needed information:
 
 ## Notes
 
-If another teammate needs additional information saved, a new index can be added at the end of the array. Avoid changing the meaning of existing indexes unless the `saveVersion` is updated.
+If another teammate needs additional information saved to the shared game progress, a new index can be added at the end of the array. Avoid changing the meaning of existing indexes unless the `saveVersion` is updated.
