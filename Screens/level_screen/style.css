@@ -1,10 +1,10 @@
-/* --- CORE HITMAN AESTHETIC --- */
+/* --- CORE AESTHETIC --- */
 :root {
     --bg-dark: #94b17f;
     --bg-panel: #e5e2df;
     --text-main: #fff;
     --text-muted: #888;
-    --hitman-red: #7d4b2c;
+    --accent-brown: #7d4b2c;
     --border-color: #fffdfd;
     --font-family: 'Segoe UI', tahoma, geneva, verdana, sans-serif;
     
@@ -30,29 +30,27 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 40px;
+    padding: 2.5rem;
 }
 
 /* --- TOP HEADER (Logo) --- */
 .top-header {
     width: 100%;
-    height: 60px;
-    margin-bottom: 30px;
+    height: 3.75rem;
+    margin-bottom: 1.875rem;
     display: flex;
     align-items: flex-start;
 }
 
 .logo-placeholder {
-    width: 150px;
-    height: 50px;
-    background-color: #1a1a1d;
-    border: 2px dashed var(--border-color);
+    width: auto;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-muted);
+    color: var(--text-main);
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 0.125rem;
     text-transform: uppercase;
 }
 
@@ -60,26 +58,26 @@ body {
 .main-layout {
     display: flex;
     flex: 1;
-    gap: 30px;
+    gap: 1.875rem;
     overflow: hidden;
 }
 
 /* --- LEFT PANEL (Overview / Key) --- */
 .left-panel {
-    width: 350px;
+    width: 21.875rem;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
     flex-shrink: 0;
 }
 
 .levels-icon {
     background-color: var(--text-main);
     color: var(--bg-dark);
-    padding: 15px 20px;
+    padding: 0.9375rem 1.25rem;
     font-weight: 800;
     font-size: 1.2rem;
-    letter-spacing: 2px;
+    letter-spacing: 0.125rem;
     text-transform: uppercase;
 }
 
@@ -95,8 +93,8 @@ body {
 .summary-box h3 {
     color: black;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
+    letter-spacing: 0.0625rem;
+    margin-bottom: 0.9375rem;
     font-size: 1.3rem;
 }
 
@@ -104,21 +102,21 @@ body {
     color: #000;
     line-height: 1.6;
     font-size: 0.95rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     flex-grow: 1;
 }
 
 /* Deploy Button inside Synopsis */
 .action-button {
     display: inline-block;
-    background-color: var(--hitman-red);
+    background-color: var(--accent-brown);
     color: var(--text-main);
     text-decoration: none;
     text-align: center;
-    padding: 15px 20px;
+    padding: 0.9375rem 1.25rem;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 0.125rem;
     transition: background-color 0.2s ease, transform 0.1s ease;
     cursor: pointer;
 }
@@ -135,16 +133,16 @@ body {
 /* --- RIGHT PANEL (Cards Carousel) --- */
 .cards-carousel {
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
     overflow-x: auto;
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
     flex: 1;
     align-items: flex-start;
 }
 
 /* Custom Scrollbar for Carousel */
 .cards-carousel::-webkit-scrollbar {
-    height: 8px;
+    height: 0.5rem;
 }
 
 .cards-carousel::-webkit-scrollbar-track {
@@ -161,11 +159,11 @@ body {
 
 /* --- INDIVIDUAL CARDS --- */
 .card-container {
-    width: 320px; /* Made slightly wider */
+    width: 20rem; 
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Take up full available height */
+    height: 100%; 
 }
 
 .level-card {
@@ -173,18 +171,18 @@ body {
     
     /* Make cards much longer (taller) */
     height: 75vh;
-    min-height: 500px;
+    min-height: 31.25rem;
     display: flex;
     flex-direction: column;
     cursor: pointer;
     position: relative;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-top: 4px solid transparent;
+    border-top: 0.25rem solid transparent;
 }
 
 .level-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgb(0 0 0 / 50%);
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 0.625rem 1.25rem rgb(0 0 0 / 50%);
 }
 
 /* Adding the wireframe colors to the top border of each card using 5n pattern */
@@ -202,42 +200,54 @@ body {
 
 .card-image-placeholder {
     flex: 1;
-    background: linear-gradient(180deg, rgb(20 20 22 / 0%) 0%, rgb(20 20 22 / 100%) 100%);
     position: relative;
-   
+    background-size: cover;
+    background-position: center;
+}
+
+.card-image-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgb(20 20 22 / 0%) 0%, rgb(20 20 22 / 100%) 100%);
+    z-index: 1;
 }
 
 .status-dot {
-    width: 12px;
-    height: 12px;
-    background-color: var(--hitman-red);
+    width: 0.75rem;
+    height: 0.75rem;
+    background-color: red;
     border-radius: 50%;
     position: absolute;
-    top: 15px;
-    right: 15px;
-    box-shadow: 0 0 8px var(--hitman-red);
+    top: 0.9375rem;
+    right: 0.9375rem;
+    box-shadow: 0 0 0.5rem red;
+    z-index: 2;
 }
 
 .status-dot.completed {
-    background-color: white; /* Green */
-    box-shadow: none;
+    background-color: #7ed321; /* Green */
+    box-shadow: 0 0 0.5rem #7ed321;
 }
 
 .card-header {
     background-color: var(--text-main);
     color: var(--bg-dark);
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 700;
     font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.0625rem;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .level-card.active .card-header {
-    background-color: var(--hitman-red);
+    background-color: var(--accent-brown);
     color: var(--text-main);
 }
