@@ -52,6 +52,15 @@ body {
     font-weight: bold;
     letter-spacing: 0.125rem;
     text-transform: uppercase;
+    background-color: #777;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.logo-placeholder:hover {
+    background-color: #555;
 }
 
 /* --- MAIN CONTENT AREA --- */
