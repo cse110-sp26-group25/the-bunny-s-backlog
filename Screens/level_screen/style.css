@@ -130,6 +130,16 @@ body {
     transform: scale(0.98);
 }
 
+.action-button.disabled {
+    background-color: var(--border-color);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+.action-button.disabled:hover {
+    background-color: var(--border-color);
+}
+
 /* --- RIGHT PANEL (Cards Carousel) --- */
 .cards-carousel {
     display: flex;
@@ -231,6 +241,15 @@ body {
 .status-dot.completed {
     background-color: #7ed321; /* Green */
     box-shadow: 0 0 0.5rem #7ed321;
+}
+
+.status-dot.locked {
+    background-color: var(--text-muted);
+    box-shadow: none;
+}
+
+.level-card.locked {
+    opacity: 0.55;
 }
 
 .card-header {

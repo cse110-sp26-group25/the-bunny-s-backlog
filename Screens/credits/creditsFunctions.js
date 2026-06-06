@@ -237,7 +237,7 @@ const ControlsBar = (() => {
 
 
 function backToTitle() {
-    window.location.href = "/Screens/titleScreen/title.html";
+    window.location.href = "../titleScreen/title.html";
 }
 
 

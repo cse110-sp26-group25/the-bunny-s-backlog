@@ -223,3 +223,23 @@ Migrating local browser state persistence away from local storage to a remote cl
 git clone --recursive https://github.com/cse110-sp26-group25/the-bunny-s-backlog.git
 cd the-bunny-s-backlog
 ```
+
+## Local Preview
+
+After cloning the repository, install dependencies and start the local server:
+
+```bash
+npm install
+npm start
+```
+
+This runs the project using the local Node server defined in `scripts/serve.js`.
+
+## Testing and Linting
+
+Use the following commands to verify the project before pushing changes:
+
+```bash
+npm test
+npm run lint
+```
