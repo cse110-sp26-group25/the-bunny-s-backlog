@@ -1,0 +1,152 @@
+{
+  "id": "level_0_office",
+  "title": "Bunny's Office Welcome",
+  "speaker": "Guide",
+  "avatar": "🐰",
+  "scenes": {
+    "office": "levels/level0/office.jpg"
+  },
+  "global_hotspots": {
+    "plantPot": { "x": 10, "y": 45, "w": 15, "h": 20, "label": "Plant Pot" },
+    "lockedDrawer": { "x": 5, "y": 70, "w": 15, "h": 25, "label": "Locked Drawer" },
+    "bakerSheep": { "x": 65, "y": 40, "w": 20, "h": 50, "label": "Baker Sheep" }
+  },
+  "win": {
+    "title": "Office Explored!",
+    "subtitle": "Securing the Workspace Keys",
+    "nextToast": "Head down to the Bakery investigation!"
+  },
+  "completeDialogue": "Excellent warm-up, Rookie! You successfully manipulated system variables, overrode constants using mutable let initializations, and navigated console warnings safely.",
+  "completeHint": "The secret welcome gift has been retrieved from the drawer.",
+  "phases": [
+    {
+      "answer": "self.search(\"look around room\")",
+      "scene": "office",
+      "highlight": "lockedDrawer",
+      "active_hotspots": [
+        {
+          "id": "lockedDrawer",
+          "hover_text": "A sturdy wooden drawer secured with an encrypted biometric keypad.",
+          "hover_snippet": "const lockedDrawer = {\n  status: \"locked\"\n};"
+        },
+        {
+          "id": "plantPot",
+          "hover_text": "A potted fern sitting in the corner. The soil looks slightly disturbed.",
+          "hover_snippet": "// Check under or behind physical objects"
+        }
+      ],
+      "dialogue": "Thanks so much for helping me look after the office while I'm away, Rookie! ૮꒰˶ᵔ ᵕ ᵔ˶꒱α\nI actually left a little welcome gift for you! The bad news? I think I forgot to take it out of my super-secret locked drawer before I stepped out ૮꒰˶´ ꒳ `꒱α. But don't worry, the key is hidden somewhere in the room!\nI usually start all my mysteries by doing a quick self.search(\"room\") what objects in the room I can interact with.",
+      "hint": "self.search(\"look around room\")",
+      "output": "Looking around room I see a...\n\nFound: plantPot\n\nFound: lockedDrawer",
+      "result": "ok",
+      "notes": ["🌿 plantPot", "🗄️ lockedDrawer"],
+      "lesson": "Use self.search(\"room\") to list interactable targets inside a local physical boundary context.",
+      "hints": [
+        { "match": "self.search(\"room\")", "message": "Almost! Use the string variable format: self.search(\"look around room\")" }
+      ]
+    },
+    {
+      "answer": "self.search(\"under\", plantPot)",
+      "scene": "office",
+      "highlight": "plantPot",
+      "active_hotspots": [
+        {
+          "id": "plantPot",
+          "hover_text": "A potted fern sitting in the corner. The soil looks slightly disturbed.",
+          "hover_snippet": "self.search(\"under\", plantPot);"
+        }
+      ],
+      "dialogue": "Sometimes a basic search isn't enough—we need to be way more specific! We can give our actions extra details by separating them with a comma.\nFor example, if I wanted to look behind a chair, I would type: self.search(\"behind\", someChair).\nBut you have to be super careful! Our security system is incredibly sensitive... you could say it's case-sensitive ૮꒰ - ﻌ •꒱α! Capital letters and lowercase letters matter immensely. Also, the order matters! The direction word in quotes always comes first, and the object variable comes second.",
+      "hint": "self.search(\"under\", plantPot)",
+      "output": "Searching under the plantPot...\n\nSuccess! You found a brass key!",
+      "result": "ok",
+      "effects": {
+        "addItem": { "id": "key", "label": "🔑 key", "emoji": "🔑" }
+      },
+      "notes": ["🔑 key"],
+      "lesson": "Functions accept parameters separated by commas. String literals require quotes; object identifier variables do not.",
+      "hints": [
+        { "match": "self.search(\"under\", \"plantPot\")", "message": "SyntaxError: plantPot is an object variable reference, remove the quotes around it!" }
+      ]
+    },
+    {
+      "answer": "self.unlock(lockedDrawer, key)",
+      "scene": "office",
+      "highlight": "lockedDrawer",
+      "active_hotspots": [
+        {
+          "id": "lockedDrawer",
+          "hover_text": "The encrypted biometric keypad drawer. Ready for unlock attempts.",
+          "hover_snippet": "self.unlock(lockedDrawer, key);"
+        }
+      ],
+      "dialogue": "The drawer is locked tight. Try using your unlock routine: self.unlock(target, tool)",
+      "hint": "self.unlock(lockedDrawer, key)",
+      "output": "🔴 ERROR: TypeError: Assignment to constant variable.\n\nThis object is a CONSTANT and cannot be changed!",
+      "result": "warn",
+      "notes": [],
+      "lesson": "Constants declared with const lock value bindings. Reassignment parameters trigger a system runtime TypeError.",
+      "hints": []
+    },
+    {
+      "answer": "let lockedDrawer",
+      "scene": "office",
+      "highlight": "lockedDrawer",
+      "active_hotspots": [
+        {
+          "id": "lockedDrawer",
+          "hover_text": "Locked State. System indicates binding limits apply.",
+          "hover_snippet": "const lockedDrawer = {\n  status: \"locked\"\n};"
+        }
+      ],
+      "dialogue": "Oh no! I completely forgot to mention our office security mechanism! ૮꒰˶´ ꒳ `꒱α\nTo protect important office things from being tampered with, our security system sets them up using const. A variable made with const is totally unchangeable—meaning once it's set, its status stays that way forever! Look at your evidence page; that drawer's current state is locked down tight as a constant.\nIf we want a variable's status to actually change—like turning a drawer from locked to unlocked—we have to declare it using let. Using let 'lets' our system change its state!\nLet's override the drawer's permanent setting so we can unlock it. Type this line to let it change:",
+      "hint": "let lockedDrawer",
+      "output": "🟢 SUCCESS: lockedDrawer status can now be changed!",
+      "result": "ok",
+      "effects": {
+        "unlock": "lockedDrawerStatusMutable"
+      },
+      "notes": [],
+      "lesson": "Variables declared with let are mutable and allow system actions to alter their properties or reference frames dynamically.",
+      "hints": []
+    },
+    {
+      "answer": "self.unlock(lockedDrawer, key)",
+      "scene": "office",
+      "highlight": "lockedDrawer",
+      "active_hotspots": [
+        {
+          "id": "lockedDrawer",
+          "hover_text": "Mutable Let Scope Active. Ready to process key input.",
+          "hover_snippet": "let lockedDrawer = {\n  status: \"locked\"\n};"
+        }
+      ],
+      "dialogue": "Okay, the security sequence updated. The drawer isn't a permanent constant anymore. Let's try that unlock command one more time!",
+      "hint": "self.unlock(lockedDrawer, key)",
+      "output": "🟢 SUCCESS: Click! The lock turns. The drawer is open!",
+      "result": "ok",
+      "notes": ["🔓 openedDrawer"],
+      "lesson": "Altering variable constraints allows procedures to execute changes safely.",
+      "hints": []
+    },
+    {
+      "answer": "console.warn(\"I am just a lizard technician\")",
+      "scene": "office",
+      "highlight": "bakerSheep",
+      "active_hotspots": [
+        {
+          "id": "bakerSheep",
+          "hover_text": "A nervous-looking lizard maintenance worker sweeping up details.",
+          "hover_snippet": "console.warn(\"Message string\");"
+        }
+      ],
+      "dialogue": "If you ever need to print a big warning message directly to the console screen to tell someone something important, use console.warn(\"your message\")! ૮꒰˶ᵔ ᵕ ᵔ˶꒱α",
+      "hint": "console.warn(\"I am just a lizard technician\")",
+      "output": "⚠️ WARNING: I am just a lizard technician",
+      "result": "ok",
+      "notes": [],
+      "lesson": "console.warn() flags system runtime conditions visually inside output transcripts.",
+      "hints": []
+    }
+  ]
+}
