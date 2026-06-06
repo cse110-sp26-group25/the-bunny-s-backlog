@@ -12,8 +12,8 @@
   --border: #1e2530;
 
   /* Accent / brand */
-  --accent: rgb(137, 62, 0);
-  --accent-dim: rgb(137, 62, 0);
+  --accent: rgb(137 62 0);
+  --accent-dim: rgb(137 62 0);
 
   /* State colours */
   --red: #ff3a3a;
@@ -279,7 +279,7 @@ input[type="range"]:focus {
 .btn-primary {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 0 20px rgb(137, 62, 0);
+  box-shadow: 0 0 20px rgb(137 62 0);
 }
 
 .btn-primary:hover {
@@ -295,7 +295,7 @@ input[type="range"]:focus {
 .btn-backbutton {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 0 20px rgb(137, 62, 0);
+  box-shadow: 0 0 20px rgb(137 62 0);
   margin-top: 4vh;
 }
 
