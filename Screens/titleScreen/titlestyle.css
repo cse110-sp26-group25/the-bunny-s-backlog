@@ -27,26 +27,24 @@ p {
 }
 
 .main-title {
-  font-family: 'Fredoka One', 'Nunito', cursive; /* rounded, chunky font */
+  font-family: 'Fredoka One', Nunito, cursive; /* rounded, chunky font */
   font-size: 72px;
   font-weight: 900;
-  color: #FFFFFF;                /* white fill */
+  color: #FFF;                /* white fill */
   
   /* The key effect: layered text-shadow for thick brown outline */
   text-shadow:
-    3px  3px  0px #5C3317,
-   -3px  3px  0px #5C3317,
-    3px -3px  0px #5C3317,
-   -3px -3px  0px #5C3317,
-    5px  5px  0px #3B1F0A,      /* deeper drop shadow */
-    0px  3px  0px #5C3317,
-    3px  0px  0px #5C3317,
-   -3px  0px  0px #5C3317,
-    0px -3px  0px #5C3317;
-
+    3px  3px  0 #5C3317,
+   -3px  3px  0 #5C3317,
+    3px -3px  0 #5C3317,
+   -3px -3px  0 #5C3317,
+    5px  5px  0 #3B1F0A,      /* deeper drop shadow */
+    0px  3px  0 #5C3317,
+    3px  0px  0 #5C3317,
+   -3px  0px  0 #5C3317,
+    0 -3px  0 #5C3317;
   letter-spacing: 4px;
   text-transform: uppercase;
-
   top: 10%;
   text-align: center;
 }
@@ -58,7 +56,7 @@ p {
   top: 25%;
   width: 29.4vw;
   height: 30vh;
-  background-color: rgba(137, 62, 0, 0.8);
+  background-color: rgb(137, 62, 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -72,7 +70,7 @@ p {
   top: 60%;
   width: 29.4vw;
   height: 30vh;
-  background-color: rgba(137, 62, 0, 0.8);
+  background-color: rgb(137, 62, 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -86,7 +84,7 @@ p {
   top: 25%;
   width: 20.6vw;
   height: 15vh;
-  background-color: rgba(137, 62, 0, 0.8);
+  background-color: rgb(137, 62, 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -100,7 +98,7 @@ p {
   top: 50%;
   width: 20.6vw;
   height: 15vh;
-  background-color: rgba(137, 62, 0, 0.8);
+  background-color: rgb(137, 62, 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -114,7 +112,7 @@ p {
   top: 75%;
   width: 20.6vw;
   height: 15vh;
-  background-color: rgba(137, 62, 0, 0.8);
+  background-color: rgb(137, 62, 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
