@@ -1,0 +1,98 @@
+{
+  "id": "level_1_bakery",
+  "title": "The Mystery of the Crust & Crumb Bakery",
+  "speaker": "Guide",
+  "avatar": "🐰",
+  "scenes": {
+    "bakery": "levels/level1/bakery.jpg"
+  },
+  "global_hotspots": {
+    "displayCase": { "x": 20, "y": 50, "w": 40, "h": 30, "label": "Shattered Display Case" },
+    "bakerSheep": { "x": 65, "y": 40, "w": 20, "h": 50, "label": "Baker Sheep" }
+  },
+  "win": {
+    "title": "Bakery Cataloged!",
+    "subtitle": "The Case of the Scattered Pastries",
+    "nextToast": "Proceed to the Police Station Lineup!"
+  },
+  "completeDialogue": "Fantastic work, Rookie! You cataloged the bakery break-in elements using array loop iteration and specialized functional sorting comparators!",
+  "completeHint": "All pastry evidence parameters are accounted for and organized.",
+  "phases": [
+    {
+      "answer": "displayCase.forEach( dessert => { } )",
+      "scene": "bakery",
+      "highlight": "displayCase",
+      "active_hotspots": [
+        {
+          "id": "displayCase",
+          "hover_text": "An array container containing elements of shattered pastry proof.",
+          "hover_snippet": "const displayCase = [\n  { name: \"Croissant\" },\n  { name: \"Tart\" }\n];"
+        }
+      ],
+      "dialogue": "When you have a big group of items to look through, our security console stores them in an Array. Think of an array like a numbered list, where every item on the list is called an element!\nTo look at every single item on the list one by one without missing anything, we use a tool called .forEach(). It lets us grab each individual element and check it out in order.\nTry typing this command to start inspecting every dessert inside the display case array:\ndisplayCase.forEach( dessert => { } )",
+      "hint": "displayCase.forEach( dessert => { } )",
+      "output": "🟢 SUCCESS: Ready to inspect elements inside displayCase!",
+      "result": "ok",
+      "notes": [],
+      "lesson": "Arrays hold ordered listings. The array prototype method .forEach executes iterative operations on separate indices sequentially.",
+      "hints": []
+    },
+    {
+      "answer": "remainingDessertList.push(dessert.name);",
+      "scene": "bakery",
+      "highlight": "displayCase",
+      "active_hotspots": [
+        {
+          "id": "displayCase",
+          "hover_text": "Each internal item processed exposes an accessible .name property path.",
+          "hover_snippet": "displayCase.forEach(dessert => {\n  // push targets here\n});"
+        }
+      ],
+      "dialogue": "Great job! When examining an array of objects, we also need to consider what exactly we're checking for. To ensure I don't forget, I list specific actions I want to perform in a { } after the for-each. To prevent confusion, I use a ; to indicate the end of an action!\nBecause the elements of an array are numbered, it's not easy to go and add a new element in between two others. This would require re-numbering every element that comes after! That's why I usually use array.push(newElement).\nBy pushing the new element onto the end, I don't change the order of the elements already on the list, saving me a lot of effort! Let's grab the name field and add it to our list:",
+      "hint": "remainingDessertList.push(dessert.name);",
+      "output": "Scanning display case elements...\nAdded to list: \"Cinnamon Swirl\"\nAdded to list: \"Strawberry Tart\"\nAdded to list: \"Croissant\"\n🟢 SUCCESS: remainingDessertList updated!",
+      "result": "ok",
+      "notes": ["🌀 Cinnamon Swirl", "🍓 Strawberry Tart", "🥐 Croissant"],
+      "lesson": "array.push() dynamically appends structural properties onto the terminal index boundary of target sequences.",
+      "hints": []
+    },
+    {
+      "answer": "console.log(\"I've finished\");",
+      "scene": "bakery",
+      "highlight": "bakerSheep",
+      "active_hotspots": [
+        {
+          "id": "bakerSheep",
+          "hover_text": "Baker Sheep is awaiting your logged summary overview confirmation.",
+          "hover_snippet": "console.log(remainingDessertList);"
+        }
+      ],
+      "dialogue": "Show the finished list to Baker Sheep by telling the logging console you are done.",
+      "hint": "console.log(\"I've finished\");",
+      "output": "📋 CURRENT LIST: [ \"Cinnamon Swirl\", \"Strawberry Tart\", \"Croissant\" ]",
+      "result": "ok",
+      "notes": [],
+      "lesson": "console.log output parameters map raw variable structures directly out to system interface buffers.",
+      "hints": []
+    },
+    {
+      "answer": "remainingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
+      "scene": "bakery",
+      "highlight": "displayCase",
+      "active_hotspots": [
+        {
+          "id": "displayCase",
+          "hover_text": "The custom family callback rule structure evaluates element pairs.",
+          "hover_snippet": "list.sort((a, b) => a.customCheck(b));"
+        }
+      ],
+      "dialogue": "Oftentimes I need to organize evidence for my cases, but sometimes using .sort() to organize things alphabetically isn't enough or right for the task.\nIn cases like these, I need to define my own sorting function to determine the relation of each piece to each other. We compare two items at a time—let's call them dessert1 and dessert2.\nThen, when doing a sort, I can specify my own custom family sorting method like this:\nremainingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
+      "hint": "remainingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
+      "output": "Applying .sheepOrdering() rules...\n🟢 SUCCESS: remainingDessertList perfectly organized!",
+      "result": "ok",
+      "notes": ["🥐 Croissant", "🍓 Strawberry Tart", "🌀 Cinnamon Swirl"],
+      "lesson": "The high-order functional argument inside .sort() passes pairs through evaluating comparators to restructure array index rankings.",
+      "hints": []
+    }
+  ]
+}
