@@ -27,6 +27,7 @@
 
   "phases": [
     {
+      "comment": "NEW CONCEPTS: Introduces global functions and string arguments using double quotes. DIALOGUE: Chief Inspector Bunny sets the narrative premise and directly instructs the player to boot the console. ACTIONS: The UI text terminal accepts text input from the '#term-in' element and evaluates a literal match against the 'answer' key to unlock the next phase index.",
       "scene": "desk",
       "dialogue": "Welcome to the agency, Rookie! I'm Chief Inspector Bunny. Don't let the long ears fool you—I've cracked cases from here to the Carrot District. Before we can dive into the backlogs, we need to make sure your Detective Terminal can interface with the environment. In JavaScript, we make the system talk using console.log. Give it a spin by logging a simple hello string!",
       "answer": "console.log(\"hello\");",
@@ -47,6 +48,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Introduces custom game-world function utilities (scan). DIALOGUE: Bunny prompts a sweeping scan of the environment to locate missing evidence. ACTIONS: Execution triggers an internal state change, populating the underlying game map with 3 separate interactive canvas hitboxes.",
       "scene": "desk",
       "dialogue": "Perfect, our terminal is synced up! Now, I have a bit of an embarrassing problem… I lost my main investigation journal somewhere in this messy office. Let's use the terminal to run a radar sweep of the environment. To use an agency command tool, you type its name, followed by your targeted destination enclosed in string quotes.",
       "answer": "scan(\"office\");",
@@ -67,6 +69,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Reusing an abstract function by swapping out string parameters to target localized environmental objects. DIALOGUE: Bunny explicitly vectors the player's attention away from the global room down to the workstation desk asset. ACTIONS: Modifies viewport canvas layer flags, exposing hidden sub-items (coffee_mug, open_book, clipboard) to inspect text query parameters.",
       "scene": "desk",
       "dialogue": "Great work! The terminal radar detected my primary desk, a decorative potted plant, and some wooden filing drawers. I almost always leave my journal right on my workspace. Let's redirect our inspection tool to scope out the desk area.",
       "answer": "inspect(\"desk\");",
@@ -87,6 +90,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Introduces Object-Oriented JavaScript patterns via dot-notation methods (object.method(\"arg\")). DIALOGUE: Bunny breaks down objects vs actions and tasks the player with checking the book. ACTIONS: Purposely routes the user through a non-winning exploratory branch to teach them that code can compile successfully but still not solve the mystery.",
       "scene": "desk",
       "dialogue": "Hmm, no journal in plain sight. But look! The scanner found a coffee_mug, an open_book, and an agency clipboard. In code, items are treated as 'objects', and we can make them perform specific actions by connecting them with a dot. Let's execute a read action on that book to see if it's my journal.",
       "answer": "desk.read(\"open_book\");",
@@ -107,6 +111,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Reinforces dot-notation syntax structures on alternative object parameters. DIALOGUE: Bunny provides supportive, non-punitive feedback regarding the dictionary dead-end, encouraging real-world debugging workflows. ACTIONS: Exposes major world narrative clues via terminal print statements, telling the system that the drawer requires an external unlock condition.",
       "scene": "desk",
       "dialogue": "Ah, just my old dictionary. False alarm! But don't get discouraged, Rookie—investigating means crossing off wrong leads! Let's pivot and read the clipboard instead. Don't forget to use that dot notation structure to point to it.",
       "answer": "desk.read(\"clipboard\");",
@@ -127,6 +132,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Navigating cross-scene dependencies by applying previously learned abstract tools to newly discovered zones. DIALOGUE: Bunny deciphered the clipboard's cryptic note ('foliage') and visually coordinates the player over to the plant scene asset. ACTIONS: Swaps the active renderer backdrop to 'assets/key.jpg' and maps active user click hooks directly onto the plant asset.",
       "scene": "plant",
       "dialogue": "Aha! The note says I locked my journal in the drawers and hid the key inside the 'foliage'... that has to mean the potted plant over in the corner! Run your standard inspect function again, but adjust your target argument to search the plant.",
       "answer": "inspect(\"plant\");",
@@ -147,6 +153,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Introduces the concept of 'self' execution contexts to symbolize player entities as running code blocks. DIALOGUE: Bunny defines 'self' keywords and walks through inventory acquisition methods. ACTIONS: Mutates user data logs by executing the 'addItem' engine effect, appending the Silver Key object property into the sidebar inventory rendering template.",
       "scene": "plant",
       "dialogue": "Boom! There it is—a silver key! Now, in this terminal system, *you* are an object too, and your system identity is self. To pick up evidence and add it to your active inventory, you need to command yourself to take it.",
       "answer": "self.take(\"key\");",
@@ -168,6 +175,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Evaluates empty execution arguments (method blocks that process without text parameter requirements). DIALOGUE: Bunny switches the location context to the secure document drawers and requests an unparameterized open call. ACTIONS: Intentionally intercepts execution to return a simulated 'ScopeError', teaching the user how system states block chronologically invalid commands.",
       "scene": "drawers",
       "dialogue": "Key acquired! Now, the clipboard note explicitly verified that the journal is stashed away inside the filing drawers. Let's move our focus over there and execute an open command. Some actions don't require any inputs inside the parentheses!",
       "answer": "drawers.open();",
@@ -188,6 +196,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Passing dynamic variable strings found in inventory items to toggle system logical parameters. DIALOGUE: Bunny breaks down the error log gracefully and highlights the exact logical sequence required. ACTIONS: Modifies the internal engine scene graph parameters via the 'unlock' effect, updating 'drawers.isLocked' to evaluate to false.",
       "scene": "drawers",
       "dialogue": "Whoops! Did you catch that system Error text? Code works on pure, unyielding logic—we can't pull open a locked drawer container without unlocking it first! Let's pass our silver key string into the drawers' unlock action method.",
       "answer": "drawers.unlock(\"key\");",
@@ -209,6 +218,7 @@
       ]
     },
     {
+      "comment": "NEW CONCEPTS: Resolving state-dependent method invocations after clearing underlying conditions. DIALOGUE: Bunny celebrates the successful unlock sequence sound cue and cheers the player onto the final execution step. ACTIONS: Detects puzzle resolution criteria, breaks out of the phase tracking array loop, and triggers the overlay level-completion menu modal banner.",
       "scene": "drawers",
       "dialogue": "Beautiful! There's that satisfying click. The security latch is completely disengaged. Now that the lock condition evaluates to false, run that exact same open command from earlier with the empty parentheses!",
       "answer": "drawers.open();",
