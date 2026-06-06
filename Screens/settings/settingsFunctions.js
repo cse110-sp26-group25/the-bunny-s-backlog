@@ -45,6 +45,7 @@ function applySettings(settings) {
 
   toggle.checked = savedSettings.hardMode;
   updateToggle(toggle);
+  applyGlobalSettings(document, savedSettings);
 }
 
 function loadSavedSettings() {
@@ -52,7 +53,9 @@ function loadSavedSettings() {
 }
 
 function persistSettings() {
-  saveSettingsData(getCurrentSettings());
+  const settings = getCurrentSettings();
+  saveSettingsData(settings);
+  applyGlobalSettings(document, settings);
 }
 
 function updateSlider(name, value) {

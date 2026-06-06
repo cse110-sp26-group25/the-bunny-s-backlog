@@ -154,6 +154,66 @@ function saveSettingsData(settings) {
 }
 
 /**
+ * Converts a volume setting from 0-100 into the browser media volume range.
+ *
+ * @param {number} value
+ * @returns {number}
+ */
+function volumePercentToScale(value) {
+  const numberValue = Number(value);
+  if (!Number.isFinite(numberValue)) {
+    return 0;
+  }
+
+  return Math.min(1, Math.max(0, numberValue / 100));
+}
+
+/**
+ * Applies saved settings to the current page. Any screen that loads
+ * local_storage.js gets the same hard-mode state and media volume behavior.
+ *
+ * Audio/video elements can set `data-volume-type="music"` or
+ * `data-volume-type="effects"`; otherwise they use master volume only.
+ *
+ * @param {Document} [doc]
+ * @param {object} [settings]
+ */
+function applyGlobalSettings(doc, settings) {
+  if (typeof document === "undefined" && !doc) {
+    return;
+  }
+
+  const page = doc || document;
+  const savedSettings = Object.assign(createDefaultSettings(), settings || loadSettings());
+  const masterVolume = volumePercentToScale(savedSettings.masterVolume);
+  const musicVolume = masterVolume * volumePercentToScale(savedSettings.musicVolume);
+  const effectsVolume = masterVolume * volumePercentToScale(savedSettings.effectsVolume);
+
+  page.documentElement.style.setProperty("--master-volume", String(masterVolume));
+  page.documentElement.style.setProperty("--music-volume", String(musicVolume));
+  page.documentElement.style.setProperty("--effects-volume", String(effectsVolume));
+  page.documentElement.dataset.hardMode = savedSettings.hardMode ? "true" : "false";
+
+  if (page.body) {
+    page.body.classList.toggle("hard-mode", Boolean(savedSettings.hardMode));
+  }
+
+  page.querySelectorAll("audio, video").forEach((mediaElement) => {
+    const volumeType = mediaElement.dataset.volumeType;
+    let volume = masterVolume;
+
+    if (volumeType === "music") {
+      volume = musicVolume;
+    } else if (volumeType === "effects") {
+      volume = effectsVolume;
+    }
+
+    mediaElement.volume = volume;
+    mediaElement.muted = volume === 0;
+  });
+}
+
+/**
  * Loads level-select progress from index 10, filling missing levels with
  * defaults.
  *
@@ -290,6 +350,8 @@ if (typeof module !== "undefined") {
     loadSafeGame,
     loadSettings,
     saveSettingsData,
+    volumePercentToScale,
+    applyGlobalSettings,
     loadLevelProgress,
     saveLevelProgress,
     saveCurrentLevel,
@@ -300,4 +362,14 @@ if (typeof module !== "undefined") {
     isLevelComplete,
     getNextLevelId
   };
+}
+
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      applyGlobalSettings();
+    });
+  } else {
+    applyGlobalSettings();
+  }
 }

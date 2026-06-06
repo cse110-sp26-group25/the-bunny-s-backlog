@@ -1,35 +1,51 @@
 const levels = [
     {
-        id: "tutorial",
-        title: "Tutorial",
-        synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal.",
-        completed: true
+        saveId: 'tutorial_morning_routine',
+        folder: 'tutorial',
+        title: 'Tutorial',
+        synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal."
     },
     {
-        id: "level1",
-        title: "Level 1",
-        synopsis: "The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.",
-        completed: false
+        saveId: 'level_001',
+        folder: 'level1',
+        title: 'Level 1',
+        synopsis: 'The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.'
     },
     {
-        id: "level2",
-        title: "Level 2",
-        synopsis: "The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.",
-        completed: false
+        saveId: 'level_002',
+        folder: 'level2',
+        title: 'Level 2',
+        synopsis: 'The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.'
     }
 ];
 
+function getLevelState(level) {
+    const unlocked = typeof isLevelUnlocked === 'function'
+        ? isLevelUnlocked(level.saveId)
+        : level.folder === 'tutorial';
+    const completed = typeof isLevelComplete === 'function'
+        ? isLevelComplete(level.saveId)
+        : false;
+
+    return {
+        unlocked,
+        completed
+    };
+}
+
 function initLevels() {
     const carousel = document.getElementById('cards-carousel');
-    carousel.innerHTML = ''; // Clear existing content
+    carousel.innerHTML = '';
 
     levels.forEach((level, index) => {
-        const isCompleted = level.completed ? 'completed' : '';
+        const state = getLevelState(level);
+        const statusClass = state.completed ? 'completed' : state.unlocked ? '' : 'locked';
+        const cardClass = state.unlocked ? '' : 'locked';
         const cardHTML = `
             <div class="card-container">
-                <div class="level-card" onclick="selectCard(${index})" id="card-${index}">
+                <div class="level-card ${cardClass}" onclick="selectCard(${index})" id="card-${index}">
                     <div class="card-image-placeholder">
-                        <div class="status-dot ${isCompleted}"></div>
+                        <div class="status-dot ${statusClass}"></div>
                     </div>
                     <div class="card-header">
                         <span>${level.title}</span>
@@ -46,27 +62,35 @@ function initLevels() {
 }
 
 function selectCard(index) {
-    // Remove active class from all cards
-    document.querySelectorAll('.level-card').forEach(card => card.classList.remove('active'));
-    
-    // Add active class to the clicked card
+    document.querySelectorAll('.level-card').forEach((card) => card.classList.remove('active'));
+
     const cardElement = document.getElementById(`card-${index}`);
     if (cardElement) {
         cardElement.classList.add('active');
     }
 
     const level = levels[index];
-
-    // Find the overview box
+    const state = getLevelState(level);
     const overviewBox = document.getElementById('overview-box');
+    const statusText = state.completed ? 'Completed' : state.unlocked ? 'Unlocked' : 'Locked';
+    let actionHTML = '<button class="action-button disabled" type="button" disabled>Locked</button>';
 
-    // Inject the new HTML into the overview box, including the button
+    if (state.unlocked) {
+        actionHTML = `<a href="../../src/game.html?level=${level.folder}" class="action-button" onclick="saveSelectedLevel('${level.saveId}')">Play</a>`;
+    }
+
     overviewBox.innerHTML = `
         <h3>${level.title}</h3>
+        <p><strong>Status:</strong> ${statusText}</p>
         <p>${level.synopsis}</p>
-        <a href="../../src/game.html?level=${level.id}" class="action-button">Play</a>
+        ${actionHTML}
     `;
 }
 
-// Initialize the screen when the page loads
+function saveSelectedLevel(levelId) {
+    if (typeof saveCurrentLevel === 'function') {
+        saveCurrentLevel(levelId);
+    }
+}
+
 window.onload = initLevels;
