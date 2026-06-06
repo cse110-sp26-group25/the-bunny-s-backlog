@@ -12,8 +12,8 @@
   --border: #1e2530;
 
   /* Accent / brand */
-  --accent: #09b600;
-  --accent-dim: #078c00;
+  --accent: rgba(137, 62, 0, 0.8);
+  --accent-dim: rgba(137, 62, 0, 0.8);
 
   /* State colours */
   --red: #ff3a3a;
@@ -29,6 +29,7 @@ body {
   background: var(--bg);
   font-family: Rajdhani, sans-serif;
   overflow: hidden;
+  background-color: #B5BAB6
 }
 
 /* SETTINGS PANEL */
@@ -278,7 +279,7 @@ input[type="range"]:focus {
 .btn-primary {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 0 20px rgb(42 127 255 / 30%);
+  box-shadow: 0 0 20px rgba(137, 62, 0, 0.8);
 }
 
 .btn-primary:hover {
@@ -294,7 +295,7 @@ input[type="range"]:focus {
 .btn-backbutton {
   background: var(--accent);
   color: #fff;
-  box-shadow: 0 0 20px rgb(42 127 255 / 30%);
+  box-shadow: 0 0 20px rgba(137, 62, 0, 0.8);
   margin-top: 4vh;
 }
 
