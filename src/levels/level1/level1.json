@@ -1,59 +1,108 @@
 {
+  "__comment_metadata": "=== LEVEL IDENTITY & DIALOGUE DEFAULTS ===",
+  "id": "level1",
   "level_id": "level1",
-  "title": "The Crust & Crumb Bakery",
-  "default_speaker": "Inspector Bunny",
-  "default_avatar": "🐰",
+  "title": "The Shattered Display Case",
+  "default_speaker": "Baker Sheep",
+  "default_avatar": "👨‍🍳",
+
+  "__comment_scenes": "=== SCENE ASSETS ===",
+  "scenes": {
+    "bakery_destroyed": "assets/bakery_shattered_case.jpg",
+    "bakery_sorted": "assets/bakery_organized_case.jpg"
+  },
+
+  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
   "global_hotspots": {
-    "displayCase": { "x": "20", "y": "50", "w": "40", "h": "30" },
-    "bakerSheep": { "x": "65", "y": "40", "w": "20", "h": "50" }
+    "displayCase": { 
+      "x": "10", "y": "45", "w": "55", "h": "40",
+      "hover_text": "The shattered glass displayCase. Overturned trays and cake crumbs are scattered everywhere."
+    },
+    "bat_witness": {
+      "x": "70", "y": "30", "w": "20", "h": "65",
+      "hover_text": "A nocturnal neighbor flapping near the window frame, looking wide-eyed at the damage."
+    }
   },
+
+  "__comment_win_state": "=== WIN BANNER FORMATTING ===",
   "win": {
-    "title": "Bakery Cataloged!",
-    "subtitle": "The Case of the Scattered Pastries",
-    "nextToast": "Proceed to the Police Station Lineup!"
+    "title": "Suspect Leads Cataloged!",
+    "subtitle": "The Witness Report",
+    "nextToast": "🦇 Accompanying Bat to the Precinct!"
   },
-  "completeDialogue": "Fantastic work, Rookie! You cataloged the bakery break-in elements using array loop iteration and specialized functional sorting comparators!",
-  "completeHint": "All pastry evidence parameters are accounted for and organized.",
+  "completeDialogue": "The Baker Sheep carefully folds your sorted checklist. 'Brilliant. Take this directly down to the police station. Go with Bat—he can help you pick out the matching suspect from the lineup!'",
+  "completeHint": "Head to the city police office.",
+
   "phases": [
     {
-      "scene": "bakery",
-      "dialogue": "When you have a big group of items to look through, our security console stores them in an Array. Think of an array like a numbered list, where every item on the list is called an element! To look at every single item on the list one by one without missing anything, we use a tool called .forEach(). It lets us grab each individual element and check it out in order. Try typing this command to start inspecting every dessert inside the display case array.",
-      "answer": "displayCase.forEach( dessert => { } )",
+      "comment": "ACTION 1: Introduce Array structures and forEach looping patterns.",
+      "scene": "bakery_destroyed",
+      "active_hotspots": ["displayCase"],
+      "speaker": "Baker Sheep",
+      "avatar": "👨‍🍳",
+      "dialogue": "See, look at the state of my Bakery! The thief completely destroyed my perfectly organized displayCase. I have no idea what they took! Could you make me a remainingDessert list of what's still left, while I try to clean up all this glass? It might give the police a clue to whoever did this.",
+      "answer": "displayCase.forEach(dessert => {",
       "result": "ok",
-      "output": "🟢 SUCCESS: Ready to inspect elements inside displayCase!",
-      "lesson": "Arrays hold ordered listings. The array prototype method .forEach executes iterative operations on separate indices sequentially.",
-      "notes": [
-        "Shattered display case holds dynamic items."
+      "output": "Loop structure initialized...\n→ Entering block loop mode.\n→ Iterating across displayCase elements...",
+      "lesson": "An array is an ordered list of items, where each individual item is called an element. To look at every element inside an array in order, we use a loop block: arrayName.forEach(element => { ... }). We use the opening curly brace '{' to mark the starting line of actions we want to perform on every single element.",
+      "lizard_notes": [
+        "ARRAY IDENTIFIED: displayCase (Contains scattered items)",
+        "CURRENT ELEMENT POINTER: dessert"
       ],
-      "hint": "displayCase.forEach( dessert => { } )",
-      "active_hotspots": [
-        {
-          "id": "displayCase",
-          "hover_text": "An array container containing elements of shattered pastry proof.",
-          "hover_snippet": "const displayCase = [\n  { name: \"Croissant\" },\n  { name: \"Tart\" }\n];"
-        }
-      ]
+      "hint": "displayCase.forEach(dessert => {"
     },
     {
-      "scene": "bakery",
-      "dialogue": "Great job! When examining an array of objects, we also need to consider what exactly we're checking for. To ensure I don't forget, I list specific actions I want to perform in a { } after the for-each. To prevent confusion, I use a ; to indicate the end of an action! Because the elements of an array are numbered, it's not easy to go and add a new element in between two others. This would require re-numbering every element that comes after! That's why I usually use array.push(newElement). By pushing the new element onto the end, I don't change the order of the elements already on the list, saving me a lot of effort! Let's grab the name field and add it to our list.",
-      "answer": "remainingDessertList.push(dessert.name);",
+      "comment": "ACTION 2: Accessing object properties inside code blocks using dot notation and array.push().",
+      "scene": "bakery_destroyed",
+      "active_hotspots": ["displayCase"],
+      "speaker": "Bunny's Notebook",
+      "avatar": "📓",
+      "dialogue": "When examining an array of objects, you need to target exactly what properties you're checking for. Because array lists are numbered, inserting elements in the middle forces the computer to re-number everything else—costing lots of effort! That's why I usually append elements to the end using **array.push(newElement);** inside my looping brackets! Remember to close your action line with a **;** and seal the loop block with a **}**!",
+      "answer": "missingDessertList.push(dessert.name); });",
       "result": "ok",
-      "output": "Scanning display case elements...\nAdded to list: \"Cinnamon Swirl\"\nAdded to list: \"Strawberry Tart\"\nAdded to list: \"Croissant\"\n🟢 SUCCESS: remainingDessertList updated!",
-      "lesson": "array.push() dynamically appends structural properties onto the terminal index boundary of target sequences.",
-      "notes": [
-        "🌀 Cinnamon Swirl discovered",
-        "🍓 Strawberry Tart discovered",
-        "🥐 Croissant discovered"
+      "output": "Cataloging sequence execution complete!\n→ Name attributes extracted successfully.\n→ missingDessertList populated with unorganized entries.",
+      "lesson": "To access specific details belonging to an object, attach a dot followed by the property name (like dessert.name). The push() action appends that specific string straight onto the end of your missingDessertList array container.",
+      "lizard_notes": [
+        "ARRAY CONTEXT: displayCase processing finished.",
+        "UNSORTED LIST: missingDessertList contains items, but the ordering is chaotic."
       ],
-      "hint": "remainingDessertList.push(dessert.name);",
-      "active_hotspots": [
-        {
-          "id": "displayCase",
-          "hover_text": "Each internal item processed exposes an accessible .name property path.",
-          "hover_snippet": "displayCase.forEach(dessert => {\n  // push targets here\n});"
-        }
-      ]
+      "hint": "missingDessertList.push(dessert.name); });"
+    },
+    {
+      "comment": "ACTION 3: Advanced custom sorting callback method utilizing custom comparative objects.",
+      "scene": "bakery_destroyed",
+      "active_hotspots": ["displayCase"],
+      "speaker": "Baker Sheep",
+      "avatar": "👨‍🍳",
+      "dialogue": "Wow. This list is a mess. A complete disaster. The messy display case has resulted in a completely disorganized mess. This is not helpful at all. Here, just this once, I'll give you access to our super secret family sorting method **.sheepOrdering()**. Please use it to reorder this missingDessertList so it's easier to read!",
+      "answer": "missingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
+      "result": "ok",
+      "output": "Running family sorting parameters...\n→ Reordering items alphabetically and weight-matching...\n→ missingDessertList is now perfectly organized! ✓",
+      "lesson": "Oftentimes using a basic .sort() to organize things alphabetically isn't enough or right for the task. In cases like these, you can define custom sorting rules inside the parentheses by passing two items at once to check their relationship against each other: list.sort((a, b) => a.customMethod(b));",
+      "lizard_notes": [
+        "LIST STATUS: missingDessertList [ORDERED]",
+        "MATCHING METADATA: Discrepancies point toward heavy sugar-crust consumption patterns."
+      ],
+      "hint": "missingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
+      "effects": { "changeBackground": "bakery_sorted" }
+    },
+    {
+      "comment": "TRANSITION CUTSCENE: Bat witness arrives to deliver clues and point toward the police precinct.",
+      "scene": "bakery_sorted",
+      "active_hotspots": ["bat_witness"],
+      "speaker": "Bat Witness",
+      "avatar": "🦇",
+      "dialogue": "Oh no, did someone break in?! I guess that is what all that crashing noise was last night... I couldn't see them very clearly from my roost. But I definitely saw that they had round ears, they were quite small, and... Oh! They squeaked!",
+      "answer": "console.log(\"Suspect profile updated\");",
+      "result": "ok",
+      "output": "LOG: Suspect profile updated\n→ Clues logged: [Round Ears, Small Stature, Squeaks]",
+      "lesson": "Recording observations into your logs using console.log stores crucial string evidence safely before moving environments.",
+      "lizard_notes": [
+        "WITNESS CLUE 1: Round Ears",
+        "WITNESS CLUE 2: Small Stature / Height Profile",
+        "WITNESS CLUE 3: Sound profile matches squeaking noises"
+      ],
+      "hint": "console.log(\"Suspect profile updated\");"
     }
   ]
 }
