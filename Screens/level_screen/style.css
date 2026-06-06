@@ -1,17 +1,17 @@
 /* --- CORE HITMAN AESTHETIC --- */
 :root {
-    --bg-dark: #0a0a0c;
-    --bg-panel: #141416;
+    --bg-dark: #94b17f;
+    --bg-panel: #e5e2df;
     --text-main: #fff;
     --text-muted: #888;
-    --hitman-red: #da0019;
-    --border-color: #333;
+    --hitman-red: #7d4b2c;
+    --border-color: #fffdfd;
     --font-family: 'Segoe UI', tahoma, geneva, verdana, sans-serif;
     
     /* Wireframe Card Accents */
-    --card-1: #da0019; /* Red */
-    --card-2: #4a90e2; /* Blue */
-    --card-3: #50e3c2; /* Cyan */
+    --card-1: #7d4b2c; /* Red */
+    --card-2: #7d4b2c; /* Blue */
+    --card-3: #7d4b2c; /* Cyan */
     --card-4: #7ed321; /* Green */
     --card-5: #bd10e0; /* Pink */
 }
@@ -84,7 +84,7 @@ body {
 }
 
 .summary-box {
-    background-color: var(--bg-panel);
+    background-color: #C6AB8B;
     border: 1px solid var(--border-color);
     padding: 25px;
     flex: 1;
@@ -93,7 +93,7 @@ body {
 }
 
 .summary-box h3 {
-    color: var(--hitman-red);
+    color: black;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 15px;
@@ -101,7 +101,7 @@ body {
 }
 
 .summary-box p {
-    color: #b0b0b0;
+    color: #000000;
     line-height: 1.6;
     font-size: 0.95rem;
     margin-bottom: 20px;
@@ -124,7 +124,8 @@ body {
 }
 
 .action-button:hover {
-    background-color: #f02;
+    background-color: white;
+    color: black;
 }
 
 .action-button:active {
@@ -169,7 +170,6 @@ body {
 
 .level-card {
     background-color: var(--bg-panel);
-
     /* Make cards much longer (taller) */
     height: 75vh;
     min-height: 500px;
@@ -190,13 +190,19 @@ body {
 .card-container:nth-child(5n+1) .level-card { border-top-color: var(--card-1); }
 .card-container:nth-child(5n+2) .level-card { border-top-color: var(--card-2); }
 .card-container:nth-child(5n+3) .level-card { border-top-color: var(--card-3); }
-.card-container:nth-child(5n+4) .level-card { border-top-color: var(--card-4); }
-.card-container:nth-child(5n) .level-card { border-top-color: var(--card-5); }
+/* .card-container:nth-child(5n+4) .level-card { border-top-color: var(--card-4); }
+.card-container:nth-child(5n) .level-card { border-top-color: var(--card-5); } */
+
+/* .card-container:nth-child(5n+1) .level-card { background-image: url('/the-bunny-s-backlog/Graphics/Background_Animation/PNG/LevelSelection/0.1.png'); }
+.card-container:nth-child(5n+2) .level-card { background-image: url('/the-bunny-s-backlog/Graphics/Background_Animation/PNG/LevelSelection/1.2.png'); }
+.card-container:nth-child(5n+3) .level-card { background-image: url('/the-bunny-s-backlog/Graphics/Background_Animation/PNG/LevelSelection/2.1.png'); } */
+
 
 .card-image-placeholder {
     flex: 1;
     background: linear-gradient(180deg, rgb(20 20 22 / 0%) 0%, rgb(20 20 22 / 100%) 100%);
     position: relative;
+   
 }
 
 .status-dot {
@@ -211,8 +217,8 @@ body {
 }
 
 .status-dot.completed {
-    background-color: var(--card-4); /* Green */
-    box-shadow: 0 0 8px var(--card-4);
+    background-color: white; /* Green */
+    box-shadow: brown;
 }
 
 .card-header {

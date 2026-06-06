@@ -2,19 +2,19 @@ const levels = [
     {
         id: "tutorial",
         title: "Tutorial",
-        synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal.",
+        synopsis: "The Office: Welcome to the agency! Let's get your terminal online and read the Bunny's journal. Look around the room and find hidden items with simple code!",
         completed: true
     },
     {
         id: "level1",
         title: "Level 1",
-        synopsis: "The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.",
+        synopsis: "The Crust & Crumb Bakery: A thief has struck! Catalog and sort the remaining pastries to find clues and give a hoof to our Sheep Baker friend.",
         completed: false
     },
     {
         id: "level2",
         title: "Level 2",
-        synopsis: "The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.",
+        synopsis: "The Police Station: Theres a witness! Listen the wittness statements and cross-reference suspects to try-catch the culprit.",
         completed: false
     }
 ];
