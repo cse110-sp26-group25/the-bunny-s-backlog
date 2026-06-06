@@ -95,7 +95,7 @@
     {
       "comment": "TRANSITION CUTSCENE: Baker character assumes the speaker track.",
       "scene": "office_drawer_open",
-      "active_hotspots": ["baker_sheep"],
+      "active_hotspots": [], 
       "speaker": "Baker Sheep",
       "avatar": "👨‍🍳",
       "dialogue": "Help! Help! 🥖 Someone broke into my bakery! Detective, please, everything is in total ruins and I absolutely need your expert assistance right away!",
@@ -109,5 +109,6 @@
       ],
       "hint": "console.warn(\"I am not a detective\");"
     }
+    
   ]
 }
