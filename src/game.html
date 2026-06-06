@@ -14,14 +14,11 @@
     <link rel="stylesheet" href="styles/player.css" />
   </head>
   <body>
-    <!-- Generic player shell. All level content is injected from level.json;
-         load it with ?level=<folder> (defaults to "tutorial"). -->
     <div id="app">
       <main class="lp">
         <section id="scene-vp" aria-label="Investigation scene">
           <div id="scene-bg" aria-hidden="true"></div>
           <div id="scene-vig" aria-hidden="true"></div>
-          <!-- Hotspots are injected here by ui.js from level.hotspots. -->
           <div id="hud">
             <p id="phase-badge">
               PHASE <span id="ph-num">1</span> / <span id="ph-total">10</span>
@@ -158,6 +155,9 @@
       </div>
     </div>
     <div id="toast" role="status" aria-live="polite"></div>
+
+    <audio id="bgm-player" loop preload="auto"></audio>
+
     <script src="../local_storage.js"></script>
     <script src="engine/storage.js"></script>
     <script src="components/hotspot.js"></script>
@@ -166,5 +166,45 @@
     <script src="engine/ui.js"></script>
     <script src="engine/player.js"></script>
     <script src="main.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const audioPlayer = document.getElementById("bgm-player");
+
+        // 1. Get the current level from the URL parameter (?level=folder_name)
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentLevel = urlParams.get("level") || "tutorial";
+
+        // 2. Map URL level parameters to your audio file locations
+        // Replace 'tutorial', 'level1', and 'level2' with your actual folder names if different
+        const bgmMapping = {
+          "tutorial": "Lv0BGM.mp3",
+          "level1": "Lv1BGM.mp3",
+          "level2": "Lv2BGM.mp3"
+        };
+
+        // Select track or fallback to Lv0BGM if not found
+        const trackSrc = bgmMapping[currentLevel] || "Lv0BGM.mp3";
+        audioPlayer.src = trackSrc;
+        audioPlayer.volume = 0.4; // Set background music volume to 40%
+
+        // 3. Play audio after browser restrictions clear via user interaction
+        const startAudio = () => {
+          audioPlayer.play()
+            .then(() => {
+              // Remove event listeners once music successfully plays
+              document.removeEventListener("click", startAudio);
+              document.removeEventListener("keydown", startAudio);
+            })
+            .catch(error => {
+              console.log("Playback blocked by browser settings. Waiting for user interaction.", error);
+            });
+        };
+
+        // Listen for the first click or keypress on the page to start music
+        document.addEventListener("click", startAudio);
+        document.addEventListener("keydown", startAudio);
+      });
+    </script>
   </body>
 </html>

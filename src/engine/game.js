@@ -20,7 +20,7 @@ class Game {
    * Builds a blank progress state for a brand-new playthrough.
    *
    * @returns {{phase:number, inventory:string[], unlocked:object, errors:number,
-   *            complete:boolean, terminalHistory:string[]}}
+   * complete:boolean, terminalHistory:string[]}}
    */
   static defaultState() {
     return {
@@ -104,7 +104,7 @@ class Game {
    *
    * @param {string} rawInput
    * @returns {{status:('complete'|'empty'|'unknownPhase'|'correct'|'incorrect'),
-   *            command:string, phaseDef:?object}}
+   * command:string, phaseDef:?object}}
    */
   validate(rawInput) {
     const command = (rawInput || "").trim();
@@ -130,9 +130,9 @@ class Game {
    * (advancing on a correct answer, counting the error on a wrong one) and
    * producing the render-ready result the terminal displays.
    *
-   * @param {{status:string, command:string, phaseDef:?object}} verdict
+   * @param {{status:string, command:string, phaseDef:?object}} result
    * @returns {{result:string, output:string, advanced:boolean, phase:number,
-   *            gainedItem:?object, notes:string[], lesson:?object, complete:boolean}}
+   * gainedItem:?object, notes:string[], lesson:?object, complete:boolean}}
    */
   resolve(result) {
     const gameState = this.state;
@@ -163,11 +163,10 @@ class Game {
         return this.resolveCorrect(result.phaseDef);
 
       case "incorrect":
-
       default:
         gameState.errors += 1;
         return Game.simpleResult(
-          "warn",
+          result.phaseDef && result.phaseDef.result === "warn" ? "warn" : "warn",
           this.hintFor(result.phaseDef, result.command),
           gameState.phase,
         );
@@ -180,7 +179,7 @@ class Game {
    *
    * @param {object} phaseDef
    * @returns {{result:string, output:string, advanced:boolean, phase:number,
-   *            gainedItem:?object, notes:string[], lesson:?object, complete:boolean}}
+   * gainedItem:?object, notes:string[], lesson:?object, complete:boolean}}
    */
   resolveCorrect(phaseDef) {
     const clearedPhase = this.state.phase;
@@ -250,6 +249,11 @@ class Game {
       if (rule.matchRegex && new RegExp(rule.matchRegex).test(command)) {
         return rule.message;
       }
+    }
+
+    // Direct fallback if step intentionally targets warning outputs
+    if (phaseDef && phaseDef.result === "warn") {
+      return phaseDef.output;
     }
 
     const expectedCommand = phaseDef && phaseDef.answer;
@@ -357,7 +361,7 @@ class Game {
    * @param {string} output
    * @param {number} phase
    * @returns {{result:string, output:string, advanced:boolean, phase:number,
-   *            gainedItem:?object, notes:string[], lesson:?object, complete:boolean}}
+   * gainedItem:?object, notes:string[], lesson:?object, complete:boolean}}
    */
   static simpleResult(result, output, phase) {
     return {
