@@ -188,9 +188,6 @@ to completely close out the mystery and roll the game's final credits.
 
 # 5. Technology Stack & Automation
 
-## Game Engine
-ct.js (v4.x+)
-
 ## Development Foundation
 JavaScript / HTML5 / CSS3 Canvas APIs
 
