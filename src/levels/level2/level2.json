@@ -1,0 +1,140 @@
+{
+  "id": "level_2_police_station",
+  "title": "The Police Station Suspect Lineup",
+  "speaker": "Guide",
+  "avatar": "🐰",
+  "scenes": {
+    "precinct_desk": "levels/level2/precinct_desk.jpg",
+    "precinct_folders": "levels/level2/precinct_folders.jpg",
+    "precinct_workspace": "levels/level2/precinct_workspace.jpg"
+  },
+  "global_hotspots": {
+    "investigationDesk": { "x": 30, "y": 60, "w": 40, "h": 30, "label": "Investigation Desk" },
+    "owlFolder": { "x": 15, "y": 35, "w": 15, "h": 25, "label": "Suspect Folder 1" },
+    "dogFolder": { "x": 35, "y": 35, "w": 15, "h": 25, "label": "Suspect Folder 2" },
+    "mouseFolder": { "x": 55, "y": 35, "w": 15, "h": 25, "label": "Suspect Folder 3" }
+  },
+  "win": {
+    "title": "Case Closed!",
+    "subtitle": "The True Culprit Exposed",
+    "nextToast": "Game Complete! Credits Rolling..."
+  },
+  "completeDialogue": "Outstanding work, Rookie! You built a robust functional framework backed by customized try-catch blocks to safely evaluate and accuse the culprit.",
+  "completeHint": "The suspect verification script ran flawlessly with zero terminal crashes.",
+  "phases": [
+    {
+      "phase_id": "L2_P1",
+      "answer": "self.search(suspectFiles)",
+      "scene": "precinct_desk",
+      "highlight": "investigationDesk",
+      "active_hotspots": [
+        {
+          "id": "investigationDesk",
+          "hover_text": "The main terminal is unpopulated. Run an directory query to load evidence.",
+          "hover_snippet": "// Query database object parameters\nself.search(directoryIdentifier);"
+        }
+      ],
+      "dialogue": "To bring dynamic items into a scene, we call our classic search command on the data folder we need.\nLet's locate the main folder containing our records. Type this command to grab the profiles:\nself.search(suspectFiles)",
+      "hint": "self.search(suspectFiles)",
+      "output": "🗄️ Scanning precinct archive...\nFound: suspectFiles",
+      "result": "ok",
+      "notes": ["📂 suspectFiles"],
+      "lesson": "Unquoted identifiers pass complex object states or directories into file search parameters.",
+      "hints": []
+    },
+    {
+      "phase_id": "L2_P2",
+      "answer": "function crossRef(suspect)",
+      "scene": "precinct_folders",
+      "highlight": "investigationDesk",
+      "active_hotspots": [
+        {
+          "id": "owlFolder",
+          "hover_text": "Suspect File #1: Barnaby Owl",
+          "hover_snippet": "const suspect1 = {\n  earShape: \"small\",\n  sound: \"hoot\"\n};"
+        },
+        {
+          "id": "dogFolder",
+          "hover_text": "Suspect File #2: Officer Buster",
+          "hover_snippet": "const suspect2 = {\n  earShape: \"big\",\n  sound: \"bark\"\n};"
+        },
+        {
+          "id": "mouseFolder",
+          "hover_text": "Suspect File #3: Squeaks McMouse",
+          "hover_snippet": "const suspect3 = {\n  earShape: \"big\",\n  sound: \"squeak\"\n};"
+        }
+      ],
+      "dialogue": "Sometimes I need to perform a repetitive task on similar objects over and over again. To help save time, I can write a function to prep how I will behave to some object.\nOnce I prepare a function like eatCarrot(someCarrot) { } by writing the actions I want to take inside { }, I can call the function over and over again on different objects without having to rewrite all my actions! Like eatCarrot(bigCarrot) or eatCarrot(smallCarrot).\nsomeCarrot acts as a placeholder, so I can prepare and ready my actions before I want to perform them on the real thing! Let's start our file check framework:\nfunction crossRef(suspect)",
+      "hint": "function crossRef(suspect)",
+      "output": "🟢 SUCCESS: Function crossRef(suspect) header compiled!",
+      "result": "ok",
+      "notes": [],
+      "lesson": "Functions encapsulate programmatic procedures. Named arguments act as scoping definitions for evaluation routines.",
+      "hints": []
+    },
+    {
+      "phase_id": "L2_P3",
+      "answer": "try { self.readFile(suspect) }",
+      "scene": "precinct_workspace",
+      "highlight": "investigationDesk",
+      "active_hotspots": [
+        {
+          "id": "investigationDesk",
+          "hover_text": "File verification matrix. Safe monitoring hooks recommended.",
+          "hover_snippet": "try {\n  // Dangerous evaluation scripts\n}"
+        }
+      ],
+      "dialogue": "Excellent! Now that our function framework has a placeholder ready, the very first internal action we need to take is telling our device to pull up the record sheet.\nWe wrap our file reading step inside an experimental try routine. This safely attempts the behavior so that if something goes wrong, it won't crash our entire screen console.\nType this block inside the framework to begin:\ntry { self.readFile(suspect) }",
+      "hint": "try { self.readFile(suspect) }",
+      "output": "🟢 SUCCESS: Try block created. Ready to process exceptions.",
+      "result": "ok",
+      "notes": [],
+      "lesson": "The try runtime monitoring evaluation shell protects general script execution context environments against severe error flags.",
+      "hints": []
+    },
+    {
+      "phase_id": "L2_P4",
+      "answer": "catch (notBigEars) { contradiction++ }catch (notSmall) { contradiction++ }catch (doesNotSqueak) { contradiction++ }",
+      "scene": "precinct_workspace",
+      "highlight": "investigationDesk",
+      "active_hotspots": [
+        {
+          "id": "investigationDesk",
+          "hover_text": "Catch tracking structure parameters monitor stack anomalies.",
+          "hover_snippet": "catch (error) {\n  counter++;\n}"
+        }
+      ],
+      "dialogue": "After we try something, we use catch to keep track of the contradictions (errors) that occurred. We specify which particular errors we're looking for inside catch(errorType) and how we should respond to that error with { responseToError }. For example: catch(moldyCarrot) { self.throwAway(carrot); }\nSometimes we don't need to track completely different objects, but rather a simple tally of the same event. To do this, we use a count variable like contradiction. To add to this counter, we use the ++ operator to increment its value by one. To add to my number of carrots, I would type numOfCarrots++.\nLet's catch the notBigEars error first to see if it tallies up:\ncatch (notBigEars) { contradiction++ }",
+      "hint": "catch (notBigEars) { contradiction++ }catch (notSmall) { contradiction++ }catch (doesNotSqueak) { contradiction++ }",
+      "output": "🟢 SUCCESS: Exception handling compiled. All filters active!",
+      "result": "ok",
+      "notes": ["📂 suspectFiles", "🛠️ Verification Function Ready"],
+      "lesson": "Catch statements receive explicit thrown reference structures. The ++ incremental operator adds mathematical units sequentially.",
+      "hints": []
+    },
+    {
+      "phase_id": "L2_P5",
+      "answer": "console.log(`I accuse ${suspect3}`)",
+      "scene": "precinct_workspace",
+      "highlight": "investigationDesk",
+      "active_hotspots": [
+        {
+          "id": "mouseFolder",
+          "hover_text": "0 Contradictions tracked. Match condition fulfilled.",
+          "hover_snippet": "`I accuse ${suspect3}`"
+        }
+      ],
+      "dialogue": "We're almost done! Instead of writing heavy checks, we can dynamically insert our suspect right into a text string using the special form ${variableName} inside backticks.\nLet's make our official declaration to log the suspect to the system:\nconsole.log(`I accuse ${suspect3}`)",
+      "hint": "console.log(`I accuse ${suspect3}`)",
+      "output": "Evaluating suspect1 (Owl)... Total Contradictions: 2 (notBigEars, doesNotSqueak)\nEvaluating suspect2 (Dog)... Total Contradictions: 1 (doesNotSqueak)\nEvaluating suspect3 (Mouse)... Total Contradictions: 0 (Perfect Match!)\n📢 LOG: I accuse suspect3",
+      "result": "ok",
+      "notes": [
+        "❌ suspect1 (Owl) -> 2 errors",
+        "❌ suspect2 (Dog) -> 1 error",
+        "🎯 suspect3 (Mouse) -> 0 errors"
+      ],
+      "lesson": "Template literal blocks declared with backticks process embedded expressions dynamically via standard syntactic formatting notation ${}.",
+      "hints": []
+    }
+  ]
+}
