@@ -1,6 +1,6 @@
 ---
 # These are optional metadata elements. Feel free to remove any of them.
-status: proposed
+status: proposed ( rejected ) 
 date: 2026-5-14
 decision-makers: {Shawn, Kabyan, Sahana, Quinton, Pranav, Wayne, Jordan, Hojoon}
 consulted: Ayla
@@ -48,4 +48,7 @@ For the most part, we will be using the game engine for its ability to create le
   * We have an extra dependency
   * Changes how we will be working together (merge comflict issues)
   * Learning curve exists for learning how to use CT.JS
-  * End product expectations will be higher 
+  * End product expectations will be higher
+ 
+* Update (Rejected CT.JS)
+   * After consideration about the scope of our project we decided that CT.JS added much complexity. We would not be needing many of the advance game-engine features provided by CT.JS. Learning this framework and also learning to debug features within CT.JS would also require much additional time for our team. Thus, we have deicided to use simple HTML, CSS and JS to handle our project.
