@@ -1,274 +1,223 @@
 {
-  "id": "tutorial_morning_routine",
+  "level_id": "level0",
   "title": "The Morning Routine",
-  "speaker": "Chief Inspector Bunny",
-  "avatar": "🐰",
-  "scenes": {
-    "desk": "assets/desk.jpg",
-    "plant": "assets/key.jpg",
-    "drawers": "assets/drawer.jpg"
+  "default_speaker": "Chief Inspector Bunny",
+  "default_avatar": "🐰",
+  "global_hotspots": {
+    "desk": { "x": "20", "y": "50", "w": "30", "h": "30" },
+    "plant": { "x": "75", "y": "40", "w": "12", "h": "25" },
+    "drawers": { "x": "5", "y": "65", "w": "15", "h": "25" }
   },
+  "win": {
+    "title": "Level Complete!",
+    "subtitle": "The Morning Routine",
+    "nextToast": "🥖 Heading to the Bakery!"
+  },
+  "completeDialogue": "You found it! Fantastic work, Bill. You already know how to use strings, functions, and dot notation! You are going to be a natural JavaScript Developer. Come on, let's head over to the Bakery to catch a thief!",
+  "completeHint": "Head to the Bakery!",
   "phases": [
     {
       "scene": "desk",
-      "highlight": null,
+      "dialogue": "Welcome to the agency, Rookie! I'm Chief Inspector Bunny. Before we can solve any mysteries, we need to make sure your Detective Terminal is online. In JavaScript, we make the computer speak using a command called console.log. Let's test it by saying hello!",
       "answer": "console.log(\"hello\");",
       "result": "ok",
       "output": "\"hello\"\n→ System Online. Detective Terminal calibrated! ✓",
-      "lesson": {
-        "title": "Lesson 1: Printing Data",
-        "body": "<code>console.log(\"...\")</code> is the most fundamental JavaScript command. It prints text to the terminal. Wrap your text in double quotes and end every statement with a semicolon."
-      },
+      "lesson": "console.log(\"...\") is the most fundamental JavaScript command. It prints text to the terminal.",
       "notes": [
-        "<strong>SYSTEM NOTE:</strong> Terminal is online.",
-        "Use <code>console.log(\"text\");</code> to talk to the computer."
+        "SYSTEM NOTE: Terminal is online.",
+        "Use console.log(\"text\"); to talk to the computer."
       ],
-      "dialogue": "Welcome to the agency, Rookie! I'm Chief Inspector Bunny. Before we can solve any mysteries, we need to make sure your Detective Terminal is online. In JavaScript, we make the computer speak using a command called console.log. Let's test it by saying hello!",
       "hint": "console.log(\"hello\");",
-      "hints": [
+      "active_hotspots": [
         {
-          "match": "console.log('hello');",
-          "message": "SyntaxError: This terminal requires double quotes, not single quotes.\n→ Try: console.log(\"hello\");"
-        },
-        {
-          "matchRegex": "console\\.log.*[^;]$",
-          "message": "SyntaxError: Missing semicolon at end of statement.\n→ Every JavaScript statement ends with ;\n→ Try: console.log(\"hello\");"
-        },
-        {
-          "matchRegex": "Console|CONSOLE",
-          "message": "ReferenceError: JavaScript is case-sensitive!\n→ \"console\" must be all lowercase.\n→ Try: console.log(\"hello\");"
-        },
-        {
-          "matchRegex": "console\\.log\\([^\"]*\\)",
-          "message": "SyntaxError: Did you forget the quotes around your text?\n→ Strings must be wrapped in double quotes: \"hello\""
+          "id": "desk",
+          "hover_text": "Your detective terminal interface. It's uncalibrated.",
+          "hover_snippet": "console.log(\"hello\");"
         }
       ]
     },
     {
       "scene": "desk",
-      "highlight": null,
+      "dialogue": "Perfect, we are online! Now, I have a bit of a problem… I lost my main investigation journal somewhere in this messy office. Let's use the terminal to run a sweep of the room. To use a tool, you type its name, followed by your target inside quotes.",
       "answer": "scan(\"office\");",
       "result": "ok",
       "output": "Room scanned.\n→ 3 interactive zones detected:\n   • desk\n   • plant\n   • drawers",
-      "lesson": {
-        "title": "Lesson 2: Functions & Strings",
-        "body": "A <strong>function</strong> is a named tool. <code>scan(\"office\")</code> passes a string argument to tell the function what to scan."
-      },
+      "lesson": "A function is a named tool. scan(\"office\") passes a string argument to tell the function what to scan.",
       "notes": [
-        "<strong>ZONES FOUND:</strong> desk, plant, drawers",
-        "HINT: Use <code>inspect(\"target\");</code> to look closer."
+        "ZONES FOUND: desk, plant, drawers",
+        "HINT: Use inspect(\"target\"); to look closer."
       ],
-      "dialogue": "Perfect, we are online! Now, I have a bit of a problem… I lost my main investigation journal somewhere in this messy office. Let's use the terminal to run a sweep of the room. To use a tool, you type its name, followed by your target inside quotes.",
       "hint": "scan(\"office\");",
-      "hints": [
+      "active_hotspots": [
         {
-          "match": "scan();",
-          "message": "ArgumentError: Missing string argument.\n→ Specify a target in quotes.\n→ Example: scan(\"office\");"
+          "id": "desk",
+          "hover_text": "Ready for an environmental room scan sweep.",
+          "hover_snippet": "scan(\"office\");"
         }
       ]
     },
     {
       "scene": "desk",
-      "highlight": "desk",
+      "dialogue": "Great job! The scanner found my desk, a potted plant, and some wooden drawers. I usually leave my journal right on my workspace. Let's use the inspect tool to look closer at it.",
       "answer": "inspect(\"desk\");",
       "result": "ok",
       "output": "Inspecting desk...\n→ Desk contains:\n   • coffee_mug\n   • open_book\n   • clipboard",
-      "lesson": {
-        "title": "Lesson 3: String Parameters",
-        "body": "Same function, different argument: <code>inspect(\"desk\")</code> vs <code>inspect(\"plant\")</code>. The string you pass changes what the function does."
-      },
+      "lesson": "Same function, different argument. The string you pass changes what the function targets.",
       "notes": [
-        "<strong>DESK CONTENTS:</strong> coffee_mug, open_book, clipboard",
-        "Objects have actions — connect with a dot: <code>object.action();</code>"
+        "DESK CONTENTS: coffee_mug, open_book, clipboard",
+        "Objects have actions — connect with a dot: object.action();"
       ],
-      "dialogue": "Great job! The scanner found my desk, a potted plant, and some wooden drawers. I usually leave my journal right on my workspace. Let's use the inspect tool to look closer at it.",
       "hint": "inspect(\"desk\");",
-      "hints": [
+      "active_hotspots": [
         {
-          "match": "inspect();",
-          "message": "ArgumentError: Missing string argument.\n→ Specify a target in quotes.\n→ Example: inspect(\"desk\");"
-        },
-        {
-          "matchRegex": "inspect\\([^\"]*\\)",
-          "message": "SyntaxError: String arguments must be in double quotes.\n→ Example: inspect(\"desk\");"
+          "id": "desk",
+          "hover_text": "The primary agency workstation desk.",
+          "hover_snippet": "inspect(\"desk\");"
         }
       ]
     },
     {
       "scene": "desk",
-      "highlight": "desk",
+      "dialogue": "Hmm, no journal. But look! There is an open_book and a clipboard. In code, things are called 'objects', and we can make them do actions by connecting them with a dot. Let's try reading that book first to see if it's my journal.",
       "answer": "desk.read(\"open_book\");",
       "result": "ok",
       "output": "Reading open_book...\n→ Webster's English Dictionary.\n→ Nothing useful here.",
-      "lesson": {
-        "title": "Lesson 4: Dot Notation — Exploration",
-        "body": "Pattern: <code>object.method(\"argument\");</code><br>Code can run successfully and still not solve the puzzle — that's completely normal exploration!"
-      },
+      "lesson": "Pattern: object.method(\"argument\"); Code can run successfully and still not solve the puzzle — that's exploration!",
       "notes": [
-        "<strong>open_book</strong> = Dictionary. Not the journal.",
+        "open_book = Dictionary. Not the journal.",
         "Bunny: \"Try reading the clipboard instead!\""
       ],
-      "dialogue": "Hmm, no journal. But look! There is an open_book and a clipboard. In code, things are called 'objects', and we can make them do actions by connecting them with a dot. Let's try reading that book first to see if it's my journal.",
       "hint": "desk.read(\"open_book\");",
-      "hints": [
+      "active_hotspots": [
         {
-          "matchRegex": "^(?!.*\\.).*read\\(",
-          "message": "SyntaxError: Use dot notation to call a method on an object.\n→ Pattern: object.method(\"argument\");\n→ Example: desk.read(\"open_book\");"
+          "id": "desk",
+          "hover_text": "An opened dictionary is propped up against the lamp.",
+          "hover_snippet": "desk.read(\"open_book\");"
         }
       ]
     },
     {
       "scene": "desk",
-      "highlight": "desk",
+      "dialogue": "Ah, false alarm. That's just my dictionary. Nothing useful there! But that's okay, detectives have to explore! Let's check the clipboard instead. Remember the dot notation!",
       "answer": "desk.read(\"clipboard\");",
       "result": "ok",
       "output": "Reading clipboard...\n→ Note: 'Keep journal locked in drawers.\n         Hide key in foliage.'",
-      "lesson": {
-        "title": "Lesson 5: Dot Notation — Finding a Clue",
-        "body": "<code>desk.read(\"clipboard\")</code> — object=<strong>desk</strong>, method=<strong>read</strong>, argument=<strong>\"clipboard\"</strong>."
-      },
+      "lesson": "desk.read(\"clipboard\") uses object=desk, method=read, argument=\"clipboard\".",
       "notes": [
-        "<strong>CLUE:</strong> Journal is locked in the drawers.",
-        "<strong>CLUE:</strong> Key is hidden in the foliage (plant).",
-        "HINT: <code>inspect(\"plant\");</code>"
+        "CLUE: Journal is locked in the drawers.",
+        "CLUE: Key is hidden in the foliage (plant)."
       ],
-      "dialogue": "Ah, false alarm. That's just my dictionary. Nothing useful there! But that's okay, detectives have to explore! Let's check the clipboard instead. Remember the dot notation!",
       "hint": "desk.read(\"clipboard\");",
-      "hints": [
+      "active_hotspots": [
         {
-          "matchRegex": "^(?!.*\\.).*read\\(",
-          "message": "SyntaxError: Use dot notation to call a method on an object.\n→ Pattern: object.method(\"argument\");\n→ Example: desk.read(\"clipboard\");"
+          "id": "desk",
+          "hover_text": "An agency clipboard holding maintenance logs.",
+          "hover_snippet": "desk.read(\"clipboard\");"
         }
       ]
     },
     {
       "scene": "plant",
-      "highlight": "plant",
+      "dialogue": "Aha! The note says I hid the spare key in the foliage… that must mean the potted plant! Use your inspect tool again, but this time change your target to the plant.",
       "answer": "inspect(\"plant\");",
       "result": "ok",
       "output": "Scanning plant...\n→ Glint of metal detected!\n→ A silver key is visible among the leaves.",
-      "lesson": {
-        "title": "Lesson 6: Applying Clues",
-        "body": "You used a function you already know on a new target, based on a clue. That is programming thinking!"
-      },
+      "lesson": "You used a function you already know on a new target based on a discovered clue.",
       "notes": [
-        "<strong>VISUAL:</strong> Silver key spotted in the plant leaves!",
-        "HINT: <code>self.take(\"key\");</code>"
+        "VISUAL: Silver key spotted in the plant leaves!",
+        "HINT: self.take(\"key\");"
       ],
-      "dialogue": "Aha! The note says I hid the spare key in the foliage… that must mean the potted plant! Use your inspect tool again, but this time change your target to the plant.",
       "hint": "inspect(\"plant\");",
-      "hints": [
+      "active_hotspots": [
         {
-          "match": "inspect();",
-          "message": "ArgumentError: Missing string argument.\n→ Specify a target in quotes.\n→ Example: inspect(\"plant\");"
-        },
-        {
-          "matchRegex": "inspect\\([^\"]*\\)",
-          "message": "SyntaxError: String arguments must be in double quotes.\n→ Example: inspect(\"plant\");"
+          "id": "plant",
+          "hover_text": "A decorative potted plant sitting in the light.",
+          "hover_snippet": "inspect(\"plant\");"
         }
       ]
     },
     {
       "scene": "plant",
-      "highlight": "plant",
+      "dialogue": "There it is! A silver key! In this game, you are an object too, and your code name is self. To pick things up and put them in your inventory, you have to tell yourself to take them.",
       "answer": "self.take(\"key\");",
       "result": "ok",
       "output": "[Item Acquired: Silver Key] 🗝\n→ Key added to inventory.",
-      "lesson": {
-        "title": "Lesson 7: The self Object",
-        "body": "<code>self</code> refers to <em>you</em> — the player is an object too! <code>self.take(\"key\")</code> tells your character to pick something up."
-      },
+      "lesson": "self refers to you — the player object. self.take(\"key\") invokes your pick up sequence.",
       "notes": [
-        "<strong>INVENTORY:</strong> [🗝 Silver Key] added.",
-        "NOTE: You have the key. Now target the drawers.",
-        "HINT: Try <code>drawers.open();</code> first…"
+        "INVENTORY: [🗝 Silver Key] added.",
+        "NOTE: You have the key. Now target the drawers."
       ],
-      "dialogue": "There it is! A silver key! In this game, you are an object too, and your code name is self. To pick things up and put them in your inventory, you have to tell yourself to take them.",
       "hint": "self.take(\"key\");",
       "effects": { "addItem": { "id": "key", "label": "🗝 Silver Key", "emoji": "🗝" } },
-      "hints": [
+      "active_hotspots": [
         {
-          "match": "self.take();",
-          "message": "ArgumentError: self.take() needs the item name.\n→ Try: self.take(\"key\");"
+          "id": "plant",
+          "hover_text": "The key is glittering within the branches.",
+          "hover_snippet": "self.take(\"key\");"
         }
       ]
     },
     {
       "scene": "drawers",
-      "highlight": "drawers",
+      "dialogue": "Got it! Now, the note said my journal is in the wooden drawers. Let's head over there and try to open them! Some commands don't need any targets inside the parentheses.",
       "answer": "drawers.open();",
       "result": "err",
       "intentionalError": true,
       "output": "ERROR: The drawers are locked. Access denied.\n→ ScopeError: container.isLocked === true\n→ You must unlock the drawers before opening them!",
-      "lesson": {
-        "title": "Lesson 8: Logic & Sequence",
-        "body": "Code runs in <strong>exact order</strong>. You cannot skip required steps. An ERROR is not failure — it tells you what the computer needs next!"
-      },
+      "lesson": "Code runs in exact order. An ERROR is just the system telling you what it needs next.",
       "notes": [
-        "<strong>ERROR LOG:</strong> drawers.open() — ACCESS DENIED.",
-        "HINT: Must unlock first! Use:",
-        "<code>drawers.unlock(\"key\");</code>"
+        "ERROR LOG: drawers.open() — ACCESS DENIED.",
+        "HINT: Must unlock first!"
       ],
-      "dialogue": "Got it! Now, the note said my journal is in the wooden drawers. Let's head over there and try to open them! Some commands don't need any targets inside the parentheses.",
-      "hint": "drawers.open();"
-    },
-    {
-      "scene": "drawers",
-      "highlight": "drawers",
-      "answer": "drawers.unlock(\"key\");",
-      "result": "ok",
-      "output": "Click.\n→ Security lock disengaged. 🔓\n→ Padlock status: OPEN.",
-      "lesson": {
-        "title": "Lesson 9: Variables as Arguments",
-        "body": "You passed an inventory item name into a method: <code>drawers.unlock(\"key\")</code>. The string \"key\" is the argument that does the real work."
-      },
-      "notes": [
-        "<strong>SYSTEM:</strong> Padlock → GREEN ✓",
-        "Lock disabled. Now safe to open.",
-        "HINT: <code>drawers.open();</code>"
-      ],
-      "dialogue": "Oops! Did you see that red Error? Computers follow exact logic—we can't open a locked door without unlocking it first! We need to use the unlock action and pass the key we found as our target.",
-      "hint": "drawers.unlock(\"key\");",
-      "effects": { "unlock": "drawers" },
-      "hints": [
+      "hint": "drawers.open();",
+      "active_hotspots": [
         {
-          "match": "drawers.unlock();",
-          "message": "ArgumentError: drawers.unlock() requires the key as an argument.\n→ Try: drawers.unlock(\"key\");"
-        },
-        {
-          "matchRegex": "drawers\\.unlock\\((?!.*\"key\")",
-          "message": "ArgumentError: That is not a valid key.\n→ Use the item in your inventory.\n→ Try: drawers.unlock(\"key\");"
+          "id": "drawers",
+          "hover_text": "Secure document storage drawers.",
+          "hover_snippet": "drawers.open();"
         }
       ]
     },
     {
       "scene": "drawers",
-      "highlight": "drawers",
+      "dialogue": "Oops! Did you see that red Error? Computers follow exact logic—we can't open a locked door without unlocking it first! We need to use the unlock action and pass the key we found as our target.",
+      "answer": "drawers.unlock(\"key\");",
+      "result": "ok",
+      "output": "Click.\n→ Security lock disengaged. 🔓\n→ Padlock status: OPEN.",
+      "lesson": "You passed an item name string into a method as an execution argument.",
+      "notes": [
+        "SYSTEM: Padlock → GREEN ✓",
+        "Lock disabled. Now safe to open."
+      ],
+      "hint": "drawers.unlock(\"key\");",
+      "effects": { "unlock": "drawers" },
+      "active_hotspots": [
+        {
+          "id": "drawers",
+          "hover_text": "The locking mechanism requires key authentication.",
+          "hover_snippet": "drawers.unlock(\"key\");"
+        }
+      ]
+    },
+    {
+      "scene": "drawers",
+      "dialogue": "Hear that click? The security lock is disabled! Now it is safe to open them. Try that exact same command from earlier, with the empty parentheses.",
       "answer": "drawers.open();",
       "result": "ok",
       "output": "Drawers opening...\n→ [Chief Inspector Bunny's Journal Acquired] 📓\n\n★  LEVEL COMPLETE — The Morning Routine  ★",
-      "lesson": {
-        "title": "Lesson 10: Parameter-less Methods",
-        "body": "Some methods need no arguments — just empty parentheses: <code>drawers.open()</code>. Now that the door is unlocked, it works!"
-      },
+      "lesson": "Some methods require no arguments — just empty execution blocks: drawers.open().",
       "notes": [
-        "<strong>MAJOR EVIDENCE:</strong> Bunny's Journal 📓",
+        "MAJOR EVIDENCE: Bunny's Journal 📓",
         "★ Tutorial complete!"
       ],
-      "dialogue": "Hear that click? The security lock is disabled! Now it is safe to open them. Try that exact same command from earlier, with the empty parentheses.",
-      "hint": "drawers.open();"
+      "hint": "drawers.open();",
+      "active_hotspots": [
+        {
+          "id": "drawers",
+          "hover_text": "Unlocked State. Safe to pull open.",
+          "hover_snippet": "drawers.open();"
+        }
+      ]
     }
-  ],
-  "completeDialogue": "You found it! Fantastic work, Bill. You already know how to use strings, functions, and dot notation! You are going to be a natural JavaScript Developer. Come on, let's head over to the Bakery to catch a thief!",
-  "completeHint": "Head to the Bakery!",
-  "win": {
-    "emojis": "🎉 📓 🐰",
-    "title": "Level Complete!",
-    "subtitle": "The Morning Routine",
-    "message": "“You found it! Fantastic work, Bill. You already know how to use strings, functions, and dot notation! You are going to be a natural JavaScript Developer. Come on, let's head over to the Bakery to catch a thief!”",
-    "footnote": "Chief Inspector Bunny's Journal acquired.",
-    "replayLabel": "↺ Play Again",
-    "nextLabel": "▶ Head to the Bakery",
-    "nextToast": "🥖 Heading to the Bakery!"
-  }
+  ]
 }
