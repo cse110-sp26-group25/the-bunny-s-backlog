@@ -130,16 +130,6 @@ body {
     transform: scale(0.98);
 }
 
-.action-button.disabled {
-    background-color: var(--border-color);
-    color: var(--text-muted);
-    cursor: not-allowed;
-}
-
-.action-button.disabled:hover {
-    background-color: var(--border-color);
-}
-
 /* --- RIGHT PANEL (Cards Carousel) --- */
 .cards-carousel {
     display: flex;
@@ -203,9 +193,9 @@ body {
 /* .card-container:nth-child(5n+4) .level-card { border-top-color: var(--card-4); }
 .card-container:nth-child(5n) .level-card { border-top-color: var(--card-5); } */
 
-/* .card-container:nth-child(5n+1) .level-card { background-image: url('/the-bunny-s-backlog/Graphics/Background_Animation/PNG/LevelSelection/0.1.png'); }
-.card-container:nth-child(5n+2) .level-card { background-image: url('/the-bunny-s-backlog/Graphics/Background_Animation/PNG/LevelSelection/1.2.png'); }
-.card-container:nth-child(5n+3) .level-card { background-image: url('/the-bunny-s-backlog/Graphics/Background_Animation/PNG/LevelSelection/2.1.png'); } */
+/* .card-container:nth-child(5n+1) .level-card { background-image: url('../../Graphics/Background_Animations/PNG/LevelSelection/0.1.png'); }
+.card-container:nth-child(5n+2) .level-card { background-image: url('../../Graphics/Background_Animations/PNG/LevelSelection/1.2.png'); }
+.card-container:nth-child(5n+3) .level-card { background-image: url('../../Graphics/Background_Animations/PNG/LevelSelection/2.1.png'); } */
 
 
 .card-image-placeholder {
@@ -241,15 +231,6 @@ body {
 .status-dot.completed {
     background-color: #7ed321; /* Green */
     box-shadow: 0 0 0.5rem #7ed321;
-}
-
-.status-dot.locked {
-    background-color: var(--text-muted);
-    box-shadow: none;
-}
-
-.level-card.locked {
-    opacity: 0.55;
 }
 
 .card-header {

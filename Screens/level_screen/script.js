@@ -3,19 +3,22 @@ const levels = [
         saveId: 'tutorial_morning_routine',
         folder: 'tutorial',
         title: 'Tutorial',
-        synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal."
+        synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal.",
+        image: "../../Graphics/Background_Animations/PNG/LevelSelection/0.1.png"
     },
     {
-        saveId: 'level_001',
+        saveId: 'level_1_bakery',
         folder: 'level1',
         title: 'Level 1',
-        synopsis: 'The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.'
+        synopsis: 'The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.',
+        image: "../../Graphics/Background_Animations/PNG/LevelSelection/1.2.png"
     },
     {
-        saveId: 'level_002',
+        saveId: 'level_2_police_station',
         folder: 'level2',
         title: 'Level 2',
-        synopsis: 'The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.'
+        synopsis: 'The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.',
+        image: "../../Graphics/Background_Animations/PNG/LevelSelection/2.1.png"
     }
 ];
 
@@ -44,7 +47,7 @@ function initLevels() {
         const cardHTML = `
             <div class="card-container">
                 <div class="level-card ${cardClass}" onclick="selectCard(${index})" id="card-${index}">
-                    <div class="card-image-placeholder">
+                    <div class="card-image-placeholder" style="background-image: url('${level.image}');">
                         <div class="status-dot ${statusClass}"></div>
                     </div>
                     <div class="card-header">

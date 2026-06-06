@@ -4,7 +4,7 @@
   "speaker": "Guide",
   "avatar": "🐰",
   "scenes": {
-    "bakery": "levels/level1/bakery.jpg"
+    "bakery": "../../../Graphics/Background_Animations/PNG/Level_1/1.1.png"
   },
   "global_hotspots": {
     "displayCase": { "x": 20, "y": 50, "w": 40, "h": 30, "label": "Shattered Display Case" },
