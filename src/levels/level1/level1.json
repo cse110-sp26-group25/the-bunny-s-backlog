@@ -28,10 +28,10 @@
   "win": {
     "title": "Suspect Leads Cataloged!",
     "subtitle": "The Witness Report",
-    "nextToast": "皮 Accompanying Bat to the Precinct!"
+    "nextToast": "🦇 Accompanying Bat to the Precinct!",
+    "completeDialogue": "The Baker Sheep carefully signs off on your final checklist. 'This is exactly what the precinct needs! Go down to the station with Bat right away—he can point out the thief from the morning suspect lineup!'",
+    "completeHint": "Head to the city police office."
   },
-  "completeDialogue": "The Baker Sheep carefully signs off on your final checklist. 'This is exactly what the precinct needs! Go down to the station with Bat right away—he can point out the thief from the morning suspect lineup!'",
-  "completeHint": "Head to the city police office.",
 
   "phases": [
     {
@@ -40,7 +40,7 @@
       "active_hotspots": ["displayCase"],
       "speaker": "Baker Sheep",
       "avatar": "👨‍🍳",
-      "dialogue": "See, look at the state of my Bakery! The thief completely destroyed my perfectly organized displayCase. I have no idea what they took! Could you make me a remainingDessert list of what's still left, while I try to clean up all this glass? It might give the police a clue to whoever did this.",
+      "dialogue": "See, look at the state of my Bakery! The thief completely destroyed my perfectly organized displayCase. I have no idea what they took! Could you make me a **missingDessertList** of what's still left, while I try to clean up all this glass? It might give the police a clue to whoever did this.",
       "answer": "displayCase.forEach(dessert => {",
       "result": "ok",
       "output": "Loop layer opened.\n→ Array processing active.\n→ Iterating into displayCase structure...",
