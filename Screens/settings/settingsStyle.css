@@ -127,7 +127,6 @@ article.setting header {
   background: linear-gradient(90deg, var(--accent-dim), var(--accent));
   border-radius: 1rem;
   pointer-events: none;
-  transition: width 0.05s;
 }
 
 input[type="range"] {

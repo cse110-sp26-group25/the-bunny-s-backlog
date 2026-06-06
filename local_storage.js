@@ -48,6 +48,41 @@ function createDefaultSettings() {
 }
 
 /**
+ * Returns only valid settings values, with defaults for missing or old saves.
+ *
+ * @param {object} settings
+ * @returns {{masterVolume:number, musicVolume:number, effectsVolume:number,
+ *            hardMode:boolean}}
+ */
+function normalizeSettings(settings) {
+  const defaults = createDefaultSettings();
+  const source = settings && typeof settings === "object" ? settings : {};
+
+  return {
+    masterVolume: normalizeVolumeSetting(source.masterVolume, defaults.masterVolume),
+    musicVolume: normalizeVolumeSetting(source.musicVolume, defaults.musicVolume),
+    effectsVolume: normalizeVolumeSetting(source.effectsVolume, defaults.effectsVolume),
+    hardMode: Boolean(source.hardMode)
+  };
+}
+
+/**
+ * Keeps saved volume values inside the slider's 0-100 range.
+ *
+ * @param {*} value
+ * @param {number} fallback
+ * @returns {number}
+ */
+function normalizeVolumeSetting(value, fallback) {
+  const numberValue = Number(value);
+  if (!Number.isFinite(numberValue)) {
+    return fallback;
+  }
+
+  return Math.min(100, Math.max(0, numberValue));
+}
+
+/**
  * Creates the default progress map for the tutorial plus future levels.
  *
  * @returns {object}
@@ -85,12 +120,66 @@ function createDefaultSaveData() {
 }
 
 /**
+ * Reads browser localStorage when available. Some browser modes can throw even
+ * when localStorage exists, so screens should treat that like no save file.
+ *
+ * @param {string} key
+ * @returns {?string}
+ */
+function getStoredItem(key) {
+  if (typeof localStorage === "undefined") {
+    return null;
+  }
+
+  try {
+    return localStorage.getItem(key);
+  } catch (error) {
+    return null;
+  }
+}
+
+/**
+ * Writes browser localStorage when available.
+ *
+ * @param {string} key
+ * @param {string} value
+ */
+function setStoredItem(key, value) {
+  if (typeof localStorage === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.setItem(key, value);
+  } catch (error) {
+    // Keep UI screens usable when storage is blocked.
+  }
+}
+
+/**
+ * Removes a browser localStorage key when available.
+ *
+ * @param {string} key
+ */
+function removeStoredItem(key) {
+  if (typeof localStorage === "undefined") {
+    return;
+  }
+
+  try {
+    localStorage.removeItem(key);
+  } catch (error) {
+    // Keep UI screens usable when storage is blocked.
+  }
+}
+
+/**
  * Saves the shared save array into browser localStorage.
  *
  * @param {Array} saveData
  */
 function saveGame(saveData) {
-  localStorage.setItem(SAVE_KEY, JSON.stringify(saveData));
+  setStoredItem(SAVE_KEY, JSON.stringify(saveData));
 }
 
 /**
@@ -99,7 +188,7 @@ function saveGame(saveData) {
  * @returns {Array}
  */
 function loadGame() {
-  const savedString = localStorage.getItem(SAVE_KEY);
+  const savedString = getStoredItem(SAVE_KEY);
 
   // if no save data start new save file
   if (savedString === null) {
@@ -114,7 +203,7 @@ function loadGame() {
  * Deletes the shared save array from browser localStorage.
  */
 function clearSave() {
-  localStorage.removeItem(SAVE_KEY);
+  removeStoredItem(SAVE_KEY);
 }
 
 /**
@@ -139,7 +228,7 @@ function loadSafeGame() {
  */
 function loadSettings() {
   const saveData = loadSafeGame();
-  return Object.assign({}, DEFAULT_SETTINGS, saveData[8]);
+  return normalizeSettings(saveData[8]);
 }
 
 /**
@@ -149,8 +238,71 @@ function loadSettings() {
  */
 function saveSettingsData(settings) {
   const saveData = loadSafeGame();
-  saveData[8] = Object.assign({}, DEFAULT_SETTINGS, settings);
+  saveData[8] = normalizeSettings(settings);
   saveGame(saveData);
+}
+
+/**
+ * Converts a percentage setting into the browser media volume scale.
+ *
+ * @param {number|string} value
+ * @returns {number}
+ */
+function volumePercentToScale(value) {
+  const numberValue = Number(value);
+  if (!Number.isFinite(numberValue)) {
+    return 0;
+  }
+
+  return Math.min(1, Math.max(0, numberValue / 100));
+}
+
+/**
+ * Applies saved settings to the current page's media and hard-mode state.
+ *
+ * Audio/video elements can set `data-volume-type="music"` or
+ * `data-volume-type="effects"`; otherwise they use master volume.
+ *
+ * @param {Document} [doc]
+ * @param {object} [settings]
+ */
+function applyGlobalSettings(doc, settings) {
+  try {
+    if (typeof document === "undefined" && !doc) {
+      return;
+    }
+
+    const page = doc || document;
+    const savedSettings = settings ? normalizeSettings(settings) : loadSettings();
+    const masterVolume = volumePercentToScale(savedSettings.masterVolume);
+    const musicVolume = masterVolume * volumePercentToScale(savedSettings.musicVolume);
+    const effectsVolume = masterVolume * volumePercentToScale(savedSettings.effectsVolume);
+
+    page.documentElement.style.setProperty("--master-volume", String(masterVolume));
+    page.documentElement.style.setProperty("--music-volume", String(musicVolume));
+    page.documentElement.style.setProperty("--effects-volume", String(effectsVolume));
+    page.documentElement.dataset.hardMode = savedSettings.hardMode ? "true" : "false";
+
+    if (page.body) {
+      page.body.classList.toggle("hard-mode", Boolean(savedSettings.hardMode));
+    }
+
+    page.querySelectorAll("audio, video").forEach((mediaElement) => {
+      const volumeType = mediaElement.dataset.volumeType;
+      let volume = masterVolume;
+
+      if (volumeType === "music") {
+        volume = musicVolume;
+      } else if (volumeType === "effects") {
+        volume = effectsVolume;
+      }
+
+      mediaElement.volume = volume;
+      mediaElement.muted = volume === 0;
+    });
+  } catch (error) {
+    // Never let settings application block page controls.
+  }
 }
 
 /**
@@ -282,14 +434,21 @@ if (typeof module !== "undefined") {
     LEVEL_IDS,
     LEVEL_ORDER,
     createDefaultSettings,
+    normalizeSettings,
+    normalizeVolumeSetting,
     createDefaultLevelProgress,
     createDefaultSaveData,
+    getStoredItem,
+    setStoredItem,
+    removeStoredItem,
     saveGame,
     loadGame,
     clearSave,
     loadSafeGame,
     loadSettings,
     saveSettingsData,
+    volumePercentToScale,
+    applyGlobalSettings,
     loadLevelProgress,
     saveLevelProgress,
     saveCurrentLevel,
@@ -300,4 +459,14 @@ if (typeof module !== "undefined") {
     isLevelComplete,
     getNextLevelId
   };
+}
+
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+      applyGlobalSettings();
+    });
+  } else {
+    applyGlobalSettings();
+  }
 }

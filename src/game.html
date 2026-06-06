@@ -156,7 +156,7 @@
     </div>
     <div id="toast" role="status" aria-live="polite"></div>
 
-    <audio id="bgm-player" loop preload="auto"></audio>
+    <audio id="bgm-player" loop preload="auto" data-volume-type="music"></audio>
 
     <!-- Core Game Scripts -->
     <script src="../local_storage.js"></script>
@@ -179,15 +179,17 @@
 
         // 2. Updated Audio Map keys targeting the precise, newly refactored levels
         const bgmMapping = {
-          "level0": "Lv0BGM.mp3",
-          "level1": "Lv1BGM.mp3",
-          "level2": "Lv2BGM.mp3"
+          "level0": "../Sounds/Lv0BGM.mp3",
+          "level1": "../Sounds/Lv1BGM.mp3",
+          "level2": "../Sounds/Lv2BGM.mp3"
         };
 
         // Select track or fallback to level 0 background audio if query doesn't match
-        const trackSrc = bgmMapping[currentLevel] || "Lv0BGM.mp3";
+        const trackSrc = bgmMapping[currentLevel] || bgmMapping.level0;
         audioPlayer.src = trackSrc;
-        audioPlayer.volume = 0.4; 
+        if (typeof applyGlobalSettings === "function") {
+          applyGlobalSettings(document);
+        }
 
         // 3. Audio unlock mechanism triggered by mandatory user gesture interaction rules
         const startAudio = () => {

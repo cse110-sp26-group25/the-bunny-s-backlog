@@ -1,27 +1,56 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-  loadSavedSettings();
-
   // Sliders
   ['master', 'music', 'effects'].forEach(function (name) {
     const slider = document.getElementById(name + '-slider');
+    if (!slider) {
+      return;
+    }
+
     slider.addEventListener('input', function () {
       updateSlider(name, this.value);
-      persistSettings();
+      previewSettings();
     });
   });
 
   // Hard mode toggle
-  document.getElementById('hard-toggle').addEventListener('change', function () {
-    updateToggle(this);
-    persistSettings();
-  });
+  const hardToggle = document.getElementById('hard-toggle');
+  if (hardToggle) {
+    hardToggle.addEventListener('change', function () {
+      updateToggle(this);
+      previewSettings();
+    });
+  }
 
   // Buttons
-  document.getElementById('reset-btn').addEventListener('click', resetDefaults);
-  document.getElementById('save-btn').addEventListener('click', saveSettings);
+  const resetButton = document.getElementById('reset-btn');
+  const saveButton = document.getElementById('save-btn');
+  if (resetButton) {
+    resetButton.addEventListener('click', resetDefaults);
+  }
+  if (saveButton) {
+    saveButton.addEventListener('click', saveSettings);
+  }
+
+  loadSavedSettings();
 
 });
+
+const FALLBACK_SETTINGS = {
+  masterVolume: 80,
+  musicVolume: 60,
+  effectsVolume: 75,
+  hardMode: false
+};
+let previewFrameId = null;
+
+function getDefaultSettings() {
+  if (typeof createDefaultSettings === 'function') {
+    return createDefaultSettings();
+  }
+
+  return Object.assign({}, FALLBACK_SETTINGS);
+}
 
 function getCurrentSettings() {
   return {
@@ -33,7 +62,7 @@ function getCurrentSettings() {
 }
 
 function applySettings(settings) {
-  const savedSettings = Object.assign(createDefaultSettings(), settings);
+  const savedSettings = Object.assign(getDefaultSettings(), settings);
   const toggle = document.getElementById('hard-toggle');
 
   document.getElementById('master-slider').value = savedSettings.masterVolume;
@@ -43,29 +72,79 @@ function applySettings(settings) {
   updateSlider('music', savedSettings.musicVolume);
   updateSlider('effects', savedSettings.effectsVolume);
 
-  toggle.checked = savedSettings.hardMode;
-  updateToggle(toggle);
-  applyGlobalSettings(document, savedSettings);
+  if (toggle) {
+    toggle.checked = savedSettings.hardMode;
+    updateToggle(toggle);
+  }
+
+  applySettingsGlobally(savedSettings);
 }
 
 function loadSavedSettings() {
-  applySettings(loadSettings());
+  try {
+    if (typeof loadSettings === 'function') {
+      applySettings(loadSettings());
+      return;
+    }
+  } catch (error) {
+    console.warn('Could not load saved settings. Using defaults.', error);
+  }
+
+  applySettings(getDefaultSettings());
 }
 
 function persistSettings() {
   const settings = getCurrentSettings();
-  saveSettingsData(settings);
-  applyGlobalSettings(document, settings);
+
+  try {
+    if (typeof saveSettingsData === 'function') {
+      saveSettingsData(settings);
+    }
+  } catch (error) {
+    console.warn('Could not save settings.', error);
+  }
+
+  applySettingsGlobally(settings);
+}
+
+function previewSettings() {
+  if (typeof requestAnimationFrame !== 'function') {
+    applySettingsGlobally(getCurrentSettings());
+    return;
+  }
+
+  if (previewFrameId !== null) {
+    cancelAnimationFrame(previewFrameId);
+  }
+
+  previewFrameId = requestAnimationFrame(function () {
+    previewFrameId = null;
+    applySettingsGlobally(getCurrentSettings());
+  });
 }
 
 function updateSlider(name, value) {
-  document.getElementById(name + '-val').textContent = value + '%';
-  document.getElementById(name + '-fill').style.width = value + '%';
-  document.getElementById(name + '-slider').setAttribute('aria-valuetext', value + '%');
+  const output = document.getElementById(name + '-val');
+  const fill = document.getElementById(name + '-fill');
+  const slider = document.getElementById(name + '-slider');
+
+  if (output) {
+    output.textContent = value + '%';
+  }
+  if (fill) {
+    fill.style.width = value + '%';
+  }
+  if (slider) {
+    slider.setAttribute('aria-valuetext', value + '%');
+  }
 }
 
 function updateToggle(checkbox) {
   const status = document.getElementById('hard-status');
+  if (!status) {
+    return;
+  }
+
   if (checkbox.checked) {
     status.textContent = 'ENABLED';
     status.style.color = 'var(--green)';
@@ -78,7 +157,7 @@ function updateToggle(checkbox) {
 }
 
 function resetDefaults() {
-  applySettings(createDefaultSettings());
+  applySettings(getDefaultSettings());
   persistSettings();
 }
 
@@ -97,6 +176,15 @@ function saveSettings() {
 }
 
 function backToTitle() {
-    persistSettings();
     window.location.href = "../titleScreen/title.html";
+}
+
+function applySettingsGlobally(settings) {
+  try {
+    if (typeof applyGlobalSettings === 'function') {
+      applyGlobalSettings(document, settings);
+    }
+  } catch (error) {
+    console.warn('Could not apply global settings.', error);
+  }
 }

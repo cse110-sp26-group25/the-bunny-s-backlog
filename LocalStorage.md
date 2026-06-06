@@ -34,7 +34,7 @@ const saveData = JSON.parse(localStorage.getItem("bunnysBacklogSave"));
 | 5 | `objectStates` | Object | Tracks permanent object changes in shared progress, such as locked, opened, searched, visible, or collected states. | `{ "desk_drawer": { "locked": false, "opened": true } }` |
 | 6 | `unlockedNotebookPages` | Array | Stores notebook/tutorial pages the player has unlocked. | `["objects", "scope", "methods"]` |
 | 7 | `terminalHistory` | Array | Stores terminal lines that should replay after reload. Each line has text and CSS class. | `[{ "text": "> scan(\"office\");", "cls": "cmd" }]` |
-| 8 | `settings` | Object | Stores player settings, such as volume and hard mode. | `{ "masterVolume": 80, "musicVolume": 60, "effectsVolume": 75, "hardMode": false }` |
+| 8 | `settings` | Object | Stores player settings. Settings controls preview immediately on the settings page, then save here when the player clicks Apply. | `{ "masterVolume": 80, "musicVolume": 60, "effectsVolume": 75, "hardMode": false }` |
 | 9 | `tutorialCompleted` | Boolean | Tracks whether the tutorial level has been completed. | `false` |
 | 10 | `levelProgress` | Object | Tracks which levels are unlocked and completed. This supports level selection and continue-game behavior. | `{ "level_001": { "unlocked": true, "completed": false } }` |
 
@@ -45,11 +45,11 @@ Use the same level ID everywhere when saving, loading, selecting levels, or resu
 | Level | ID |
 |---|---|
 | Tutorial | `tutorial_morning_routine` |
-| Level 1 | `level_001` |
-| Level 2 | `level_002` |
-| Level 3 | `level_003` |
-| Level 4 | `level_004` |
-| Level 5 | `level_005` |
+| Level 1 | `level_1_bakery` |
+| Level 2 | `level_2_police_station` |
+| Level 3 | `level_3_placeholder` |
+| Level 4 | `level_4_placeholder` |
+| Level 5 | `level_5_placeholder` |
 
 If a level group chooses a different final ID, update the shared `LEVEL_IDS` object in `local_storage.js`, update any matching ids in `LevelStorage`, and use that value everywhere.
 
@@ -59,6 +59,29 @@ The project currently has two local storage layers:
 
 - `local_storage.js` stores user settings and level-select/overall game progress in the shared `bunnysBacklogSave` array.
 - `src/engine/storage.js` stores the current level's resume state through the `LevelStorage` class and calls `markLevelComplete(levelId)` from `local_storage.js` when a saved level state is complete.
+
+## Settings Behavior
+
+Settings are stored at index 8 of `bunnysBacklogSave`:
+
+```js
+{
+  masterVolume: 80,
+  musicVolume: 60,
+  effectsVolume: 75,
+  hardMode: false
+}
+```
+
+The settings page loads these values with `loadSettings()`. Slider movement and the hard-mode toggle update the page preview immediately, but they do not write to local storage until Apply is clicked. Apply calls `saveSettingsData(settings)`, which normalizes the values and writes them back to index 8 without overwriting the rest of the save array.
+
+Pages that load `local_storage.js` call `applyGlobalSettings()` on startup. That applies saved settings to page state and to any `audio` or `video` element:
+
+- `data-volume-type="music"` uses `masterVolume * musicVolume`
+- `data-volume-type="effects"` uses `masterVolume * effectsVolume`
+- untyped media uses `masterVolume`
+
+Old or malformed saved settings are normalized back to defaults so a bad GitHub Pages `localStorage` value does not break the settings page.
 
 The refactored game calls `LevelStorage`:
 

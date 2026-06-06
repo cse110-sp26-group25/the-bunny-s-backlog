@@ -23,6 +23,7 @@ const {
   TUTORIAL_LEVEL_ID,
   LEVEL_IDS,
   createDefaultSettings,
+  normalizeSettings,
   createDefaultLevelProgress,
   createDefaultSaveData,
   saveGame,
@@ -31,6 +32,8 @@ const {
   loadSafeGame,
   loadSettings,
   saveSettingsData,
+  volumePercentToScale,
+  applyGlobalSettings,
   loadLevelProgress,
   saveCurrentLevel,
   saveCheckpoint,
@@ -107,6 +110,28 @@ test('loads default settings from index 8', () => {
   expect(loadSettings()).toEqual(createDefaultSettings());
 });
 
+test('normalizes invalid saved settings without throwing', () => {
+  expect(normalizeSettings({
+    masterVolume: '200',
+    musicVolume: 'bad',
+    effectsVolume: -5,
+    hardMode: 1
+  })).toEqual({
+    masterVolume: 100,
+    musicVolume: 60,
+    effectsVolume: 0,
+    hardMode: true
+  });
+});
+
+test('loads defaults from old malformed settings saves', () => {
+  const saveData = createDefaultSaveData();
+  saveData[8] = 'old bad settings';
+  saveGame(saveData);
+
+  expect(loadSettings()).toEqual(createDefaultSettings());
+});
+
 test('saves settings without overwriting other save data', () => {
   const saveData = createDefaultSaveData();
   saveData[1] = 'level2';
@@ -163,5 +188,75 @@ test('loadSafeGame clears corrupted JSON and returns defaults', () => {
 
   expect(loadSafeGame()).toEqual(createDefaultSaveData());
   expect(localStorage.getItem(SAVE_KEY)).toBeNull();
+});
+
+test('loads defaults when localStorage is unavailable', () => {
+  const availableStorage = global.localStorage;
+  delete global.localStorage;
+
+  try {
+    expect(loadGame()).toEqual(createDefaultSaveData());
+    expect(loadSettings()).toEqual(createDefaultSettings());
+  } finally {
+    global.localStorage = availableStorage;
+  }
+});
+
+test('keeps screens usable when localStorage writes throw', () => {
+  const availableStorage = global.localStorage;
+  global.localStorage = {
+    getItem: () => null,
+    setItem: () => {
+      throw new Error('storage blocked');
+    },
+    removeItem: () => {
+      throw new Error('storage blocked');
+    }
+  };
+
+  try {
+    expect(() => saveGame(createDefaultSaveData())).not.toThrow();
+    expect(() => clearSave()).not.toThrow();
+  } finally {
+    global.localStorage = availableStorage;
+  }
+});
+
+test('converts volume percentages into media volume scale', () => {
+  expect(volumePercentToScale(80)).toBe(0.8);
+  expect(volumePercentToScale('25')).toBe(0.25);
+  expect(volumePercentToScale(-1)).toBe(0);
+  expect(volumePercentToScale(150)).toBe(1);
+  expect(volumePercentToScale('bad')).toBe(0);
+});
+
+test('applies global settings to document media elements', () => {
+  const mediaElements = [
+    { dataset: { volumeType: 'music' }, volume: 1, muted: false },
+    { dataset: { volumeType: 'effects' }, volume: 1, muted: false },
+    { dataset: {}, volume: 1, muted: false }
+  ];
+  const bodyClassList = { toggle: jest.fn() };
+  const doc = {
+    documentElement: {
+      dataset: {},
+      style: { setProperty: jest.fn() }
+    },
+    body: { classList: bodyClassList },
+    querySelectorAll: jest.fn(() => mediaElements)
+  };
+
+  applyGlobalSettings(doc, {
+    masterVolume: 50,
+    musicVolume: 40,
+    effectsVolume: 20,
+    hardMode: true
+  });
+
+  expect(mediaElements[0].volume).toBe(0.2);
+  expect(mediaElements[1].volume).toBe(0.1);
+  expect(mediaElements[2].volume).toBe(0.5);
+  expect(doc.documentElement.dataset.hardMode).toBe('true');
+  expect(bodyClassList.toggle).toHaveBeenCalledWith('hard-mode', true);
 });
 
