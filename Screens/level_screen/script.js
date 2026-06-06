@@ -3,19 +3,22 @@ const levels = [
         id: "tutorial",
         title: "Tutorial",
         synopsis: "The Office: Welcome to the agency! Let's get your terminal online and read the Bunny's journal. Look around the room and find hidden items with simple code!",
-        completed: true
+        completed: true,
+        image: "../../Graphics/Background_Animations/PNG/LevelSelection/0.1.png"
     },
     {
         id: "level1",
         title: "Level 1",
         synopsis: "The Crust & Crumb Bakery: A thief has struck! Catalog and sort the remaining pastries to find clues and give a hoof to our Sheep Baker friend.",
-        completed: false
+        completed: false,
+        image: "../../Graphics/Background_Animations/PNG/LevelSelection/1.2.png"
     },
     {
         id: "level2",
         title: "Level 2",
         synopsis: "The Police Station: Theres a witness! Listen the wittness statements and cross-reference suspects to try-catch the culprit.",
-        completed: false
+        completed: false,
+        image: "../../Graphics/Background_Animations/PNG/LevelSelection/2.1.png"
     }
 ];
 
@@ -28,7 +31,7 @@ function initLevels() {
         const cardHTML = `
             <div class="card-container">
                 <div class="level-card" onclick="selectCard(${index})" id="card-${index}">
-                    <div class="card-image-placeholder" style="background-image: url('${level.image}'); background-size: cover; background-position: center;">
+                    <div class="card-image-placeholder" style="background-image: url('${level.image}');">
                         <div class="status-dot ${isCompleted}"></div>
                     </div>
                     <div class="card-header">

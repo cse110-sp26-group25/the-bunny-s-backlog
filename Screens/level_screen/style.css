@@ -1,10 +1,10 @@
-/* --- CORE HITMAN AESTHETIC --- */
+/* --- CORE AESTHETIC --- */
 :root {
     --bg-dark: #94b17f;
     --bg-panel: #e5e2df;
     --text-main: #fff;
     --text-muted: #888;
-    --hitman-red: #7d4b2c;
+    --accent-brown: #7d4b2c;
     --border-color: #fffdfd;
     --font-family: 'Segoe UI', tahoma, geneva, verdana, sans-serif;
     
@@ -48,7 +48,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--text-muted);
+    color: var(--text-main);
     font-weight: bold;
     letter-spacing: 0.125rem;
     text-transform: uppercase;
@@ -109,7 +109,7 @@ body {
 /* Deploy Button inside Synopsis */
 .action-button {
     display: inline-block;
-    background-color: var(--hitman-red);
+    background-color: var(--accent-brown);
     color: var(--text-main);
     text-decoration: none;
     text-align: center;
@@ -200,25 +200,37 @@ body {
 
 .card-image-placeholder {
     flex: 1;
-    background: linear-gradient(180deg, rgb(20 20 22 / 0%) 0%, rgb(20 20 22 / 100%) 100%);
     position: relative;
-   
+    background-size: cover;
+    background-position: center;
+}
+
+.card-image-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgb(20 20 22 / 0%) 0%, rgb(20 20 22 / 100%) 100%);
+    z-index: 1;
 }
 
 .status-dot {
     width: 0.75rem;
     height: 0.75rem;
-    background-color: var(--hitman-red);
+    background-color: red;
     border-radius: 50%;
     position: absolute;
     top: 0.9375rem;
     right: 0.9375rem;
-    box-shadow: 0 0 0.5rem var(--hitman-red);
+    box-shadow: 0 0 0.5rem red;
+    z-index: 2;
 }
 
 .status-dot.completed {
-    background-color: white; /* Green */
-    box-shadow: none;
+    background-color: #7ed321; /* Green */
+    box-shadow: 0 0 0.5rem #7ed321;
 }
 
 .card-header {
@@ -236,6 +248,8 @@ body {
 }
 
 .level-card.active .card-header {
-    background-color: var(--hitman-red);
+    background-color: var(--accent-brown);
     color: var(--text-main);
+}
+;
 }
