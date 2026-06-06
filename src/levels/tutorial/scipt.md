@@ -10,7 +10,6 @@
 
 ## Context
 
-The game opens with Bill the Lizard sitting at his desk, staring blankly at a heavy, brass mechanical security console on the wall. A soft chime rings, and the side panel pops open directly to the first page of Bunny's Notebook.
 
 ### Slide Panel (Bunny's Notebook - Page 1)
 
@@ -18,9 +17,12 @@ The game opens with Bill the Lizard sitting at his desk, staring blankly at a he
 >
 > I actually left a little welcome gift for you! The bad news? I think I forgot to take it out of my super-secret locked drawer before I stepped out ૮꒰˶´ ꒳ `꒱ა. But don't worry, the key is hidden somewhere in the room!
 >
-> I usually start all my mysteries by running a quick room scan to see what I can interact with. Try typing this behavior to look around the office:
->
-> `self.search("look around room")`"
+> I usually start all my mysteries by doing a quick `self.search("room")` what objects in the room I can interact with. 
+
+### Hotspot next to terminal 
+
+> Try typing this action to look around Bunny's 'office'
+>  
 
 ### Player Input
 
@@ -31,7 +33,7 @@ self.search("look around room")
 ### System Output
 
 ```bash
-Scanning room...
+Looking around room I see a...
 
 Found: plantPot
 
@@ -45,7 +47,7 @@ Found: lockedDrawer
 
 ### Character Dialogue
 
-**Bill the Lizard:** "Alright, looks like Bunny's notebook was right. The wall console found two things I can interact with on my left: a plantPot and a lockedDrawer. Let's click on that plant and see if anything is there."
+~~**Bill the Lizard:** "Alright, looks like Bunny's notebook was right. The wall console found two things I can interact with on my left: a plantPot and a lockedDrawer. Let's click on that plant and see if anything is there."~~
 
 # Phase 2: The Multi-Parameter Plant
 
