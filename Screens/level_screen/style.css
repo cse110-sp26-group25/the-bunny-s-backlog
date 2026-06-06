@@ -30,29 +30,27 @@ body {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 40px;
+    padding: 2.5rem;
 }
 
 /* --- TOP HEADER (Logo) --- */
 .top-header {
     width: 100%;
-    height: 60px;
-    margin-bottom: 30px;
+    height: 3.75rem;
+    margin-bottom: 1.875rem;
     display: flex;
     align-items: flex-start;
 }
 
 .logo-placeholder {
-    width: 150px;
-    height: 50px;
-    background-color: #1a1a1d;
-    border: 2px dashed var(--border-color);
+    width: auto;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
     color: var(--text-muted);
     font-weight: bold;
-    letter-spacing: 2px;
+    letter-spacing: 0.125rem;
     text-transform: uppercase;
 }
 
@@ -60,33 +58,33 @@ body {
 .main-layout {
     display: flex;
     flex: 1;
-    gap: 30px;
+    gap: 1.875rem;
     overflow: hidden;
 }
 
 /* --- LEFT PANEL (Overview / Key) --- */
 .left-panel {
-    width: 350px;
+    width: 21.875rem;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.25rem;
     flex-shrink: 0;
 }
 
 .levels-icon {
     background-color: var(--text-main);
     color: var(--bg-dark);
-    padding: 15px 20px;
+    padding: 0.9375rem 1.25rem;
     font-weight: 800;
     font-size: 1.2rem;
-    letter-spacing: 2px;
+    letter-spacing: 0.125rem;
     text-transform: uppercase;
 }
 
 .summary-box {
     background-color: var(--bg-panel);
-    border: 1px solid var(--border-color);
-    padding: 25px;
+    border: 0.0625rem solid var(--border-color);
+    padding: 1.5625rem;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -95,8 +93,8 @@ body {
 .summary-box h3 {
     color: var(--hitman-red);
     text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 15px;
+    letter-spacing: 0.0625rem;
+    margin-bottom: 0.9375rem;
     font-size: 1.3rem;
 }
 
@@ -104,7 +102,7 @@ body {
     color: #b0b0b0;
     line-height: 1.6;
     font-size: 0.95rem;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
     flex-grow: 1;
 }
 
@@ -115,10 +113,10 @@ body {
     color: var(--text-main);
     text-decoration: none;
     text-align: center;
-    padding: 15px 20px;
+    padding: 0.9375rem 1.25rem;
     font-weight: bold;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 0.125rem;
     transition: background-color 0.2s ease, transform 0.1s ease;
     cursor: pointer;
 }
@@ -134,16 +132,16 @@ body {
 /* --- RIGHT PANEL (Cards Carousel) --- */
 .cards-carousel {
     display: flex;
-    gap: 20px;
+    gap: 1.25rem;
     overflow-x: auto;
-    padding-bottom: 20px;
+    padding-bottom: 1.25rem;
     flex: 1;
     align-items: flex-start;
 }
 
 /* Custom Scrollbar for Carousel */
 .cards-carousel::-webkit-scrollbar {
-    height: 8px;
+    height: 0.5rem;
 }
 
 .cards-carousel::-webkit-scrollbar-track {
@@ -160,11 +158,11 @@ body {
 
 /* --- INDIVIDUAL CARDS --- */
 .card-container {
-    width: 320px; /* Made slightly wider */
+    width: 20rem; 
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
-    height: 100%; /* Take up full available height */
+    height: 100%; 
 }
 
 .level-card {
@@ -172,18 +170,18 @@ body {
 
     /* Make cards much longer (taller) */
     height: 75vh;
-    min-height: 500px;
+    min-height: 31.25rem;
     display: flex;
     flex-direction: column;
     cursor: pointer;
     position: relative;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border-top: 4px solid transparent;
+    border-top: 0.25rem solid transparent;
 }
 
 .level-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgb(0 0 0 / 50%);
+    transform: translateY(-0.3125rem);
+    box-shadow: 0 0.625rem 1.25rem rgb(0 0 0 / 50%);
 }
 
 /* Adding the wireframe colors to the top border of each card using 5n pattern */
@@ -200,32 +198,32 @@ body {
 }
 
 .status-dot {
-    width: 12px;
-    height: 12px;
+    width: 0.75rem;
+    height: 0.75rem;
     background-color: var(--hitman-red);
     border-radius: 50%;
     position: absolute;
-    top: 15px;
-    right: 15px;
-    box-shadow: 0 0 8px var(--hitman-red);
+    top: 0.9375rem;
+    right: 0.9375rem;
+    box-shadow: 0 0 0.5rem var(--hitman-red);
 }
 
 .status-dot.completed {
     background-color: var(--card-4); /* Green */
-    box-shadow: 0 0 8px var(--card-4);
+    box-shadow: 0 0 0.5rem var(--card-4);
 }
 
 .card-header {
     background-color: var(--text-main);
     color: var(--bg-dark);
-    padding: 20px 15px;
+    padding: 1.25rem 0.9375rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-weight: 700;
     font-size: 1.1rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.0625rem;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 

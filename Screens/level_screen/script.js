@@ -3,19 +3,22 @@ const levels = [
         id: "tutorial",
         title: "Tutorial",
         synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal.",
-        completed: true
+        completed: true,
+        image: "../../Graphics/tutorial.png"
     },
     {
         id: "level1",
         title: "Level 1",
         synopsis: "The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.",
-        completed: false
+        completed: false,
+        image: "../../Graphics/level1.png"
     },
     {
         id: "level2",
         title: "Level 2",
         synopsis: "The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.",
-        completed: false
+        completed: false,
+        image: "../../Graphics/level2.png"
     }
 ];
 
@@ -28,7 +31,7 @@ function initLevels() {
         const cardHTML = `
             <div class="card-container">
                 <div class="level-card" onclick="selectCard(${index})" id="card-${index}">
-                    <div class="card-image-placeholder">
+                    <div class="card-image-placeholder" style="background-image: url('${level.image}'); background-size: cover; background-position: center;">
                         <div class="status-dot ${isCompleted}"></div>
                     </div>
                     <div class="card-header">
