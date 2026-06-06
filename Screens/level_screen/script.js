@@ -28,7 +28,7 @@ function initLevels() {
         const cardHTML = `
             <div class="card-container">
                 <div class="level-card" onclick="selectCard(${index})" id="card-${index}">
-                    <div class="card-image-placeholder">
+                    <div class="card-image-placeholder" style="background-image: url('${level.image}'); background-size: cover; background-position: center;">
                         <div class="status-dot ${isCompleted}"></div>
                     </div>
                     <div class="card-header">
