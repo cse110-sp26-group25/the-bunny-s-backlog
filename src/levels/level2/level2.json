@@ -17,7 +17,7 @@
   "global_hotspots": {
     "clutteredDesk": {
       "x": "35", "y": "40", "w": "30", "h": "35",
-      "hover_text": "Wow, that's a lot of suspects scattered across this desk. We need to parse through these files efficiently."
+      "hover_text": "Wow, that is a lot of suspects scattered across this desk. We need to parse through these files efficiently."
     },
     "animalFolders": {
       "x": "20", "y": "30", "w": "60", "h": "50",
@@ -30,7 +30,7 @@
     "title": "The Culprit Identified!",
     "subtitle": "Arrest Warrant Issued",
     "nextToast": "🐹 Closing the Case in Level 3!",
-    "completeDialogue": "The Police Chief bangs his paw on the desk approvingly! 'Incredible work, detective! The logic holds up perfectly—we've trapped the thief red-handed in our cross-reference data net. Let's head down to the holding cells!'",
+    "completeDialogue": "The Police Chief bangs his paw on the desk approvingly! 'Incredible work, detective! The logic holds up perfectly—we have trapped the thief red-handed in our cross-reference data net. Let us head down to the holding cells!'",
     "completeHint": "Proceed to the final confrontation."
   },
 
@@ -46,6 +46,7 @@
       "result": "ok",
       "output": "Directory search executed...\n[SFX: Paper Shuffling]\n→ Loading file array: suspectFiles\n→ 3 matching suspect indices loaded into active view.",
       "lesson": "Calling an explicit search method on our system object triggers an internal scene transition. We pull raw archive sets straight into the game engine memory using self.search(targetData).",
+      "author_notes": "Cleaned up contraction in dialogue text to maintain formatting standards.",
       "lizard_notes": [
         "SYSTEM METADATA: suspectFiles array map pulled into active registry."
       ],
@@ -58,90 +59,92 @@
       "active_hotspots": ["animalFolders"],
       "speaker": "Bunny's Notebook",
       "avatar": "📓",
-      "dialogue": "Sometimes I need to perform a repetitive task on similar objects over and over again. To help save time, I can write a function to prep how I will behave to some object! Once I prepare a function like eatCarrot(someCarrot) {} by writing the actions I want to take inside curly brackets {}, I can call the function over and over again on different objects without rewriting my actions—like eatCarrot(bigCarrot) or eatCarrot(smallCarrot). someCarrot acts as a placeholder, so I can ready my actions before executing them on the real thing! Let's build a crossRef function block first.",
+      "dialogue": "Sometimes I need to perform a repetitive task on similar objects over and over again. To help save time, I can write a function to prep how I will behave to some object! Once I prepare a function like eatCarrot(someCarrot) {} by writing the actions I want to take inside curly brackets {}, I can call the function over and over again on different objects without rewriting my actions—like eatCarrot(bigCarrot) or eatCarrot(smallCarrot). someCarrot acts as a placeholder, so I can ready my actions before executing them on the real thing! Let us build a crossRef function block first.",
       "answer": "function crossRef(suspect) {",
       "result": "ok",
       "output": "Function template registered.\n[SFX: Animal Biometric Audio Stream Initialization]\n→ Evaluated parameter mapping: suspect\n→ Awaiting internal block instructions...",
       "lesson": "Functions encapsulate reuse loops. Writing 'function functionName(placeholder) {' signals to the compiler that a sequence of conditions is being mapped out to test incoming objects uniformly.",
       "lizard_notes": [
         "FUNCTION REGISTRY: crossRef scope opened.",
-        "OBJECT REFERENCE SCHEMATICS:\nconst suspect1 = { earShape: ____, height: ___, sound: ___ }"
+        "OBJECT REFERENCE SCHEMATICS:\nconst suspect1 = { earShape: 'pointy', height: 'large', sound: 'silent' }"
       ],
       "hint": "function crossRef(suspect) {",
       "effects": { "changeBackground": "suspect_inspector" }
     },
     {
-      "comment": "ACTION 3: Initiate the try code safety block statement to query single records.",
+      "comment": "ACTION 3: Initiate an evaluation block checking the ear profile property layout.",
       "scene": "suspect_inspector",
       "active_hotspots": ["animalFolders"],
       "speaker": "Police Chief Doggo",
       "avatar": "👮",
-      "dialogue": "Now that our inspection block framework is prepped, we need to carefully evaluate each file record. But watch out—reading unverified documents can drop runtime exceptions if parameters are missing! Let's start safely. Open up a guarded execution zone and attempt to read the file variable passed into our function.",
-      "answer": "try { self.readFile(suspect);",
+      "dialogue": "Now that our inspection block framework is prepped, we need to carefully evaluate each file record using conditional statements. Remember the clues! The thief has 'round' ears. Let us check the suspect object's earShape property. If it does not equal 'round', we will open an action block to record a contradiction!",
+      "answer": "if (suspect.earShape !== \"round\") {",
       "result": "ok",
-      "output": "Guarded system tracking state engaged.\n→ Testing pipeline connection via self.readFile()...",
-      "lesson": "A 'try' statement sets up a safe block layout. The computer attempts to run the code lines inside. If a step breaks due to a runtime tracking mismatch, it passes control straight over to an error fallback chain instead of crashing the program.",
+      "output": "Conditional check established.\n→ Testing earShape property values on input datasets...",
+      "lesson": "An 'if' statement evaluates a conditional rule inside parentheses. If that rule proves true, the program runs the code inside the curly brackets '{'. The operator '!==' means 'does not equal'.",
       "lizard_notes": [
-        "EXCEPTION WATCHER: Guarded execution wrapper initialized."
+        "CONDITIONAL BLOCK: earShape evaluation pathway active."
       ],
-      "hint": "try { self.readFile(suspect);"
+      "hint": "if (suspect.earShape !== \"round\") {"
     },
     {
-      "comment": "ACTION 4 - PART A: Intercept the ear anomaly data tracking flag.",
+      "comment": "ACTION 4 - PART A: Increment the contradiction counter and establish the next height test.",
       "scene": "suspect_inspector",
       "active_hotspots": ["animalFolders"],
       "speaker": "Police Chief Doggo",
       "avatar": "👮",
-      "dialogue": "Remember the clue parameters Bat gave us! We're looking for someone matching those precise physical attributes. If anyone doesn't match, it throws an error. Let's check for structural discrepancies. If the file throws a **notBigEars** error exception, increment our contradiction counter variable so we can keep track of the total mistakes!",
-      "answer": "catch (notBigEars) { contradiction++; }",
+      "dialogue": "Perfect! If they do not have round ears, bump up our counter variable. To make our tracking fast, we can chain our rules together! Close the first block and add an 'else if' statement to test if the suspect's height property does not equal 'small'.",
+      "answer": "contradiction++; } else if (suspect.height !== \"small\") {",
       "result": "ok",
-      "output": "Exception tracking channel mapped: notBigEars\n→ Counter modifier logic linked.",
-      "lesson": "The catch block intercepts specific errors thrown by a failed try sequence. Using the catch parameter lets you identify the flaw and update a metric tracker safely.",
+      "output": "Chained condition registered.\n→ Primary mismatch handler linked to data incrementor.\n→ Secondary filter testing height parameters...",
+      "lesson": "Using '}' closes a previous condition's action zone. By writing 'else if', you can tell the computer: 'If the first rule was fine, check this next rule immediately!'",
       "lizard_notes": [
-        "EXCEPTION ROUTE A: notBigEars mapped to contradiction incrementor."
+        "COUNTER UPDATE: contradiction incrementor linked.",
+        "CONDITIONAL BLOCK: height evaluation pathway active."
       ],
-      "hint": "catch (notBigEars) { contradiction++; }"
+      "hint": "contradiction++; } else if (suspect.height !== \"small\") {"
     },
     {
-      "comment": "ACTION 4 - PART B: Intercept the size anomaly data tracking flag.",
+      "comment": "ACTION 4 - PART B: Handle the height failure and establish the final audio tracking check.",
       "scene": "suspect_inspector",
       "active_hotspots": ["animalFolders"],
       "speaker": "Bunny's Notebook",
       "avatar": "📓",
-      "dialogue": "After we try something, we use catch to keep track of the errors that occurred. We specify which particular errors we're looking for inside catch(errorType) and define how we should respond inside curly brackets { responseToError }. For example: catch(moldyCarrot){ self.throwAway(carrot) }. Sometimes we don't need to keep track of a lot of different objects, but rather a count variable like numOfCarrots. To add to this counter, we use **++**. To add to my counter, I do numOfCarrots++. Let's add our second catch block to check for the **notSmall** error!",
-      "answer": "catch (notSmall) { contradiction++; }",
+      "dialogue": "When we want to add 1 to a tracking number, we use **++**. For example, contradiction++ updates our count seamlessly. Let us log this mistake, close the height bracket, and check the third clue! Use another 'else if' to look at suspect.sound and verify it does not equal 'squeak'.",
+      "answer": "contradiction++; } else if (suspect.sound !== \"squeak\") {",
       "result": "ok",
-      "output": "Exception tracking channel mapped: notSmall\n→ Counter modifier logic linked.",
-      "lesson": "Stacking sequential catch blocks isolates specific object property failures. Every increment operation bumps our target counter integer variable up by exactly 1.",
+      "output": "Chained condition registered.\n→ Secondary mismatch handler linked to data incrementor.\n→ Final filter testing audio profile signatures...",
+      "lesson": "Stacking conditions handles complex records step-by-step. The process guarantees that individual data anomalies are isolated precisely as they occur.",
       "lizard_notes": [
-        "EXCEPTION ROUTE B: notSmall mapped to contradiction incrementor."
+        "COUNTER UPDATE: contradiction incrementor linked.",
+        "CONDITIONAL BLOCK: sound evaluation pathway active."
       ],
-      "hint": "catch (notSmall) { contradiction++; }"
+      "hint": "contradiction++; } else if (suspect.sound !== \"squeak\") {"
     },
     {
-      "comment": "ACTION 4 - PART C: Intercept the audio profile anomaly flag and close the cross-reference function block.",
+      "comment": "ACTION 4 - PART C: Increment final mismatch flag and seal the overall function wrapper architecture.",
       "scene": "suspect_inspector",
       "active_hotspots": ["animalFolders"],
       "speaker": "Police Chief Doggo",
       "avatar": "👮",
-      "dialogue": "Excellent. Now add the final exception rule. If the profile triggers a **doesNotSqueak** anomaly, bump up that counter again! Don't forget to write the closing curly bracket **}** to completely seal your main crossRef function block when you're finished.",
-      "answer": "catch (doesNotSqueak) { contradiction++; } }",
+      "dialogue": "Excellent. Increment that counter one last time for the audio check. Then, make sure to add two closing curly brackets **} }** to finish up—one to shut this sound validation sub-block, and one to completely seal the entire crossRef function wrapper!",
+      "answer": "contradiction++; } }",
       "result": "ok",
-      "output": "Exception tracking channel mapped: doesNotSqueak\n→ Function evaluation block compilation successful!\n\nRUNNING DIAGNOSTICS:\n→ crossRef(suspect1) [Owl File Evaluated]: Small Ears, Small Profile, Does Not Squeak. Total Contradictions = 2\n→ crossRef(suspect2) [Dog File Evaluated]: Big Ears, Small Profile, Does Not Squeak. Total Contradictions = 1\n→ crossRef(suspect3) [Mouse File Evaluated]: Big Ears, Small Profile, Squeaks. Total Contradictions = 0",
-      "lesson": "By sealing the function template, we can now pass every distinct suspect object into crossRef(). The system automatically checks each field and evaluates exactly how closely their records match our clues.",
+      "output": "Logic evaluation matrix compiled successfully!\n\nRUNNING SYSTEM DIAGNOSTICS:\n→ crossRef(suspect1) [Owl File]: Pointy Ears, Large, Silent. Total Contradictions = 1\n→ crossRef(suspect2) [Dog File]: Pointy Ears, Small, Silent. Total Contradictions = 1\n→ crossRef(suspect3) [Mouse File]: Round Ears, Small, Squeak. Total Contradictions = 0",
+      "lesson": "By sealing our overarching function block safely, we can cleanly run the crossRef method over our data grid to flag matching profiles instantly without crashing.",
       "lizard_notes": [
         "CROSS-REFERENCE MATRIX GENERATED.",
         "CRITICAL DETECTED DATA VERDICT: suspect3 yields 0 error flags."
       ],
-      "hint": "catch (doesNotSqueak) { contradiction++; } }"
+      "hint": "contradiction++; } }"
     },
     {
       "comment": "ACTION 5: Issue a direct accusation logging command utilizing dynamic string interpolation.",
       "scene": "suspect_inspector",
-      "active_hotspots": ["animalFolders"],
+      "active_hotspots": [],
       "speaker": "Lizard Instincts",
       "avatar": "🦎",
-      "dialogue": "Look at those logs! The Owl scored 2 errors, the Dog scored 1 error, but Suspect 3 scored a perfect 0 discrepancies! They match the Bat's witness description exactly. Let's broadcast our final accusation using a template literal string wrapper **${}** so the precinct can log the arrest profile immediately!",
+      "dialogue": "Look at those logs! The Owl and Dog profiles triggered mismatch flags, but Suspect 3 hit 0 contradictions—they are an identical match to our culprit. Let us log our final accusation using a template literal wrapper **${}** so the precinct can lock in the capture file!",
       "answer": "console.log(`I accuse ${suspect3}`);",
       "result": "ok",
       "output": "LOG: I accuse Suspect 3 (The Mouse)\n→ Target identifier parsed cleanly via template syntax.\n→ Arrest warrant issued instantly! ✓",
