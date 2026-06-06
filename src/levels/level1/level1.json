@@ -91,7 +91,7 @@
       "active_hotspots": ["displayCase"],
       "speaker": "Baker Sheep",
       "avatar": "👨‍🍳",
-      "dialogue": "Wow. This list is a mess. A complete disaster. The messy display case has resulted in a completely disorganized mess. This is not helpful at all. Here, just this once, I'll give you access to our super secret family sorting method **.sheepOrdering()**. Please use it to reorder this missingDessertList so it's easier to read!",
+      "dialogue": "Wow. This list is a total scramble. The destruction of the showcase has left my records completely scrambled. This is going to slow down the investigation! Here, just this once, I'll give you access to our super secret family sorting method **.sheepOrdering()**. Please use it to reorder this missingDessertList so it's readable!",
       "answer": "missingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
       "result": "ok",
       "output": "Executing array sequence evaluation...\n→ Processing comparative constraints against custom family weights...\n→ missingDessertList successfully sorted! ✓",
@@ -106,7 +106,7 @@
     {
       "comment": "TRANSITION CUTSCENE: Intercept witness descriptions via terminal stream.",
       "scene": "bakery_sorted",
-      "active_hotspots": ["bat_witness"],
+      "active_hotspots": [],
       "speaker": "Bat Witness",
       "avatar": "🦇",
       "dialogue": "Oh no, did someone break in?! I guess that is what all that crashing noise was last night... I couldn't see them very clearly from my roost. But I definitely saw that they had round ears, they were quite small, and... Oh! They squeaked!",
