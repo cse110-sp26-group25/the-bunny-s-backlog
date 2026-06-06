@@ -5,21 +5,18 @@
   "default_speaker": "Chief Inspector Bunny",
   "default_avatar": "🐰",
 
-  "__comment_scenes": "=== BACKGROUND SCENE ASSETS (Paths relative to main game directory) ===",
   "scenes": {
     "desk": "assets/desk.jpg",
     "plant": "assets/key.jpg",
     "drawers": "assets/drawer.jpg"
   },
 
-  "__comment_global_hotspots": "=== GLOBAL HITBOX POSITIONING (Coordinates must be strings representing viewport percentage integers 0-100) ===",
   "global_hotspots": {
     "desk": { "x": "20", "y": "50", "w": "30", "h": "30" },
     "plant": { "x": "75", "y": "40", "w": "12", "h": "25" },
     "drawers": { "x": "5", "y": "65", "w": "15", "h": "25" }
   },
 
-  "__comment_win_states": "=== END OF LEVEL UI CARD STRINGS ===",
   "win": {
     "title": "Level Complete!",
     "subtitle": "The Morning Routine",
@@ -28,25 +25,19 @@
   "completeDialogue": "You found it! Fantastic work, Bill. You already know how to use strings, functions, and dot notation! You are going to be a natural JavaScript Developer. Come on, let's head over to the Bakery to catch a thief!",
   "completeHint": "Head to the Bakery!",
 
-  "__comment_phases_array": "=== LEVEL PHASE SEQUENCING BLOCK ===",
   "phases": [
     {
-      "__comment_phase_config": "scene must map to a key in the top-level scenes block. answer is the exact string match expected in #term-in.",
       "scene": "desk",
+      "dialogue": "Welcome to the agency, Rookie! I'm Chief Inspector Bunny. Don't let the long ears fool you—I've cracked cases from here to the Carrot District. Before we can dive into the backlogs, we need to make sure your Detective Terminal can interface with the environment. In JavaScript, we make the system talk using console.log. Give it a spin by logging a simple hello string!",
       "answer": "console.log(\"hello\");",
       "result": "ok",
       "output": "\"hello\"\n→ System Online. Detective Terminal calibrated! ✓",
-      
-      "__comment_ui_panels": "lesson is plain text rendered in the lesson tab panel. notes must be an array of strings parsed as list elements.",
       "lesson": "console.log(\"...\") is the most fundamental JavaScript command. It prints text to the terminal.",
       "notes": [
         "SYSTEM NOTE: Terminal is online.",
         "Use console.log(\"text\"); to talk to the computer."
       ],
-      "dialogue": "Welcome to the agency, Rookie! I'm Chief Inspector Bunny. Before we can solve any mysteries, we need to make sure your Detective Terminal is online. In JavaScript, we make the computer speak using a command called console.log. Let's test it by saying hello!",
       "hint": "console.log(\"hello\");",
-      
-      "__comment_phase_hotspots": "id matches top global_hotspots. Use \\n to represent linebreaks inside raw monospace code strings.",
       "active_hotspots": [
         {
           "id": "desk",
@@ -57,6 +48,7 @@
     },
     {
       "scene": "desk",
+      "dialogue": "Perfect, our terminal is synced up! Now, I have a bit of an embarrassing problem… I lost my main investigation journal somewhere in this messy office. Let's use the terminal to run a radar sweep of the environment. To use an agency command tool, you type its name, followed by your targeted destination enclosed in string quotes.",
       "answer": "scan(\"office\");",
       "result": "ok",
       "output": "Room scanned.\n→ 3 interactive zones detected:\n   • desk\n   • plant\n   • drawers",
@@ -65,7 +57,6 @@
         "ZONES FOUND: desk, plant, drawers",
         "HINT: Use inspect(\"target\"); to look closer."
       ],
-      "dialogue": "Perfect, we are online! Now, I have a bit of a problem… I lost my main investigation journal somewhere in this messy office. Let's use the terminal to run a sweep of the room. To use a tool, you type its name, followed by your target inside quotes.",
       "hint": "scan(\"office\");",
       "active_hotspots": [
         {
@@ -77,6 +68,7 @@
     },
     {
       "scene": "desk",
+      "dialogue": "Great work! The terminal radar detected my primary desk, a decorative potted plant, and some wooden filing drawers. I almost always leave my journal right on my workspace. Let's redirect our inspection tool to scope out the desk area.",
       "answer": "inspect(\"desk\");",
       "result": "ok",
       "output": "Inspecting desk...\n→ Desk contains:\n   • coffee_mug\n   • open_book\n   • clipboard",
@@ -85,7 +77,6 @@
         "DESK CONTENTS: coffee_mug, open_book, clipboard",
         "Objects have actions — connect with a dot: object.action();"
       ],
-      "dialogue": "Great job! The scanner found my desk, a potted plant, and some wooden drawers. I usually leave my journal right on my workspace. Let's use the inspect tool to look closer at it.",
       "hint": "inspect(\"desk\");",
       "active_hotspots": [
         {
@@ -97,6 +88,7 @@
     },
     {
       "scene": "desk",
+      "dialogue": "Hmm, no journal in plain sight. But look! The scanner found a coffee_mug, an open_book, and an agency clipboard. In code, items are treated as 'objects', and we can make them perform specific actions by connecting them with a dot. Let's execute a read action on that book to see if it's my journal.",
       "answer": "desk.read(\"open_book\");",
       "result": "ok",
       "output": "Reading open_book...\n→ Webster's English Dictionary.\n→ Nothing useful here.",
@@ -105,7 +97,6 @@
         "open_book = Dictionary. Not the journal.",
         "Bunny: \"Try reading the clipboard instead!\""
       ],
-      "dialogue": "Hmm, no journal. But look! There is an open_book and a clipboard. In code, things are called 'objects', and we can make them do actions by connecting them with a dot. Let's try reading that book first to see if it's my journal.",
       "hint": "desk.read(\"open_book\");",
       "active_hotspots": [
         {
@@ -117,6 +108,7 @@
     },
     {
       "scene": "desk",
+      "dialogue": "Ah, just my old dictionary. False alarm! But don't get discouraged, Rookie—investigating means crossing off wrong leads! Let's pivot and read the clipboard instead. Don't forget to use that dot notation structure to point to it.",
       "answer": "desk.read(\"clipboard\");",
       "result": "ok",
       "output": "Reading clipboard...\n→ Note: 'Keep journal locked in drawers.\n         Hide key in foliage.'",
@@ -125,7 +117,6 @@
         "CLUE: Journal is locked in the drawers.",
         "CLUE: Key is hidden in the foliage (plant)."
       ],
-      "dialogue": "Ah, false alarm. That's just my dictionary. Nothing useful there! But that's okay, detectives have to explore! Let's check the clipboard instead. Remember the dot notation!",
       "hint": "desk.read(\"clipboard\");",
       "active_hotspots": [
         {
@@ -137,6 +128,7 @@
     },
     {
       "scene": "plant",
+      "dialogue": "Aha! The note says I locked my journal in the drawers and hid the key inside the 'foliage'... that has to mean the potted plant over in the corner! Run your standard inspect function again, but adjust your target argument to search the plant.",
       "answer": "inspect(\"plant\");",
       "result": "ok",
       "output": "Scanning plant...\n→ Glint of metal detected!\n→ A silver key is visible among the leaves.",
@@ -145,7 +137,6 @@
         "VISUAL: Silver key spotted in the plant leaves!",
         "HINT: self.take(\"key\");"
       ],
-      "dialogue": "Aha! The note says I hid the spare key in the foliage… that must mean the potted plant! Use your inspect tool again, but this time change your target to the plant.",
       "hint": "inspect(\"plant\");",
       "active_hotspots": [
         {
@@ -157,6 +148,7 @@
     },
     {
       "scene": "plant",
+      "dialogue": "Boom! There it is—a silver key! Now, in this terminal system, *you* are an object too, and your system identity is self. To pick up evidence and add it to your active inventory, you need to command yourself to take it.",
       "answer": "self.take(\"key\");",
       "result": "ok",
       "output": "[Item Acquired: Silver Key] 🗝\n→ Key added to inventory.",
@@ -165,7 +157,6 @@
         "INVENTORY: [🗝 Silver Key] added.",
         "NOTE: You have the key. Now target the drawers."
       ],
-      "dialogue": "There it is! A silver key! In this game, you are an object too, and your code name is self. To pick things up and put them in your inventory, you have to tell yourself to take them.",
       "hint": "self.take(\"key\");",
       "effects": { "addItem": { "id": "key", "label": "🗝 Silver Key", "emoji": "🗝" } },
       "active_hotspots": [
@@ -178,6 +169,7 @@
     },
     {
       "scene": "drawers",
+      "dialogue": "Key acquired! Now, the clipboard note explicitly verified that the journal is stashed away inside the filing drawers. Let's move our focus over there and execute an open command. Some actions don't require any inputs inside the parentheses!",
       "answer": "drawers.open();",
       "result": "err",
       "output": "ERROR: The drawers are locked. Access denied.\n→ ScopeError: container.isLocked === true\n→ You must unlock the drawers before opening them!",
@@ -186,7 +178,6 @@
         "ERROR LOG: drawers.open() — ACCESS DENIED.",
         "HINT: Must unlock first!"
       ],
-      "dialogue": "Got it! Now, the note said my journal is in the wooden drawers. Let's head over there and try to open them! Some commands don't need any targets inside the parentheses.",
       "hint": "drawers.open();",
       "active_hotspots": [
         {
@@ -198,6 +189,7 @@
     },
     {
       "scene": "drawers",
+      "dialogue": "Whoops! Did you catch that system Error text? Code works on pure, unyielding logic—we can't pull open a locked drawer container without unlocking it first! Let's pass our silver key string into the drawers' unlock action method.",
       "answer": "drawers.unlock(\"key\");",
       "result": "ok",
       "output": "Click.\n→ Security lock disengaged. 🔓\n→ Padlock status: OPEN.",
@@ -206,7 +198,6 @@
         "SYSTEM: Padlock → GREEN ✓",
         "Lock disabled. Now safe to open."
       ],
-      "dialogue": "Oops! Did you see that red Error? Computers follow exact logic—we can't open a locked door without unlocking it first! We need to use the unlock action and pass the key we found as our target.",
       "hint": "drawers.unlock(\"key\");",
       "effects": { "unlock": "drawers" },
       "active_hotspots": [
@@ -219,6 +210,7 @@
     },
     {
       "scene": "drawers",
+      "dialogue": "Beautiful! There's that satisfying click. The security latch is completely disengaged. Now that the lock condition evaluates to false, run that exact same open command from earlier with the empty parentheses!",
       "answer": "drawers.open();",
       "result": "ok",
       "output": "Drawers opening...\n→ [Chief Inspector Bunny's Journal Acquired] 📓\n\n★  LEVEL COMPLETE — The Morning Routine  ★",
@@ -227,7 +219,6 @@
         "MAJOR EVIDENCE: Bunny's Journal 📓",
         "★ Tutorial complete!"
       ],
-      "dialogue": "Hear that click? The security lock is disabled! Now it is safe to open them. Try that exact same command from earlier, with the empty parentheses.",
       "hint": "drawers.open();",
       "active_hotspots": [
         {
