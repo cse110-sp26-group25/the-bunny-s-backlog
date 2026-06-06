@@ -1,6 +1,6 @@
 {
   "__comment_metadata": "=== LEVEL IDENTITY & DIALOGUE DEFAULTS ===",
-  "level_id": "level0",
+  "id": "tutorial",
   "title": "The Morning Routine",
   "default_speaker": "Chief Inspector Bunny",
   "default_avatar": "🐰",
