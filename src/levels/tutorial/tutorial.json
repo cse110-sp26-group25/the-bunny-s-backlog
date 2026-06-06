@@ -13,19 +13,19 @@
     "office_drawer_open": "assets/bunny_office_drawer_open.jpg"
   },
 
-  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS: Pure environmental descriptions ===",
+  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
   "global_hotspots": {
     "plantPot": { 
       "x": "15", "y": "35", "w": "18", "h": "40",
-      "hover_text": "A lush decorative plant sitting to the left of the main desk. Is there something hidden under this plantPot?"
+      "hover_text": "Variable inspector: plantPot. Environmental property hints under this asset layer can be revealed using targeted methods."
     },
     "lockedDrawer": { 
       "x": "70", "y": "55", "w": "20", "h": "35",
-      "hover_text": "A secure wooden document chest on the left of the screen. It looks completely locked tight."
+      "hover_text": "Variable inspector: lockedDrawer. A locked container object requiring an unquoted key variable parameter reference to unlock."
     },
     "baker_sheep": {
       "x": "40", "y": "30", "w": "25", "h": "65",
-      "hover_text": "A very panicked Baker Sheep who just burst through the entrance door!"
+      "hover_text": "Entity reference: Baker Sheep. A frantic character entity waiting to pass an active quest string to your console tracker."
     }
   },
 
@@ -34,18 +34,18 @@
     "title": "Case Accepted!",
     "subtitle": "The Bakery Break-in",
     "nextToast": "🥖 Following the Sheep to the Bakery!",
-    "completeDialogue": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You reluctantly gather your notes and head out.",
+    "completeDialogue": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You gather your notebook and step out into the street.",
     "completeHint": "Accompany the Baker to the crime scene."
   },
 
   "phases": [
     {
-      "comment": "ACTION 1: Look around the room using a single string parameter. Forces open notebook context.",
+      "comment": "ACTION 1: Global room search using a string parameter.",
       "scene": "office_default",
       "active_hotspots": ["plantPot", "lockedDrawer"],
       "speaker": "Bunny's Notebook",
       "avatar": "📓",
-      "dialogue": "Thanks so much for helping out ૮꒰˶ᵔ ᵕ ᵔ˶꒱ა. I got you a thank you gift but I think I forgot to take it out of my super secret locked drawer before leaving ૮꒰˶´ ꒳ `꒱ა. But the key is somewhere in my office, if you look around the room I'm sure you'll be able to find it! I think I left it somewhere near one of the plants... Hey! It's just like you're solving one of my mysteries ૮꒰˶ᵔ ᗜ ᵔ˶꒱ა I usually start those by doing **self.search(\"look around room\")** too!!",
+      "dialogue": "[INSTRUCTION MANUAL LOG]: To inspect an unmapped room environment layout, look around by calling the search method directly on your identity object using the specific instruction string: **self.search(\"look around room\");**",
       "answer": "self.search(\"look around room\");",
       "result": "ok",
       "output": "Scanning room configuration...\n→ Environment items mapped to workspace notebook panel.\n→ Active structural links discovered: plantPot, lockedDrawer.",
@@ -57,12 +57,12 @@
       "hint": "self.search(\"look around room\");"
     },
     {
-      "comment": "ACTION 2: Specific targeted search with multiple inputs. Order matters. String behaviors vs Object inputs.",
+      "comment": "ACTION 2: Targeted multi-parameter search mapping positioning strings against variables.",
       "scene": "office_default",
       "active_hotspots": ["plantPot"],
       "speaker": "Bunny's Notebook",
       "avatar": "📓",
-      "dialogue": "Sometimes I need to be more specific or intentional about my searches. I do this by adding more parameters to the search, like **self.search(\"behind\", someObject)**. But I have to be really careful, the objects in some of the cases I work are really sensitive. You could say that they're... **caseSensative** ૮꒰ - ﻌ •꒱ა! Remember, JavaScript parameters must be separated precisely by a comma, and order is strictly binding!",
+      "dialogue": "[FIELD NOTES ARCHIVE]: When searching specific spatial locations, pass a description string parameter alongside the target object variable. Commas separate parameters, and case sensitivity matters. To scan beneath the office foliage, type: **self.search(\"under\", plantPot);**",
       "answer": "self.search(\"under\", plantPot);",
       "result": "ok",
       "output": "Moving target assets...\n→ You peer directly under the base of the plantPot.\n→ Found: [🔑 key] left behind in the tray indentation!",
@@ -76,7 +76,7 @@
       "effects": { "changeBackground": "office_shifted_plant", "addItem": { "id": "key", "label": "Small Key", "emoji": "🔑" } }
     },
     {
-      "comment": "ACTION 3: Execute multi-variable command block to interact with objects. Ends basic layout phase.",
+      "comment": "ACTION 3: Execute method passing two unquoted live object variable parameters.",
       "scene": "office_shifted_plant",
       "active_hotspots": ["lockedDrawer"],
       "speaker": "Lizard Instincts",
@@ -93,7 +93,7 @@
       "hint": "self.unlock(lockedDrawer, key);"
     },
     {
-      "comment": "TRANSITION CUTSCENE (PHASE 9): Baker Sheep crashes the room. User must throw a terminal alert.",
+      "comment": "TRANSITION CUTSCENE: Baker character assumes the speaker track.",
       "scene": "office_drawer_open",
       "active_hotspots": ["baker_sheep"],
       "speaker": "Baker Sheep",
