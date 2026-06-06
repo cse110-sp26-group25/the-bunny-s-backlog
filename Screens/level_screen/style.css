@@ -101,7 +101,7 @@ body {
 }
 
 .summary-box p {
-    color: #000000;
+    color: #000;
     line-height: 1.6;
     font-size: 0.95rem;
     margin-bottom: 20px;
@@ -170,6 +170,7 @@ body {
 
 .level-card {
     background-color: var(--bg-panel);
+    
     /* Make cards much longer (taller) */
     height: 75vh;
     min-height: 500px;
@@ -190,6 +191,7 @@ body {
 .card-container:nth-child(5n+1) .level-card { border-top-color: var(--card-1); }
 .card-container:nth-child(5n+2) .level-card { border-top-color: var(--card-2); }
 .card-container:nth-child(5n+3) .level-card { border-top-color: var(--card-3); }
+
 /* .card-container:nth-child(5n+4) .level-card { border-top-color: var(--card-4); }
 .card-container:nth-child(5n) .level-card { border-top-color: var(--card-5); } */
 
@@ -218,7 +220,7 @@ body {
 
 .status-dot.completed {
     background-color: white; /* Green */
-    box-shadow: brown;
+    box-shadow: none;
 }
 
 .card-header {
