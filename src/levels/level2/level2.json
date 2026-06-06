@@ -1,57 +1,156 @@
 {
+  "__comment_metadata": "=== LEVEL IDENTITY & DIALOGUE DEFAULTS ===",
+  "id": "level2",
   "level_id": "level2",
-  "title": "The Police Station Suspect Lineup",
-  "default_speaker": "Inspector Bunny",
-  "default_avatar": "🐰",
+  "title": "The Mugshot Cross-Reference",
+  "default_speaker": "Police Chief Doggo",
+  "default_avatar": "👮",
+
+  "__comment_scenes": "=== SCENE ASSETS ===",
+  "scenes": {
+    "police_desk": "assets/precinct_desk_cluttered.jpg",
+    "suspect_folders": "assets/precinct_three_folders.jpg",
+    "suspect_inspector": "assets/precinct_folder_open.jpg"
+  },
+
+  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
   "global_hotspots": {
-    "investigationDesk": { "x": "30", "y": "60", "w": "40", "h": "30" },
-    "mouseFolder": { "x": "55", "y": "35", "w": "15", "h": "25" }
+    "clutteredDesk": {
+      "x": "35", "y": "40", "w": "30", "h": "35",
+      "hover_text": "Wow, that's a lot of suspects scattered across this desk. We need to parse through these files efficiently."
+    },
+    "animalFolders": {
+      "x": "20", "y": "30", "w": "60", "h": "50",
+      "hover_text": "Suspect profile records. Interrogating these structures will emit distinct biometric signatures."
+    }
   },
+
+  "__comment_win_state": "=== WIN BANNER FORMATTING ===",
   "win": {
-    "title": "Case Closed!",
-    "subtitle": "The True Culprit Exposed",
-    "nextToast": "Game Complete! Credits Rolling..."
+    "title": "The Culprit Identified!",
+    "subtitle": "Arrest Warrant Issued",
+    "nextToast": "🐹 Closing the Case in Level 3!",
+    "completeDialogue": "The Police Chief bangs his paw on the desk approvingly! 'Incredible work, detective! The logic holds up perfectly—we've trapped the thief red-handed in our cross-reference data net. Let's head down to the holding cells!'",
+    "completeHint": "Proceed to the final confrontation."
   },
-  "completeDialogue": "Outstanding work, Rookie! You built a robust functional framework backed by customized try-catch blocks to safely evaluate and accuse the culprit.",
-  "completeHint": "The suspect verification script ran flawlessly with zero terminal crashes.",
+
   "phases": [
     {
-      "scene": "precinct_desk",
-      "dialogue": "To bring dynamic items into a scene, we call our classic search command on the data folder we need. Let's locate the main folder containing our records. Type this command to grab the profiles: self.search(suspectFiles)",
+      "comment": "ACTION 1: Open suspect files directory loop transition.",
+      "scene": "police_desk",
+      "active_hotspots": ["clutteredDesk"],
+      "speaker": "Police Chief Doggo",
+      "avatar": "👮",
+      "dialogue": "Welcome to the precinct, rookie. Bat Witness told us you have some solid leads from the bakery. All our morning line-up records are locked inside this mainframe desk terminal. Run our core database query command to clear this clutter and fetch the target files!",
       "answer": "self.search(suspectFiles)",
       "result": "ok",
-      "output": "🗄️ Scanning precinct archive...\nFound: suspectFiles",
-      "lesson": "Unquoted identifiers pass complex object states or directories into file search parameters.",
-      "notes": [
-        "📂 suspectFiles imported"
+      "output": "Directory search executed...\n[SFX: Paper Shuffling]\n→ Loading file array: suspectFiles\n→ 3 matching suspect indices loaded into active view.",
+      "lesson": "Calling an explicit search method on our system object triggers an internal scene transition. We pull raw archive sets straight into the game engine memory using self.search(targetData).",
+      "lizard_notes": [
+        "SYSTEM METADATA: suspectFiles array map pulled into active registry."
       ],
       "hint": "self.search(suspectFiles)",
-      "active_hotspots": [
-        {
-          "id": "investigationDesk",
-          "hover_text": "The main terminal database is offline.",
-          "hover_snippet": "self.search(suspectFiles);"
-        }
-      ]
+      "effects": { "changeBackground": "suspect_folders" }
     },
     {
-      "scene": "precinct_workspace",
-      "dialogue": "We're almost done! Instead of writing heavy checks, we can dynamically insert our suspect right into a text string using the special form ${variableName} inside backticks. Let's make our official declaration to log the suspect to the system.",
-      "answer": "console.log(`I accuse ${suspect3}`)",
+      "comment": "ACTION 2: Write the cross-reference system execution function wrapper template.",
+      "scene": "suspect_folders",
+      "active_hotspots": ["animalFolders"],
+      "speaker": "Bunny's Notebook",
+      "avatar": "📓",
+      "dialogue": "Sometimes I need to perform a repetitive task on similar objects over and over again. To help save time, I can write a function to prep how I will behave to some object! Once I prepare a function like eatCarrot(someCarrot) {} by writing the actions I want to take inside curly brackets {}, I can call the function over and over again on different objects without rewriting my actions—like eatCarrot(bigCarrot) or eatCarrot(smallCarrot). someCarrot acts as a placeholder, so I can ready my actions before executing them on the real thing! Let's build a crossRef function block first.",
+      "answer": "function crossRef(suspect) {",
       "result": "ok",
-      "output": "Evaluating entries... Contradictions: 0 (Perfect Match!)\n📢 LOG: I accuse suspect3",
-      "lesson": "Template literal blocks declared with backticks process embedded expressions dynamically via standard syntactic formatting notation ${}.",
-      "notes": [
-        "🎯 suspect3 (Mouse) matches criteria perfectly."
+      "output": "Function template registered.\n[SFX: Animal Biometric Audio Stream Initialization]\n→ Evaluated parameter mapping: suspect\n→ Awaiting internal block instructions...",
+      "lesson": "Functions encapsulate reuse loops. Writing 'function functionName(placeholder) {' signals to the compiler that a sequence of conditions is being mapped out to test incoming objects uniformly.",
+      "lizard_notes": [
+        "FUNCTION REGISTRY: crossRef scope opened.",
+        "OBJECT REFERENCE SCHEMATICS:\nconst suspect1 = { earShape: ____, height: ___, sound: ___ }"
       ],
-      "hint": "console.log(`I accuse ${suspect3}`)",
-      "active_hotspots": [
-        {
-          "id": "mouseFolder",
-          "hover_text": "0 Contradictions tracked. Match condition fulfilled.",
-          "hover_snippet": "`I accuse ${suspect3}`"
-        }
-      ]
+      "hint": "function crossRef(suspect) {",
+      "effects": { "changeBackground": "suspect_inspector" }
+    },
+    {
+      "comment": "ACTION 3: Initiate the try code safety block statement to query single records.",
+      "scene": "suspect_inspector",
+      "active_hotspots": ["animalFolders"],
+      "speaker": "Police Chief Doggo",
+      "avatar": "👮",
+      "dialogue": "Now that our inspection block framework is prepped, we need to carefully evaluate each file record. But watch out—reading unverified documents can drop runtime exceptions if parameters are missing! Let's start safely. Open up a guarded execution zone and attempt to read the file variable passed into our function.",
+      "answer": "try { self.readFile(suspect);",
+      "result": "ok",
+      "output": "Guarded system tracking state engaged.\n→ Testing pipeline connection via self.readFile()...",
+      "lesson": "A 'try' statement sets up a safe block layout. The computer attempts to run the code lines inside. If a step breaks due to a runtime tracking mismatch, it passes control straight over to an error fallback chain instead of crashing the program.",
+      "lizard_notes": [
+        "EXCEPTION WATCHER: Guarded execution wrapper initialized."
+      ],
+      "hint": "try { self.readFile(suspect);"
+    },
+    {
+      "comment": "ACTION 4 - PART A: Intercept the ear anomaly data tracking flag.",
+      "scene": "suspect_inspector",
+      "active_hotspots": ["animalFolders"],
+      "speaker": "Police Chief Doggo",
+      "avatar": "👮",
+      "dialogue": "Remember the clue parameters Bat gave us! We're looking for someone matching those precise physical attributes. If anyone doesn't match, it throws an error. Let's check for structural discrepancies. If the file throws a **notBigEars** error exception, increment our contradiction counter variable so we can keep track of the total mistakes!",
+      "answer": "catch (notBigEars) { contradiction++; }",
+      "result": "ok",
+      "output": "Exception tracking channel mapped: notBigEars\n→ Counter modifier logic linked.",
+      "lesson": "The catch block intercepts specific errors thrown by a failed try sequence. Using the catch parameter lets you identify the flaw and update a metric tracker safely.",
+      "lizard_notes": [
+        "EXCEPTION ROUTE A: notBigEars mapped to contradiction incrementor."
+      ],
+      "hint": "catch (notBigEars) { contradiction++; }"
+    },
+    {
+      "comment": "ACTION 4 - PART B: Intercept the size anomaly data tracking flag.",
+      "scene": "suspect_inspector",
+      "active_hotspots": ["animalFolders"],
+      "speaker": "Bunny's Notebook",
+      "avatar": "📓",
+      "dialogue": "After we try something, we use catch to keep track of the errors that occurred. We specify which particular errors we're looking for inside catch(errorType) and define how we should respond inside curly brackets { responseToError }. For example: catch(moldyCarrot){ self.throwAway(carrot) }. Sometimes we don't need to keep track of a lot of different objects, but rather a count variable like numOfCarrots. To add to this counter, we use **++**. To add to my counter, I do numOfCarrots++. Let's add our second catch block to check for the **notSmall** error!",
+      "answer": "catch (notSmall) { contradiction++; }",
+      "result": "ok",
+      "output": "Exception tracking channel mapped: notSmall\n→ Counter modifier logic linked.",
+      "lesson": "Stacking sequential catch blocks isolates specific object property failures. Every increment operation bumps our target counter integer variable up by exactly 1.",
+      "lizard_notes": [
+        "EXCEPTION ROUTE B: notSmall mapped to contradiction incrementor."
+      ],
+      "hint": "catch (notSmall) { contradiction++; }"
+    },
+    {
+      "comment": "ACTION 4 - PART C: Intercept the audio profile anomaly flag and close the cross-reference function block.",
+      "scene": "suspect_inspector",
+      "active_hotspots": ["animalFolders"],
+      "speaker": "Police Chief Doggo",
+      "avatar": "👮",
+      "dialogue": "Excellent. Now add the final exception rule. If the profile triggers a **doesNotSqueak** anomaly, bump up that counter again! Don't forget to write the closing curly bracket **}** to completely seal your main crossRef function block when you're finished.",
+      "answer": "catch (doesNotSqueak) { contradiction++; } }",
+      "result": "ok",
+      "output": "Exception tracking channel mapped: doesNotSqueak\n→ Function evaluation block compilation successful!\n\nRUNNING DIAGNOSTICS:\n→ crossRef(suspect1) [Owl File Evaluated]: Small Ears, Small Profile, Does Not Squeak. Total Contradictions = 2\n→ crossRef(suspect2) [Dog File Evaluated]: Big Ears, Small Profile, Does Not Squeak. Total Contradictions = 1\n→ crossRef(suspect3) [Mouse File Evaluated]: Big Ears, Small Profile, Squeaks. Total Contradictions = 0",
+      "lesson": "By sealing the function template, we can now pass every distinct suspect object into crossRef(). The system automatically checks each field and evaluates exactly how closely their records match our clues.",
+      "lizard_notes": [
+        "CROSS-REFERENCE MATRIX GENERATED.",
+        "CRITICAL DETECTED DATA VERDICT: suspect3 yields 0 error flags."
+      ],
+      "hint": "catch (doesNotSqueak) { contradiction++; } }"
+    },
+    {
+      "comment": "ACTION 5: Issue a direct accusation logging command utilizing dynamic string interpolation.",
+      "scene": "suspect_inspector",
+      "active_hotspots": ["animalFolders"],
+      "speaker": "Lizard Instincts",
+      "avatar": "🦎",
+      "dialogue": "Look at those logs! The Owl scored 2 errors, the Dog scored 1 error, but Suspect 3 scored a perfect 0 discrepancies! They match the Bat's witness description exactly. Let's broadcast our final accusation using a template literal string wrapper **${}** so the precinct can log the arrest profile immediately!",
+      "answer": "console.log(`I accuse ${suspect3}`);",
+      "result": "ok",
+      "output": "LOG: I accuse Suspect 3 (The Mouse)\n→ Target identifier parsed cleanly via template syntax.\n→ Arrest warrant issued instantly! ✓",
+      "lesson": "Template literal strings enclosed in backticks `` allow you to inject dynamic variables directly into text sentences using the '${variableName}' syntax without tedious text string concatenation formatting rules.",
+      "lizard_notes": [
+        "CASE STATUS: TARGET ACCUSED.",
+        "EVIDENCE CORRELATION: Match profile locked down perfectly."
+      ],
+      "hint": "console.log(`I accuse ${suspect3}`);"
     }
   ]
 }
