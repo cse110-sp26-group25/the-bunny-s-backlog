@@ -6,16 +6,20 @@
   padding: 0;
 }
 
+*
+
 body {
   font-family: Georgia, serif;
-  background: #f5f4f0;
-  color: #1a1a1a;
+  background: #f5f4f0; 
   min-height: 100vh;
-  padding-bottom: 48px;
+  background-image: url("/the-bunny-s-backlog/Graphics/Background_Animations/PNG/TitleScreen/TitleScreen.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
   margin-bottom: 1rem;
 }
 
@@ -25,81 +29,98 @@ p {
 }
 
 .main-title {
-  font-family: Georgia, serif;
-  margin: 3vh 1vw 1vh;
-  color: green;
+  font-family: 'Fredoka One', Nunito, cursive; /* rounded, chunky font */
+  font-size: 72px;
+  font-weight: 900;
+  color: #FFF;                /* white fill */
+  
+  /* The key effect: layered text-shadow for thick brown outline */
+  text-shadow:
+    3px  3px  0 #5C3317,
+   -3px  3px  0 #5C3317,
+    3px -3px  0 #5C3317,
+   -3px -3px  0 #5C3317,
+    5px  5px  0 #3B1F0A,      /* deeper drop shadow */
+    0  3px  0 #5C3317,
+    3px  0  0 #5C3317,
+   -3px  0  0 #5C3317,
+    0 -3px  0 #5C3317;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  top: 10%;
   text-align: center;
-  font-size: 3rem;
 }
 
 /* button for the level selection */
 .level-button {
   position: absolute;
   left: 20.6%;
-  top: 15%;
+  top: 25%;
   width: 29.4vw;
   height: 30vh;
-  background-color: #1a1a1a;
+  background-color: rgb(137 62 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
 }
 
 /* button to continue the previous game */
 .continue-button {
   position: absolute;
   left: 20.6%;
-  top: 50%;
+  top: 60%;
   width: 29.4vw;
   height: 30vh;
-  background-color: #1a1a1a;
+  background-color: rgb(137 62 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
 }
 
 /* button for something that is not currently assigned */
 .something-button {
   position: absolute;
   left: 55.9%;
-  top: 15%;
+  top: 25%;
   width: 20.6vw;
   height: 15vh;
-  background-color: #1a1a1a;
+  background-color: rgb(137 62 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
 }
 
 /* button for credits */
 .credits-button {
   position: absolute;
   left: 55.9%;
-  top: 40%;
+  top: 50%;
   width: 20.6vw;
   height: 15vh;
-  background-color: #1a1a1a;
+  background-color: rgb(137 62 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
 }
 
 /* button for settings */
 .settings-button {
   position: absolute;
   left: 55.9%;
-  top: 65%;
+  top: 75%;
   width: 20.6vw;
   height: 15vh;
-  background-color: #1a1a1a;
+  background-color: rgb(137 62 0);
   color: #fff;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 3rem;
+  font-size: clamp(1.5rem, 4vw + 1rem, 3rem);
+  padding:0;
+  border:none;
 }
 
 /* Footer bar */
@@ -109,7 +130,7 @@ footer.bottom-bar {
   left: 0;
   width: 100%;
   height: 48px;
-  background: #1a1a1a;
+  background: #000;
   display: flex;
   align-items: center;
   justify-content: space-between;
