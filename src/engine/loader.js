@@ -126,8 +126,8 @@ class LevelLoader {
   }
 
   /**
-   * Rewrites each scene's relative background path so it resolves from the level f
-   * older rather than from game.html.
+   * Rewrites each scene's relative background path so it resolves from the level
+   * folder rather than from game.html.
    *
    * @param {object} level
    * @param {string} baseUrl

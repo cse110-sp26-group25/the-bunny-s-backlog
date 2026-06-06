@@ -59,7 +59,7 @@ class LevelStorage {
    * Builds a fresh state object matching the refactored Game progress shape.
    *
    * @returns {{phase:number, inventory:string[], unlocked:object,
-   *            errors:number, complete:boolean, terminalHistory:object[]}}
+   * errors:number, complete:boolean, terminalHistory:object[]}}
    */
   static defaultLevelState() {
     return {

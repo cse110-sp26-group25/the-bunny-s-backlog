@@ -188,9 +188,9 @@ class LevelUI {
       : "";
     this.byId("dlg-panel").innerHTML =
       '<div class="dlg-card"><div class="dlg-row"><div class="dlg-av">' +
-      this.escapeHtml(avatar) +
+      this.escapeHtml(avatar || "🐰") +
       '</div><div><div class="dlg-spk">' +
-      this.escapeHtml(speaker) +
+      this.escapeHtml(speaker || "Guide") +
       " — Phase " +
       phaseLabel +
       '</div><div class="dlg-txt">' +
@@ -234,9 +234,9 @@ class LevelUI {
 
   /**
    * Appends a lesson card (title + body), clearing the empty-state placeholder on
-   * the first add. No-op when lesson is null.
+   * the first add. No-op when lesson is null or raw text string.
    *
-   * @param {?{title:string, body:string}} lesson
+   * @param {?({title:string, body:string}|string)} lesson
    */
   addLesson(lesson) {
     if (!lesson) {
@@ -248,12 +248,20 @@ class LevelUI {
     }
     const card = document.createElement("li");
     card.className = "lc";
-    card.innerHTML =
-      '<div class="lc-ttl">' +
-      lesson.title +
-      '</div><div class="lc-body">' +
-      lesson.body +
-      "</div>";
+
+    if (typeof lesson === "string") {
+      card.innerHTML =
+        '<div class="lc-ttl">Lesson learned</div><div class="lc-body">' +
+        lesson +
+        "</div>";
+    } else {
+      card.innerHTML =
+        '<div class="lc-ttl">' +
+        (lesson.title || "Lesson learned") +
+        '</div><div class="lc-body">' +
+        (lesson.body || JSON.stringify(lesson)) +
+        "</div>";
+    }
     lessonsList.appendChild(card);
   }
 
@@ -381,7 +389,7 @@ class LevelUI {
     this.byId("win-message").textContent = win.message || "";
     this.byId("win-footnote").textContent = win.footnote || "";
     this.byId("win-restart").textContent = win.replayLabel || "↺ Play Again";
-    this.byId("proceed-btn").textContent = win.nextLabel || "▶ Continue";
+    this.byId("proceed-btn").textContent = win.nextToast || win.nextLabel || "▶ Continue";
   }
 
   /**
