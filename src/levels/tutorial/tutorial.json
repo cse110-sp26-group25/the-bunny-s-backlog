@@ -33,10 +33,10 @@
   "win": {
     "title": "Case Accepted!",
     "subtitle": "The Bakery Break-in",
-    "nextToast": "🥖 Following the Sheep to the Bakery!"
+    "nextToast": "🥖 Following the Sheep to the Bakery!",
+    "completeDialogue": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You reluctantly gather your notes and head out.",
+    "completeHint": "Accompany the Baker to the crime scene."
   },
-  "completeDialogue": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You reluctantly gather your notes and head out.",
-  "completeHint": "Accompany the Baker to the crime scene.",
 
   "phases": [
     {
