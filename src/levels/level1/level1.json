@@ -12,15 +12,15 @@
     "bakery_sorted": "assets/bakery_organized_case.jpg"
   },
 
-  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
+  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS: Properties exposed here for user exploration ===",
   "global_hotspots": {
     "displayCase": { 
       "x": "10", "y": "45", "w": "55", "h": "40",
-      "hover_text": "The shattered glass displayCase. Overturned trays and cake crumbs are scattered everywhere."
+      "hover_text": "The shattered displayCase array contains remaining dessert elements. Internal inspector tags visible: dessert.name, dessert.price, dessert.hasEggs."
     },
     "bat_witness": {
       "x": "70", "y": "30", "w": "20", "h": "65",
-      "hover_text": "A nocturnal neighbor flapping near the window frame, looking wide-eyed at the damage."
+      "hover_text": "A nocturnal neighborhood bat hanging near the rafters, waiting to pass along descriptions."
     }
   },
 
@@ -28,14 +28,14 @@
   "win": {
     "title": "Suspect Leads Cataloged!",
     "subtitle": "The Witness Report",
-    "nextToast": "🦇 Accompanying Bat to the Precinct!"
+    "nextToast": "皮 Accompanying Bat to the Precinct!"
   },
-  "completeDialogue": "The Baker Sheep carefully folds your sorted checklist. 'Brilliant. Take this directly down to the police station. Go with Bat—he can help you pick out the matching suspect from the lineup!'",
+  "completeDialogue": "The Baker Sheep carefully signs off on your final checklist. 'This is exactly what the precinct needs! Go down to the station with Bat right away—he can point out the thief from the morning suspect lineup!'",
   "completeHint": "Head to the city police office.",
 
   "phases": [
     {
-      "comment": "ACTION 1: Introduce Array structures and forEach looping patterns.",
+      "comment": "ACTION 1: Open the array block loop layout path.",
       "scene": "bakery_destroyed",
       "active_hotspots": ["displayCase"],
       "speaker": "Baker Sheep",
@@ -43,16 +43,16 @@
       "dialogue": "See, look at the state of my Bakery! The thief completely destroyed my perfectly organized displayCase. I have no idea what they took! Could you make me a remainingDessert list of what's still left, while I try to clean up all this glass? It might give the police a clue to whoever did this.",
       "answer": "displayCase.forEach(dessert => {",
       "result": "ok",
-      "output": "Loop structure initialized...\n→ Entering block loop mode.\n→ Iterating across displayCase elements...",
-      "lesson": "An array is an ordered list of items, where each individual item is called an element. To look at every element inside an array in order, we use a loop block: arrayName.forEach(element => { ... }). We use the opening curly brace '{' to mark the starting line of actions we want to perform on every single element.",
+      "output": "Loop layer opened.\n→ Array processing active.\n→ Iterating into displayCase structure...",
+      "lesson": "Arrays function like numbered lists where every individual item inside is called an element. To inspect them one by one without tedious repetitions, we pass them through a loop statement: arrayName.forEach(element => { }). The opening '{' character signals a block of actions to execute on each item.",
       "lizard_notes": [
-        "ARRAY IDENTIFIED: displayCase (Contains scattered items)",
-        "CURRENT ELEMENT POINTER: dessert"
+        "ARRAY CONTEXT: displayCase tracking initialized.",
+        "LOOPING VARIABLE: dessert"
       ],
       "hint": "displayCase.forEach(dessert => {"
     },
     {
-      "comment": "ACTION 2: Accessing object properties inside code blocks using dot notation and array.push().",
+      "comment": "ACTION 2: Push property parameters into the target array and seal block.",
       "scene": "bakery_destroyed",
       "active_hotspots": ["displayCase"],
       "speaker": "Bunny's Notebook",
@@ -60,16 +60,33 @@
       "dialogue": "When examining an array of objects, you need to target exactly what properties you're checking for. Because array lists are numbered, inserting elements in the middle forces the computer to re-number everything else—costing lots of effort! That's why I usually append elements to the end using **array.push(newElement);** inside my looping brackets! Remember to close your action line with a **;** and seal the loop block with a **}**!",
       "answer": "missingDessertList.push(dessert.name); });",
       "result": "ok",
-      "output": "Cataloging sequence execution complete!\n→ Name attributes extracted successfully.\n→ missingDessertList populated with unorganized entries.",
-      "lesson": "To access specific details belonging to an object, attach a dot followed by the property name (like dessert.name). The push() action appends that specific string straight onto the end of your missingDessertList array container.",
+      "output": "Append sequence successful.\n→ Extracted object property string: .name\n→ array.push pipeline evaluated.",
+      "lesson": "Dot notation lets you dive straight inside an object element to pluck a single descriptor variable (like dessert.name). The push function safely attaches this new entry directly to the tail end of your tracking list array.",
       "lizard_notes": [
-        "ARRAY CONTEXT: displayCase processing finished.",
-        "UNSORTED LIST: missingDessertList contains items, but the ordering is chaotic."
+        "ARRAY CONTEXT: displayCase iteration complete.",
+        "COLLECTED DATA: missingDessertList populated."
       ],
       "hint": "missingDessertList.push(dessert.name); });"
     },
     {
-      "comment": "ACTION 3: Advanced custom sorting callback method utilizing custom comparative objects.",
+      "comment": "ACTION 2 INTERMEDIARY: Log progress to trigger Baker conversation branch.",
+      "scene": "bakery_destroyed",
+      "active_hotspots": ["displayCase"],
+      "speaker": "Lizard Instincts",
+      "avatar": "🦎",
+      "dialogue": "The data pipeline completed its loop sweep, but it's sitting raw in the console state log memory. Let's call a standard terminal log confirmation command to flag down the Baker's attention.",
+      "answer": "console.log(\"I've finished\");",
+      "result": "ok",
+      "output": "\"I've finished\"\n→ Broadcast string caught by nearby entities.",
+      "lesson": "Printing a clear text sequence confirms execution states before moving on to intricate computational operations.",
+      "lizard_notes": [
+        "COLLECTED DATA: missingDessertList populated.",
+        "NOTICE: Unsorted checklist shared with Baker Sheep."
+      ],
+      "hint": "console.log(\"I've finished\");"
+    },
+    {
+      "comment": "ACTION 3: Inject custom sheep sorting expression callback loop.",
       "scene": "bakery_destroyed",
       "active_hotspots": ["displayCase"],
       "speaker": "Baker Sheep",
@@ -77,32 +94,32 @@
       "dialogue": "Wow. This list is a mess. A complete disaster. The messy display case has resulted in a completely disorganized mess. This is not helpful at all. Here, just this once, I'll give you access to our super secret family sorting method **.sheepOrdering()**. Please use it to reorder this missingDessertList so it's easier to read!",
       "answer": "missingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
       "result": "ok",
-      "output": "Running family sorting parameters...\n→ Reordering items alphabetically and weight-matching...\n→ missingDessertList is now perfectly organized! ✓",
-      "lesson": "Oftentimes using a basic .sort() to organize things alphabetically isn't enough or right for the task. In cases like these, you can define custom sorting rules inside the parentheses by passing two items at once to check their relationship against each other: list.sort((a, b) => a.customMethod(b));",
+      "output": "Executing array sequence evaluation...\n→ Processing comparative constraints against custom family weights...\n→ missingDessertList successfully sorted! ✓",
+      "lesson": "Standard alpha-numeric .sort() setups fail when a situation demands a highly specific organizational logic. By passing custom placeholder values into an evaluation callback, you can manually guide how array elements weigh against each other: array.sort((item1, item2) => item1.customRules(item2));",
       "lizard_notes": [
-        "LIST STATUS: missingDessertList [ORDERED]",
-        "MATCHING METADATA: Discrepancies point toward heavy sugar-crust consumption patterns."
+        "LIST STATUS: missingDessertList [PERFECTLY SORTED]",
+        "LEAD ANALYSIS: Pastry profile signatures match precise weight distributions."
       ],
       "hint": "missingDessertList.sort((dessert1, dessert2) => dessert1.sheepOrdering(dessert2));",
       "effects": { "changeBackground": "bakery_sorted" }
     },
     {
-      "comment": "TRANSITION CUTSCENE: Bat witness arrives to deliver clues and point toward the police precinct.",
+      "comment": "TRANSITION CUTSCENE: Intercept witness descriptions via terminal stream.",
       "scene": "bakery_sorted",
       "active_hotspots": ["bat_witness"],
       "speaker": "Bat Witness",
       "avatar": "🦇",
       "dialogue": "Oh no, did someone break in?! I guess that is what all that crashing noise was last night... I couldn't see them very clearly from my roost. But I definitely saw that they had round ears, they were quite small, and... Oh! They squeaked!",
-      "answer": "console.log(\"Suspect profile updated\");",
+      "answer": "console.log(\"Check out suspect profiles\");",
       "result": "ok",
-      "output": "LOG: Suspect profile updated\n→ Clues logged: [Round Ears, Small Stature, Squeaks]",
-      "lesson": "Recording observations into your logs using console.log stores crucial string evidence safely before moving environments.",
+      "output": "LOG: Check out suspect profiles\n→ Discovered traits appended to current target investigation file.",
+      "lesson": "Dumping witness metadata parameters into an observation tracking loop preserves your evidence variables cleanly as you change game scenes.",
       "lizard_notes": [
-        "WITNESS CLUE 1: Round Ears",
-        "WITNESS CLUE 2: Small Stature / Height Profile",
-        "WITNESS CLUE 3: Sound profile matches squeaking noises"
+        "SUSPECT METADATA: [Round Ears]",
+        "SUSPECT METADATA: [Small Height Profile]",
+        "SUSPECT METADATA: [Squeaks audibly]"
       ],
-      "hint": "console.log(\"Suspect profile updated\");"
+      "hint": "console.log(\"Check out suspect profiles\");"
     }
   ]
 }
