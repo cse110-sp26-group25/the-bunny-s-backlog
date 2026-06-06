@@ -4,9 +4,9 @@
   "speaker": "Guide",
   "avatar": "🐰",
   "scenes": {
-    "precinct_desk": "levels/level2/precinct_desk.jpg",
-    "precinct_folders": "levels/level2/precinct_folders.jpg",
-    "precinct_workspace": "levels/level2/precinct_workspace.jpg"
+    "precinct_desk": "../../../Graphics/Background_Animations/PNG/Level_2/2.1.png",
+    "precinct_folders": "../../../Graphics/Background_Animations/PNG/Level_2/2.2.png",
+    "precinct_workspace": "../../../Graphics/Background_Animations/PNG/Level_2/2.3.png"
   },
   "global_hotspots": {
     "investigationDesk": { "x": 30, "y": 60, "w": 40, "h": 30, "label": "Investigation Desk" },
