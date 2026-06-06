@@ -3,196 +3,111 @@
   "id": "tutorial",
   "level_id": "tutorial",
   "title": "The Morning Routine",
-  "default_speaker": "Chief Inspector Bunny",
-  "default_avatar": "🐰",
+  "default_speaker": "Bunny's Notebook",
+  "default_avatar": "📓",
 
-  "__comment_scenes": "=== SCENE ASSETS: Map scene keys to local asset path strings ===",
+  "__comment_scenes": "=== SCENE ASSETS ===",
   "scenes": {
-    "desk": "assets/desk.jpg",
-    "plant": "assets/key.jpg",
-    "drawers": "assets/drawer.jpg"
+    "office_default": "assets/bunny_office.jpg",
+    "office_shifted_plant": "assets/bunny_office_key_revealed.jpg",
+    "office_drawer_open": "assets/bunny_office_drawer_open.jpg"
   },
 
-  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS: Layout bounds use viewport percentage integers (0-100) as strings. Tooltips use the top-level string values below as their single source of truth ===",
+  "__comment_global_hotspots": "=== GLOBAL HOTSPOTS: Pure environmental descriptions ===",
   "global_hotspots": {
-    "desk": { 
-      "x": "20", "y": "50", "w": "30", "h": "30",
-      "hover_text": "Your detective terminal interface workstation.",
-      "hover_snippet": "console.log(\"hello\");"
+    "plantPot": { 
+      "x": "15", "y": "35", "w": "18", "h": "40",
+      "hover_text": "A lush decorative plant sitting to the left of the main desk. Is there something hidden under this plantPot?"
     },
-    "plant": { 
-      "x": "75", "y": "40", "w": "12", "h": "25",
-      "hover_text": "A decorative potted plant sitting in the window light.",
-      "hover_snippet": "inspect(\"plant\");"
+    "lockedDrawer": { 
+      "x": "70", "y": "55", "w": "20", "h": "35",
+      "hover_text": "A secure wooden document chest on the left of the screen. It looks completely locked tight."
     },
-    "drawers": { 
-      "x": "5", "y": "65", "w": "15", "h": "25",
-      "hover_text": "Secure document storage drawers.",
-      "hover_snippet": "drawers.open();"
+    "baker_sheep": {
+      "x": "40", "y": "30", "w": "25", "h": "65",
+      "hover_text": "A very panicked Baker Sheep who just burst through the entrance door!"
     }
   },
 
-  "__comment_win_state": "=== WIN BANNER FORMATTING: Strings injected into the level-complete UI overlay modal ===",
+  "__comment_win_state": "=== WIN BANNER FORMATTING ===",
   "win": {
-    "title": "Level Complete!",
-    "subtitle": "The Morning Routine",
-    "nextToast": "🥖 Heading to the Bakery!"
+    "title": "Case Accepted!",
+    "subtitle": "The Bakery Break-in",
+    "nextToast": "🥖 Following the Sheep to the Bakery!"
   },
-  "completeDialogue": "You found it! Fantastic work, Bill. You already know how to use strings, functions, and dot notation! You are going to be a natural JavaScript Developer. Come on, let's head over to the Bakery to catch a thief!",
-  "completeHint": "Head to the Bakery!",
+  "completeDialogue": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You reluctantly gather your notes and head out.",
+  "completeHint": "Accompany the Baker to the crime scene.",
 
   "phases": [
     {
-      "comment": "PHASE 0: Calibrate Terminal. FORMAT: 'active_hotspots' is a flat string array matching keys in 'global_hotspots'. 'notes' is an array of strings rendered as list items in the sidebar panel.",
-      "scene": "desk",
-      "active_hotspots": ["desk"],
-      "dialogue": "Welcome to the agency, Rookie! I'm Chief Inspector Bunny. Don't let the long ears fool you—I've cracked cases from here to the Carrot District. Before we can dive into the backlogs, we need to make sure your Detective Terminal can interface with the environment. In JavaScript, we make the system talk using console.log. Give it a spin by logging a simple hello string!",
-      "answer": "console.log(\"hello\");",
+      "comment": "ACTION 1: Look around the room using a single string parameter. Forces open notebook context.",
+      "scene": "office_default",
+      "active_hotspots": ["plantPot", "lockedDrawer"],
+      "speaker": "Bunny's Notebook",
+      "avatar": "📓",
+      "dialogue": "Thanks so much for helping out ૮꒰˶ᵔ ᵕ ᵔ˶꒱ა. I got you a thank you gift but I think I forgot to take it out of my super secret locked drawer before leaving ૮꒰˶´ ꒳ `꒱ა. But the key is somewhere in my office, if you look around the room I'm sure you'll be able to find it! I think I left it somewhere near one of the plants... Hey! It's just like you're solving one of my mysteries ૮꒰˶ᵔ ᗜ ᵔ˶꒱ა I usually start those by doing **self.search(\"look around room\")** too!!",
+      "answer": "self.search(\"look around room\");",
       "result": "ok",
-      "output": "\"hello\"\n→ System Online. Detective Terminal calibrated! ✓",
-      "lesson": "console.log(\"...\") is the most fundamental JavaScript command. It prints text to the terminal.",
-      "notes": [
-        "SYSTEM NOTE: Terminal is online.",
-        "Use console.log(\"text\"); to talk to the computer."
+      "output": "Scanning room configuration...\n→ Environment items mapped to workspace notebook panel.\n→ Active structural links discovered: plantPot, lockedDrawer.",
+      "lesson": "Welcome to the terminal! To start an action, command your character object using self followed by an action method. A single string argument passed inside quotes tells your lizard identity exactly what behavior to manifest.",
+      "lizard_notes": [
+        "OBJECT VARIABLE: plantPot (The office vegetation anchor)",
+        "OBJECT VARIABLE: lockedDrawer (Bunny's secret desk partition)"
       ],
-      "hint": "console.log(\"hello\");"
+      "hint": "self.search(\"look around room\");"
     },
     {
-      "comment": "PHASE 1: Run Room Scan.",
-      "scene": "desk",
-      "active_hotspots": ["desk"],
-      "dialogue": "Perfect, our terminal is synced up! Now, I have a bit of an embarrassing problem… I lost my main investigation journal somewhere in this messy office. Let's use the terminal to run a radar sweep of the environment. To use an agency command tool, you type its name, followed by your targeted destination enclosed in string quotes.",
-      "answer": "scan(\"office\");",
+      "comment": "ACTION 2: Specific targeted search with multiple inputs. Order matters. String behaviors vs Object inputs.",
+      "scene": "office_default",
+      "active_hotspots": ["plantPot"],
+      "speaker": "Bunny's Notebook",
+      "avatar": "📓",
+      "dialogue": "Sometimes I need to be more specific or intentional about my searches. I do this by adding more parameters to the search, like **self.search(\"behind\", someObject)**. But I have to be really careful, the objects in some of the cases I work are really sensitive. You could say that they're... **caseSensative** ૮꒰ - ﻌ •꒱ა! Remember, JavaScript parameters must be separated precisely by a comma, and order is strictly binding!",
+      "answer": "self.search(\"under\", plantPot);",
       "result": "ok",
-      "output": "Room scanned.\n→ 3 interactive zones detected:\n   • desk\n   • plant\n   • drawers",
-      "lesson": "A function is a named tool. scan(\"office\") passes a string argument to tell the function what to scan.",
-      "notes": [
-        "ZONES FOUND: desk, plant, drawers",
-        "HINT: Use inspect(\"target\"); to look closer."
+      "output": "Moving target assets...\n→ You peer directly under the base of the plantPot.\n→ Found: [🔑 key] left behind in the tray indentation!",
+      "lesson": "Functions can receive multiple parameters separated by commas. Notice that \"under\" is a string layout description, while plantPot is an unquoted object variable anchor existing in the room.",
+      "lizard_notes": [
+        "OBJECT VARIABLE: plantPot",
+        "OBJECT VARIABLE: lockedDrawer",
+        "ITEM EVIDENCE: key (Discovered beneath plantPot foliage)"
       ],
-      "hint": "scan(\"office\");"
+      "hint": "self.search(\"under\", plantPot);",
+      "effects": { "changeBackground": "office_shifted_plant", "addItem": { "id": "key", "label": "Small Key", "emoji": "🔑" } }
     },
     {
-      "comment": "PHASE 2: Inspect Desk. FORMAT: Activating multiple hotspots allows the player to hover/click other screen objects during exploratory phases.",
-      "scene": "desk",
-      "active_hotspots": ["desk", "plant", "drawers"],
-      "dialogue": "Great work! The terminal radar detected my primary desk, a decorative potted plant, and some wooden filing drawers. I almost always leave my journal right on my workspace. Let's redirect our inspection tool to scope out the desk area.",
-      "answer": "inspect(\"desk\");",
+      "comment": "ACTION 3: Execute multi-variable command block to interact with objects. Ends basic layout phase.",
+      "scene": "office_shifted_plant",
+      "active_hotspots": ["lockedDrawer"],
+      "speaker": "Lizard Instincts",
+      "avatar": "🦎",
+      "dialogue": "Alright, we successfully recovered the key object from the foliage. Now we need to try applying it to the cabinet variable. Let's execute our standard multi-parameter activation method to unlock the drawer asset: **self.unlock(lockedDrawer, key);**",
+      "answer": "self.unlock(lockedDrawer, key);",
       "result": "ok",
-      "output": "Inspecting desk...\n→ Desk contains:\n   • coffee_mug\n   • open_book\n   • clipboard",
-      "lesson": "Same function, different argument. The string you pass changes what the function targets.",
-      "notes": [
-        "DESK CONTENTS: coffee_mug, open_book, clipboard",
-        "Objects have actions — connect with a dot: object.action();"
+      "output": "Click! The lock mechanisms tumble smoothly across the channel interface.\n→ Vault state: OPEN.",
+      "lesson": "By matching the raw unquoted variable identities (lockedDrawer and key) inside your method arguments, the environment updates its structural tracking parameters instantly.",
+      "lizard_notes": [
+        "OBJECT VARIABLE: plantPot",
+        "OBJECT VARIABLE: lockedDrawer (STATUS: UNLOCKED)"
       ],
-      "hint": "inspect(\"desk\");"
+      "hint": "self.unlock(lockedDrawer, key);"
     },
     {
-      "comment": "PHASE 3: Read Dictionary (Exploratory Dead-End).",
-      "scene": "desk",
-      "active_hotspots": ["desk", "plant", "drawers"],
-      "dialogue": "Hmm, no journal in plain sight. But look! The scanner found a coffee_mug, an open_book, and an agency clipboard. In code, items are treated as 'objects', and we can make them perform specific actions by connecting them with a dot. Let's execute a read action on that book to see if it's my journal.",
-      "answer": "desk.read(\"open_book\");",
+      "comment": "TRANSITION CUTSCENE (PHASE 9): Baker Sheep crashes the room. User must throw a terminal alert.",
+      "scene": "office_drawer_open",
+      "active_hotspots": ["baker_sheep"],
+      "speaker": "Baker Sheep",
+      "avatar": "👨‍🍳",
+      "dialogue": "Help! Help! 🥖 Someone broke into my bakery! Detective, please, everything is in total ruins and I absolutely need your expert assistance right away!",
+      "answer": "console.warn(\"I am not a detective\");",
       "result": "ok",
-      "output": "Reading open_book...\n→ Webster's English Dictionary.\n→ Nothing useful here.",
-      "lesson": "Pattern: object.method(\"argument\"); Code can run successfully and still not solve the puzzle — that's exploration!",
-      "notes": [
-        "open_book = Dictionary. Not the journal.",
-        "Bunny: \"Try reading the clipboard instead!\""
+      "output": "WARNING: I am not a detective\n→ Baker Sheep ignores the terminal print statement completely!",
+      "lesson": "console.warn() prints a highlighted warning array to the data stream. Perfect for flashing urgent system disclaimers!",
+      "lizard_notes": [
+        "CRIME LOG: Sudden Bakery Break-in reported.",
+        "URGENT TASK: Follow the Baker Sheep."
       ],
-      "hint": "desk.read(\"open_book\");"
-    },
-    {
-      "comment": "PHASE 4: Read Clipboard Clue.",
-      "scene": "desk",
-      "active_hotspots": ["desk", "plant", "drawers"],
-      "dialogue": "Ah, just my old dictionary. False alarm! But don't get discouraged, Rookie—investigating means crossing off wrong leads! Let's pivot and read the clipboard instead. Don't forget to use that dot notation structure to point to it.",
-      "answer": "desk.read(\"clipboard\");",
-      "result": "ok",
-      "output": "Reading clipboard...\n→ Note: 'Keep journal locked in drawers.\n         Hide key in foliage.'",
-      "lesson": "desk.read(\"clipboard\") uses object=desk, method=read, argument=\"clipboard\".",
-      "notes": [
-        "CLUE: Journal is locked in the drawers.",
-        "CLUE: Key is hidden in the foliage (plant)."
-      ],
-      "hint": "desk.read(\"clipboard\");"
-    },
-    {
-      "comment": "PHASE 5: Inspect Plant. FORMAT: Scene path changes dynamically based on the 'scene' key mapping.",
-      "scene": "plant",
-      "active_hotspots": ["desk", "plant", "drawers"],
-      "dialogue": "Aha! The note says I locked my journal in the drawers and hid the key inside the 'foliage'... that has to mean the potted plant over in the corner! Run your standard inspect function again, but adjust your target argument to search the plant.",
-      "answer": "inspect(\"plant\");",
-      "result": "ok",
-      "output": "Scanning plant...\n→ Glint of metal detected!\n→ A silver key is visible among the leaves.",
-      "lesson": "You used a function you already know on a new target based on a discovered clue.",
-      "notes": [
-        "VISUAL: Silver key spotted in the plant leaves!",
-        "HINT: self.take(\"key\");"
-      ],
-      "hint": "inspect(\"plant\");"
-    },
-    {
-      "comment": "PHASE 6: Take Key. FORMAT: Optional 'effects' key triggers modular engine hooks. 'addItem' accepts an object containing string 'id', 'label', and 'emoji' to update the UI inventory array state.",
-      "scene": "plant",
-      "active_hotspots": ["plant"],
-      "dialogue": "Boom! There it is—a silver key! Now, in this terminal system, *you* are an object too, and your system identity is self. To pick up evidence and add it to your active inventory, you need to command yourself to take it.",
-      "answer": "self.take(\"key\");",
-      "result": "ok",
-      "output": "[Item Acquired: Silver Key] 🗝\n→ Key added to inventory.",
-      "lesson": "self refers to you — the player object. self.take(\"key\") invokes your pick up sequence.",
-      "notes": [
-        "INVENTORY: [🗝 Silver Key] added.",
-        "NOTE: You have the key. Now target the drawers."
-      ],
-      "hint": "self.take(\"key\");",
-      "effects": { "addItem": { "id": "key", "label": "🗝 Silver Key", "emoji": "🗝" } }
-    },
-    {
-      "comment": "PHASE 7: Open Drawers Error Trap. FORMAT: Set 'result' to 'err' to trigger alternative system error terminal fonts/styles in the front end.",
-      "scene": "drawers",
-      "active_hotspots": ["drawers"],
-      "dialogue": "Key acquired! Now, the clipboard note explicitly verified that the journal is stashed away inside the filing drawers. Let's move our focus over there and execute an open command. Some actions don't require any inputs inside the parentheses!",
-      "answer": "drawers.open();",
-      "result": "err",
-      "output": "ERROR: The drawers are locked. Access denied.\n→ ScopeError: container.isLocked === true\n→ You must unlock the drawers before opening them!",
-      "lesson": "Code runs in exact order. An ERROR is just the system telling you what it needs next.",
-      "notes": [
-        "ERROR LOG: drawers.open() — ACCESS DENIED.",
-        "HINT: Must unlock first!"
-      ],
-      "hint": "drawers.open();"
-    },
-    {
-      "comment": "PHASE 8: Unlock Drawers. FORMAT: 'effects' can invoke key-value engine triggers (e.g., changing 'drawers.isLocked' to false).",
-      "scene": "drawers",
-      "active_hotspots": ["drawers"],
-      "dialogue": "Whoops! Did you catch that system Error text? Code works on pure, unyielding logic—we can't pull open a locked drawer container without unlocking it first! Let's pass our silver key string into the drawers' unlock action method.",
-      "answer": "drawers.unlock(\"key\");",
-      "result": "ok",
-      "output": "Click.\n→ Security lock disengaged. 🔓\n→ Padlock status: OPEN.",
-      "lesson": "You passed an item name string into a method as an execution argument.",
-      "notes": [
-        "SYSTEM: Padlock → GREEN ✓",
-        "Lock disabled. Now safe to open."
-      ],
-      "hint": "drawers.unlock(\"key\");",
-      "effects": { "unlock": "drawers" }
-    },
-    {
-      "comment": "PHASE 9: Open Drawers (Win Scenario).",
-      "scene": "drawers",
-      "active_hotspots": ["drawers"],
-      "dialogue": "Beautiful! There's that satisfying click. The security latch is completely disengaged. Now that the lock condition evaluates to false, run that exact same open command from earlier with the empty parentheses!",
-      "answer": "drawers.open();",
-      "result": "ok",
-      "output": "Drawers opening...\n→ [Chief Inspector Bunny's Journal Acquired] 📓\n\n★  LEVEL COMPLETE — The Morning Routine  ★",
-      "lesson": "Some methods require no arguments — just empty execution blocks: drawers.open().",
-      "notes": [
-        "MAJOR EVIDENCE: Bunny's Journal 📓",
-        "★ Tutorial complete!"
-      ],
-      "hint": "drawers.open();"
+      "hint": "console.warn(\"I am not a detective\");"
     }
   ]
 }
