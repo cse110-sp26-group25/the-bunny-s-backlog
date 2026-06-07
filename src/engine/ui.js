@@ -377,19 +377,30 @@ class LevelUI {
   }
 
   /**
-   * Fills in the win overlay's text content (emojis, titles, button labels) from
-   * the level's win config. Does not reveal the overlay.
-   *
-   * @param {object} win
+   * Fills in the win overlay's text content.
+   * * @param {object} win - The win configuration from your JSON.
+   * @param {string} currentLevelId - The ID of the level (e.g., 'level0', 'level1', 'level2').
    */
-  renderWinOverlay(win) {
+  renderWinOverlay(win, currentLevelId) {
     this.byId("win-emojis").textContent = win.emojis || "🎉";
     this.byId("win-title").textContent = win.title || "Level Complete!";
     this.byId("win-subtitle").textContent = win.subtitle || "";
     this.byId("win-message").textContent = win.message || "";
     this.byId("win-footnote").textContent = win.footnote || "";
-    this.byId("win-restart").textContent = win.replayLabel || "↺ Play Again";
-    this.byId("proceed-btn").textContent = win.nextToast || win.nextLabel || "▶ Continue";
+
+    // Only show "Play Again" if we are on the final level (level2)
+    const restartBtn = this.byId("win-restart");
+    if (currentLevelId === "level2") {
+      restartBtn.style.display = "inline-block";
+      restartBtn.textContent = win.replayLabel || "↺ Play Again";
+    } else {
+      restartBtn.style.display = "none";
+    }
+
+    // Always show continue button if a next level exists, otherwise hide it
+    const proceedBtn = this.byId("proceed-btn");
+    proceedBtn.textContent = win.nextToast || win.nextLabel || "▶ Continue";
+    proceedBtn.style.display = win.nextLevel ? "inline-block" : "none";
   }
 
   /**
