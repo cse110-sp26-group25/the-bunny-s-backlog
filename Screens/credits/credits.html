@@ -22,7 +22,12 @@
   </head>
 
   <body>
-    <audio src="../../Sounds/creditsBGM.mp3" autoplay loop data-volume-type="music"></audio>
+    <audio
+      src="../../Sounds/creditsBGM.mp3"
+      autoplay
+      loop
+      data-volume-type="music"
+    ></audio>
     <!-- ─────────────────────────────────────────────
        LAYER 0 — STAR FIELD
        Canvas drawn and animated by StarField module.
@@ -98,7 +103,7 @@
             <p class="crawl-name">Jordan Tran</p>
             <p class="crawl-role">Mobile Detection Developers</p>
             <p class="crawl-name">John Hermosura</p>
-            <p class="crawl-name">Wayne Su</p>  
+            <p class="crawl-name">Wayne Su</p>
             <p class="crawl-name">Hojoon Kim</p>
           </section>
 
@@ -177,15 +182,28 @@
        Revealed once the crawl starts. Lets users
        pause or speed up without fiddling with CSS.
   ───────────────────────────────────────────────── -->
-  <nav id="controls" role="toolbar" aria-label="Credits playback controls">
-    <button class="ctrl-btn" id="btnPause"  aria-label="Pause credits">PAUSE</button>
-    <button class="ctrl-btn" id="btnSlow"   aria-label="Slow down credits">SLOWER</button>
-    <button class="ctrl-btn" id="btnFast"   aria-label="Speed up credits">FASTER</button>
-    <button class="ctrl-btn" id="btnTitle"  aria-label="Return to title screen" onclick="backToTitle()">BACK</button>
-  </nav>
+    <nav id="controls" role="toolbar" aria-label="Credits playback controls">
+      <button class="ctrl-btn" id="btnPause" aria-label="Pause credits">
+        PAUSE
+      </button>
+      <button class="ctrl-btn" id="btnSlow" aria-label="Slow down credits">
+        SLOWER
+      </button>
+      <button class="ctrl-btn" id="btnFast" aria-label="Speed up credits">
+        FASTER
+      </button>
+      <button
+        class="ctrl-btn"
+        id="btnTitle"
+        aria-label="Return to title screen"
+        onclick="backToTitle()"
+      >
+        BACK
+      </button>
+    </nav>
 
-  <script src="../../local_storage.js"></script>
-  <script src="creditsFunctions.js"></script>
-
-</body>
+    <script src="../../local_storage.js"></script>
+    <script src="../../scripts/buttonSound.js"></script>
+    <script src="creditsFunctions.js"></script>
+  </body>
 </html>
