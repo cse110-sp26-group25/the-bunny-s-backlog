@@ -23,15 +23,16 @@ const levels = [
 ];
 
 function getLevelState(level) {
-    const unlocked = typeof isLevelUnlocked === 'function'
+    /*const unlocked = typeof isLevelUnlocked === 'function'
         ? isLevelUnlocked(level.saveId)
-        : level.folder === 'tutorial';
+        : level.folder === 'tutorial';*/
+    const unlocked = true
     const completed = typeof isLevelComplete === 'function'
         ? isLevelComplete(level.saveId)
         : false;
 
     return {
-        unlocked,
+        unlocked ,
         completed
     };
 }

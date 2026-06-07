@@ -8,8 +8,8 @@
 
   "__comment_scenes": "=== SCENE ASSETS ===",
   "scenes": {
-    "bakery_destroyed": "assets/bakery_shattered_case.jpg",
-    "bakery_sorted": "assets/bakery_organized_case.jpg"
+    "bakery_destroyed_day": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_1/1.5.png",
+    "bakery_case": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_1/1.6.png"
   },
 
   "__comment_global_hotspots": "=== GLOBAL HOTSPOTS: Properties exposed here for user exploration ===",
@@ -28,15 +28,14 @@
   "win": {
     "title": "Suspect Leads Cataloged!",
     "subtitle": "The Witness Report",
-    "nextToast": "🦇 Accompanying Bat to the Precinct!",
-    "completeDialogue": "The Baker Sheep carefully signs off on your final checklist. 'This is exactly what the precinct needs! Go down to the station with Bat right away—he can point out the thief from the morning suspect lineup!'",
-    "completeHint": "Head to the city police office."
+    "message": "🦇 Accompanying Bat to the Precinct!",
+    "footnote": "The Baker Sheep carefully signs off on your final checklist. 'This is exactly what the precinct needs! Go down to the station with Bat right away—he can point out the thief from the morning suspect lineup!'"
   },
 
   "phases": [
     {
       "comment": "ACTION 1: Open the array block loop layout path.",
-      "scene": "bakery_destroyed",
+      "scene": "bakery_destroyed_day",
       "active_hotspots": ["displayCase"],
       "speaker": "Baker Sheep",
       "avatar": "👨‍🍳",
@@ -53,7 +52,7 @@
     },
     {
       "comment": "ACTION 2: Push property parameters into the target array and seal block.",
-      "scene": "bakery_destroyed",
+      "scene": "bakery_destroyed_day",
       "active_hotspots": ["displayCase"],
       "speaker": "Bunny's Notebook",
       "avatar": "📓",
@@ -70,7 +69,7 @@
     },
     {
       "comment": "ACTION 2 INTERMEDIARY: Log progress to trigger Baker conversation branch.",
-      "scene": "bakery_destroyed",
+      "scene": "bakery_destroyed_day",
       "active_hotspots": ["displayCase"],
       "speaker": "Lizard Instincts",
       "avatar": "🦎",
@@ -87,7 +86,7 @@
     },
     {
       "comment": "ACTION 3: Inject custom sheep sorting expression callback loop.",
-      "scene": "bakery_destroyed",
+      "scene": "bakery_case",
       "active_hotspots": ["displayCase"],
       "speaker": "Baker Sheep",
       "avatar": "👨‍🍳",
@@ -105,7 +104,7 @@
     },
     {
       "comment": "TRANSITION CUTSCENE: Intercept witness descriptions via terminal stream.",
-      "scene": "bakery_sorted",
+      "scene": "bakery_destroyed_day",
       "active_hotspots": [],
       "speaker": "Bat Witness",
       "avatar": "🦇",
