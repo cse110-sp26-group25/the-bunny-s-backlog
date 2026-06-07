@@ -8,9 +8,9 @@
 
   "__comment_scenes": "=== SCENE ASSETS ===",
   "scenes": {
-    "police_desk": "assets/precinct_desk_cluttered.jpg",
-    "suspect_folders": "assets/precinct_three_folders.jpg",
-    "suspect_inspector": "assets/precinct_folder_open.jpg"
+    "police_desk": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_2/2.1.png",
+    "suspect_folders": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_2/2.2.png",
+    "suspect_inspector": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_2/2.3.png"
   },
 
   "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
@@ -29,9 +29,8 @@
   "win": {
     "title": "The Culprit Identified!",
     "subtitle": "Arrest Warrant Issued",
-    "nextToast": "🐹 Closing the Case in Level 3!",
-    "completeDialogue": "The Police Chief bangs his paw on the desk approvingly! 'Incredible work, detective! The logic holds up perfectly—we have trapped the thief red-handed in our cross-reference data net. Let us head down to the holding cells!'",
-    "completeHint": "Proceed to the final confrontation."
+    "message": "🐹 Closing the Case in Level 3!",
+    "footnote": "The Police Chief bangs his paw on the desk approvingly! 'Incredible work, detective! The logic holds up perfectly—we have trapped the thief red-handed in our cross-reference data net. Let us head down to the holding cells!'"
   },
 
   "phases": [
