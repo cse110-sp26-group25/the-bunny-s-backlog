@@ -31,7 +31,7 @@ class LevelLoader {
    */
   async loadLevel(folder) {
     const folderUrl = this.levelFolderUrl(folder);
-    const level = await LevelLoader.fetchJson(folderUrl + "tutorial.json");
+    const level = await LevelLoader.fetchJson(folderUrl + folder + ".json");
     LevelLoader.validateLevel(level, folder);
 
     return LevelLoader.resolveAssets(level, folderUrl);
