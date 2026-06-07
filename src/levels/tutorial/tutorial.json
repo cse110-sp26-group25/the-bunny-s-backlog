@@ -9,8 +9,8 @@
   "__comment_scenes": "=== SCENE ASSETS ===",
   "scenes": {
     "office_default": "Graphics/Background_Animations/PNG/Level_0/0.1.png",
-    "office_shifted_plant": "Graphics/Background_Animations/PNG/Leve_0/0.2.png",
-    "office_drawer_open": "Graphics/Background_Animations/PNG/Leve_0/0.3.png"
+    "office_shifted_plant": "Graphics/Background_Animations/PNG/Level_0/0.2.png",
+    "office_drawer_open": "Graphics/Background_Animations/PNG/Level_0/0.3.png"
   },
 
   "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
