@@ -8,9 +8,9 @@
 
   "__comment_scenes": "=== SCENE ASSETS ===",
   "scenes": {
-    "office_default": "assets/bunny_office.jpg",
-    "office_shifted_plant": "assets/bunny_office_key_revealed.jpg",
-    "office_drawer_open": "assets/bunny_office_drawer_open.jpg"
+    "office_default": "0.1.png",
+    "office_shifted_plant": "0.2.png",
+    "office_drawer_open": "0.3.png"
   },
 
   "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
