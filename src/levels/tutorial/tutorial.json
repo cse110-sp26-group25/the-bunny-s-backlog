@@ -8,9 +8,9 @@
 
   "__comment_scenes": "=== SCENE ASSETS ===",
   "scenes": {
-    "office_default": "assets/bunny_office.jpg",
-    "office_shifted_plant": "assets/bunny_office_key_revealed.jpg",
-    "office_drawer_open": "assets/bunny_office_drawer_open.jpg"
+    "office_default": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_0/0.1.png",
+    "office_shifted_plant": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_0/0.2.png",
+    "office_drawer_open": "/the-bunny-s-backlog/Graphics/Background_Animations/PNG/Level_0/0.3.png"
   },
 
   "__comment_global_hotspots": "=== GLOBAL HOTSPOTS ===",
@@ -33,9 +33,8 @@
   "win": {
     "title": "Case Accepted!",
     "subtitle": "The Bakery Break-in",
-    "nextToast": "🥖 Following the Sheep to the Bakery!",
-    "completeDialogue": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You gather your notebook and step out into the street.",
-    "completeHint": "Accompany the Baker to the crime scene."
+    "message": "🥖 Following the Sheep to the Bakery!",
+    "footnote": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You gather your notebook and step out into the street."
   },
 
   "phases": [

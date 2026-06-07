@@ -91,7 +91,7 @@ function createDefaultLevelProgress() {
   return {
     [LEVEL_IDS.TUTORIAL]: { unlocked: true, completed: false },
     [LEVEL_IDS.LEVEL_1]: { unlocked: true, completed: false },
-    [LEVEL_IDS.LEVEL_2]: { unlocked: false, completed: false },
+    [LEVEL_IDS.LEVEL_2]: { unlocked: true, completed: false },
     [LEVEL_IDS.LEVEL_3]: { unlocked: false, completed: false },
     [LEVEL_IDS.LEVEL_4]: { unlocked: false, completed: false },
     [LEVEL_IDS.LEVEL_5]: { unlocked: false, completed: false }
