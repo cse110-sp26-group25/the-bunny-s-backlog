@@ -60,7 +60,8 @@ body {
 #scene-bg {
   position: absolute;
   inset: 0;
-  background-size: cover;
+  background-size: contain;
+  background-repeat: no-repeat;
   background-position: center;
   transition: opacity 0.5s ease;
 }
