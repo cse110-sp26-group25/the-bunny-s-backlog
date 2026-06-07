@@ -34,6 +34,7 @@
     "title": "Case Accepted!",
     "subtitle": "The Bakery Break-in",
     "nextToast": "🥖 Following the Sheep to the Bakery!",
+    "nextLevel": "level1",
     "completeDialogue": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You gather your notebook and step out into the street.",
     "completeHint": "Accompany the Baker to the crime scene."
   },
