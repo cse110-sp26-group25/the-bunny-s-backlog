@@ -258,8 +258,23 @@ class LevelPlayer {
       this.ui.bindEvents({
         onSubmit: (raw) => this.handleSubmit(raw),
         onReset: () => this.reset(),
-        onProceed: () =>
-          this.ui.showToast((level.win && level.win.nextToast) || "Onward!"),
+        onProceed: () => {
+          // 1. Fire the visual confirmation toast banner
+          this.ui.showToast((level.win && level.win.nextToast) || "Onward!");
+          
+          // 2. Check if your level's JSON has a 'nextLevel' target directory mapped
+          if (level.win && level.win.nextLevel) {
+            // Give the user 1 second to see the toast animation before transitioning
+            setTimeout(() => {
+              window.location.search = `?level=${level.win.nextLevel}`;
+            }, 1000);
+          } else {
+            // Fallback: If no next level is configured, send them back out to your main menu
+            setTimeout(() => {
+              window.location.href = "../../index.html"; 
+            }, 1000);
+          }
+        }
       });
 
       this.restoreProgress();
