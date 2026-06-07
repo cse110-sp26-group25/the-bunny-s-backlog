@@ -1,25 +1,28 @@
 const levels = [
-    {
-        saveId: 'tutorial_morning_routine',
-        folder: 'tutorial',
-        title: 'Tutorial',
-        synopsis: "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal.",
-        image: "../../Graphics/Background_Animations/PNG/LevelSelection/0.1.png"
-    },
-    {
-        saveId: 'level_1_bakery',
-        folder: 'level1',
-        title: 'Level 1',
-        synopsis: 'The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.',
-        image: "../../Graphics/Background_Animations/PNG/LevelSelection/1.2.png"
-    },
-    {
-        saveId: 'level_2_police_station',
-        folder: 'level2',
-        title: 'Level 2',
-        synopsis: 'The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.',
-        image: "../../Graphics/Background_Animations/PNG/LevelSelection/2.1.png"
-    }
+  {
+    saveId: "tutorial_morning_routine",
+    folder: "tutorial",
+    title: "Tutorial",
+    synopsis:
+      "The Morning Routine: Welcome to the agency! Let's get your terminal online and find the Chief's journal.",
+    image: "../../Graphics/Background_Animations/PNG/LevelSelection/0.1.png",
+  },
+  {
+    saveId: "level_1_bakery",
+    folder: "level1",
+    title: "Level 1",
+    synopsis:
+      "The Crust & Crumb Bakery: A thief has struck! Catalog the remaining pastries to find a clue.",
+    image: "../../Graphics/Background_Animations/PNG/LevelSelection/1.2.png",
+  },
+  {
+    saveId: "level_2_police_station",
+    folder: "level2",
+    title: "Level 2",
+    synopsis:
+      "The Police Station: Search the precinct records and cross-reference suspects to catch the culprit.",
+    image: "../../Graphics/Background_Animations/PNG/LevelSelection/2.1.png",
+  },
 ];
 
 function getLevelState(level) {
@@ -38,14 +41,18 @@ function getLevelState(level) {
 }
 
 function initLevels() {
-    const carousel = document.getElementById('cards-carousel');
-    carousel.innerHTML = '';
+  const carousel = document.getElementById("cards-carousel");
+  carousel.innerHTML = "";
 
-    levels.forEach((level, index) => {
-        const state = getLevelState(level);
-        const statusClass = state.completed ? 'completed' : state.unlocked ? '' : 'locked';
-        const cardClass = state.unlocked ? '' : 'locked';
-        const cardHTML = `
+  levels.forEach((level, index) => {
+    const state = getLevelState(level);
+    const statusClass = state.completed
+      ? "completed"
+      : state.unlocked
+        ? ""
+        : "locked";
+    const cardClass = state.unlocked ? "" : "locked";
+    const cardHTML = `
             <div class="card-container">
                 <div class="level-card ${cardClass}" onclick="selectCard(${index})" id="card-${index}">
                     <div class="card-image-placeholder" style="background-image: url('${level.image}');">
@@ -57,33 +64,40 @@ function initLevels() {
                 </div>
             </div>
         `;
-        carousel.insertAdjacentHTML('beforeend', cardHTML);
-    });
+    carousel.insertAdjacentHTML("beforeend", cardHTML);
+  });
 
-    if (levels.length > 0) {
-        selectCard(0);
-    }
+  if (levels.length > 0) {
+    selectCard(0);
+  }
 }
 
 function selectCard(index) {
-    document.querySelectorAll('.level-card').forEach((card) => card.classList.remove('active'));
+  document
+    .querySelectorAll(".level-card")
+    .forEach((card) => card.classList.remove("active"));
 
-    const cardElement = document.getElementById(`card-${index}`);
-    if (cardElement) {
-        cardElement.classList.add('active');
-    }
+  const cardElement = document.getElementById(`card-${index}`);
+  if (cardElement) {
+    cardElement.classList.add("active");
+  }
 
-    const level = levels[index];
-    const state = getLevelState(level);
-    const overviewBox = document.getElementById('overview-box');
-    const statusText = state.completed ? 'Completed' : state.unlocked ? 'Unlocked' : 'Locked';
-    let actionHTML = '<button class="action-button disabled" type="button" disabled>Locked</button>';
+  const level = levels[index];
+  const state = getLevelState(level);
+  const overviewBox = document.getElementById("overview-box");
+  const statusText = state.completed
+    ? "Completed"
+    : state.unlocked
+      ? "Unlocked"
+      : "Locked";
+  let actionHTML =
+    '<button class="action-button disabled" type="button" disabled>Locked</button>';
 
-    if (state.unlocked) {
-        actionHTML = `<a href="../../src/game.html?level=${level.folder}" class="action-button" onclick="saveSelectedLevel('${level.saveId}')">Play</a>`;
-    }
+  if (state.unlocked) {
+    actionHTML = `<a href="../../src/game.html?level=${level.folder}" class="action-button" onclick="saveSelectedLevel('${level.saveId}')">Play</a>`;
+  }
 
-    overviewBox.innerHTML = `
+  overviewBox.innerHTML = `
         <h3>${level.title}</h3>
         <p><strong>Status:</strong> ${statusText}</p>
         <p>${level.synopsis}</p>
@@ -92,9 +106,17 @@ function selectCard(index) {
 }
 
 function saveSelectedLevel(levelId) {
-    if (typeof saveCurrentLevel === 'function') {
-        saveCurrentLevel(levelId);
-    }
+  if (typeof saveCurrentLevel === "function") {
+    saveCurrentLevel(levelId);
+  }
 }
 
 window.onload = initLevels;
+
+/*Code for sounds if button clicked */
+if (localStorage.getItem("playButtonSound") === "true") {
+  const sound = new Audio("../../Sounds/buttonPress.mp3");
+  sound.volume = 0.5;
+  sound.play().catch(() => {});
+  localStorage.removeItem("playButtonSound");
+}

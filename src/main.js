@@ -1,3 +1,11 @@
+/*Code for sounds if button clicked */
+if (localStorage.getItem("playButtonSound") === "true") {
+  const sound = new Audio("../Sounds/buttonPress.mp3");
+  sound.volume = 0.5;
+  sound.play().catch(() => {});
+  localStorage.removeItem("playButtonSound");
+}
+
 /**
  * Entry point loaded by game.html. It boots the game once the DOM is
  * ready by constructing a {@link LevelPlayer} object and running its init.

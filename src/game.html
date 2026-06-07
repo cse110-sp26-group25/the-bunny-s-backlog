@@ -145,7 +145,7 @@
         <p
           id="win-footnote"
           style="
-            font-family: 'Courier Prime', monospace;
+            font-family: &quot;Courier Prime&quot;, monospace;
             font-size: 0.72rem;
             color: #888;
           "
@@ -180,9 +180,9 @@
 
         // 2. Updated Audio Map keys targeting the precise, newly refactored levels
         const bgmMapping = {
-          "level0": "../Sounds/Lv0BGM.mp3",
-          "level1": "../Sounds/Lv1BGM.mp3",
-          "level2": "../Sounds/Lv2BGM.mp3"
+          level0: "../Sounds/Lv0BGM.mp3",
+          level1: "../Sounds/Lv1BGM.mp3",
+          level2: "../Sounds/Lv2BGM.mp3",
         };
 
         // Select track or fallback to level 0 background audio if query doesn't match
@@ -194,13 +194,17 @@
 
         // 3. Audio unlock mechanism triggered by mandatory user gesture interaction rules
         const startAudio = () => {
-          audioPlayer.play()
+          audioPlayer
+            .play()
             .then(() => {
               document.removeEventListener("click", startAudio);
               document.removeEventListener("keydown", startAudio);
             })
-            .catch(error => {
-              console.log("Playback blocked by browser audio contexts. Interacting with UI clears this.", error);
+            .catch((error) => {
+              console.log(
+                "Playback blocked by browser audio contexts. Interacting with UI clears this.",
+                error,
+              );
             });
         };
 
@@ -214,10 +218,12 @@
        */
       (function startGame() {
         function start() {
-          if (typeof LevelPlayer !== 'undefined') {
+          if (typeof LevelPlayer !== "undefined") {
             new LevelPlayer().init();
           } else {
-            console.error("Critical Runtime Fault: LevelPlayer script context is missing or uncompiled.");
+            console.error(
+              "Critical Runtime Fault: LevelPlayer script context is missing or uncompiled.",
+            );
           }
         }
 
@@ -228,5 +234,6 @@
         }
       })();
     </script>
+    <script src="../scripts/buttonSound.js"></script>
   </body>
 </html>
