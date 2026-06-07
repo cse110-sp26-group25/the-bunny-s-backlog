@@ -28,8 +28,10 @@
   "win": {
     "title": "Suspect Leads Cataloged!",
     "subtitle": "The Witness Report",
-    "message": "🦇 Accompanying Bat to the Precinct!",
-    "footnote": "The Baker Sheep carefully signs off on your final checklist. 'This is exactly what the precinct needs! Go down to the station with Bat right away—he can point out the thief from the morning suspect lineup!'"
+    "nextToast": "🐹 Closing the Case in Level 2!",
+    "nextLevel": "level2",
+    "message": "🦇 Accompanying Bat to the Precinct!...",
+    "footnote": "..."
   },
 
   "phases": [

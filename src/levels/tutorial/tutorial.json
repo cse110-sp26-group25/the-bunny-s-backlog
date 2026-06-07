@@ -33,10 +33,11 @@
   "win": {
     "title": "Case Accepted!",
     "subtitle": "The Bakery Break-in",
-    "message": "🥖 Following the Sheep to the Bakery!",
-    "footnote": "The Baker Sheep pulls your sleeve urgently. 'Please! Follow me to the shop floor before the tracks go cold!' You gather your notebook and step out into the street."
+    "nextToast": "🍞 Onwards to the Bakery!",
+    "nextLevel": "level1",
+    "message": "🥖 Following the Sheep to the Bakery!...",
+    "footnote": "..."
   },
-
   "phases": [
     {
       "comment": "ACTION 1: Global room search using a string parameter.",
