@@ -36,3 +36,17 @@
 - Added a documented save data index structure.
 - Added support for tracking level progress, checkpoints, inventory, clues found, object states, notebook pages, terminal history, settings, and tutorial completion.
 - Added documentation explaining what each local storage index represents.
+
+## June 6, 2026
+
+### Fixed
+
+- Fixed a level loading issue where the game always attempted to load `tutorial.json` regardless of the selected level.
+- Updated the level loader to dynamically load the correct JSON file based on the selected level folder.
+- Verified tutorial and level loading behavior using the local development server.
+
+### Testing
+
+- Tested level loading through `src/game.html`.
+- Confirmed tutorial level loads without HTTP 404 errors.
+- Reviewed level selection routing and level folder configuration.
