@@ -253,6 +253,7 @@ class LevelPlayer {
 
       this.ui.renderWinOverlay(
         Object.assign({ subtitle: level.title }, level.win),
+        level.id
       );
 
       this.ui.bindEvents({
