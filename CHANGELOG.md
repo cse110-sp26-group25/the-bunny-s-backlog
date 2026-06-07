@@ -9,12 +9,16 @@
 - Fixed level select progress display by loading shared helpers from `local_storage.js` and using saved unlock/completion state.
 - Fixed level select id mismatches by separating each level's saved progress id from its game-loader folder.
 - Fixed the credits back button to use a relative title-screen path.
+- Fixed settings screen startup so old or malformed saved settings cannot break sliders, percentage labels, or navigation.
+- Fixed settings sliders so the fill line updates immediately while dragging.
 
 #### Changed
 
 - Added global application of saved settings across screens that load `local_storage.js`.
 - Added shared volume application for current and future audio/video elements using master, music, and effects volume settings.
 - Added shared hard-mode page state through the `hard-mode` body class and `data-hard-mode` document attribute.
+- Added saved music-volume application to title, settings, level select, credits, and in-level background music.
+- Changed settings controls to preview changes immediately but save only when the player clicks Apply.
 
 ### June 4, 2026
 
