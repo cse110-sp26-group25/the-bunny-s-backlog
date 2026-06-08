@@ -308,7 +308,7 @@ input[type="range"]:focus {
    The vw/vh-based switch becomes pinched on portrait phones, and the
    60vh panel + overflow:hidden body clip the Back to Title button. Use
    rem-based sizing for the switch and let the page scroll. */
-@media (max-width: 768px) {
+@media (width <= 768px) {
   body {
     overflow: auto;
     align-items: flex-start;

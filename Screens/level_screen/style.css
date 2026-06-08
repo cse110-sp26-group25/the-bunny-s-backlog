@@ -265,7 +265,7 @@ body {
    On narrow screens the fixed-width left panel (21.875rem) exceeds the
    viewport, hiding the cards carousel and clipping the summary box.
    Stack the panels vertically and let the page scroll. */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     body {
         height: auto;
         min-height: 100vh;
@@ -300,8 +300,7 @@ body {
 
     .cards-carousel {
         flex-direction: column;
-        overflow-x: visible;
-        overflow-y: visible;
+        overflow: visible;
         padding-bottom: 0;
         align-items: stretch;
     }
