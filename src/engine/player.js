@@ -259,6 +259,10 @@ class LevelPlayer {
       this.ui.bindEvents({
         onSubmit: (raw) => this.handleSubmit(raw),
         onReset: () => this.reset(),
+        onSaveExit: () => {
+          this.persist();
+          window.location.href = "../Screens/titleScreen/title.html";
+        },
         onProceed: () => {
           // 1. Fire the visual confirmation toast banner
           this.ui.showToast((level.win && level.win.nextToast) || "Onward!");
@@ -275,6 +279,8 @@ class LevelPlayer {
               window.location.href = "../../index.html"; 
             }, 1000);
           }
+            
+        
         }
       });
 
