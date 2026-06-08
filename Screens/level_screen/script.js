@@ -26,19 +26,23 @@ const levels = [
 ];
 
 function getLevelState(level) {
-    /*const unlocked = typeof isLevelUnlocked === 'function'
-        ? isLevelUnlocked(level.saveId)
-        : level.folder === 'tutorial';*/
-    const unlocked = true
-    const completed = typeof isLevelComplete === 'function'
-        ? isLevelComplete(level.saveId)
-        : false;
-
-    return {
-        unlocked ,
-        completed
-    };
+  const index = levels.findIndex(l => l.folder === level.folder);
+  let unlocked = false;
+  if (index === 0) {
+    unlocked = true;
+  } else {
+    const prev = levels[index - 1];
+    unlocked = typeof isLevelComplete === 'function'
+      ? isLevelComplete(prev.saveId)
+      : false;
+  }
+  const completed = typeof isLevelComplete === 'function'
+    ? isLevelComplete(level.saveId)
+    : false;
+  return { unlocked, completed };
 }
+
+
 
 function initLevels() {
   const carousel = document.getElementById("cards-carousel");
