@@ -50,3 +50,15 @@
 - Tested level loading through `src/game.html`.
 - Confirmed tutorial level loads without HTTP 404 errors.
 - Reviewed level selection routing and level folder configuration.
+
+### June 7, 2026
+
+### Fixed
+
+- Title Screen (Mobile): Fixed button labels (Level selection, Continue game, Settings) overflowing their boxes by scaling the font down on narrow screens.
+- Level Selection Screen (Mobile): Layout now stacks vertically and the page scrolls, so Tutorial / Level 1 / Level 2 are all reachable (previously the cards were pushed off-screen).
+- Settings Screen (Mobile): Hard Mode toggle is now a proper wide pill instead of a pinched vertical strip, and the Back to Title button is no longer cut off below the panel.
+
+### Note
+
+- The 3 mobile UI screen fixes mentioned above only applies specificaly when playing the game with a vertical orientation, and not when playing the game with a horizontal orientation. (Granted the presumption that the majority, if not all, of players will intuitively play with a vertical orientation, for clarification purposes, we felt this should be noted/documented.
