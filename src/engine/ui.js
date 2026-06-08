@@ -8,16 +8,44 @@ class LevelUI {
    * Sets up the UI with no hotspots and no current background.
    */
   showSettings() {
-    this.byId("settings-bg").classList.add("show");
-  } 
+  // Load saved settings into sliders before showing
+  const s = LevelUI.loadVolumeSettings();
+  this.byId("vol-master").value = s.master;
+  this.byId("vol-master-val").textContent = s.master + "%";
+  this.byId("vol-music").value = s.music;
+  this.byId("vol-music-val").textContent = s.music + "%";
+  this.byId("vol-fx").value = s.fx;
+  this.byId("vol-fx-val").textContent = s.fx + "%";
+  const hb = this.byId("hardmode-toggle");
+  hb.textContent = s.hardMode ? "ENABLED" : "DISABLED";
+  hb.classList.toggle("on", s.hardMode);
+  this.byId("settings-bg").classList.add("show");
+}
 
-  hideSettings() {
-    this.byId("settings-bg").classList.remove("show");
-  }
-  constructor() {
-    this.hotspots = [];
-    this.currentBackgroundUrl = null;
-  }
+hideSettings() {
+  this.byId("settings-bg").classList.remove("show");
+}
+
+static loadVolumeSettings() {
+  try {
+    const raw = localStorage.getItem("bbl_vol");
+    if (raw) return JSON.parse(raw);
+  } catch (e) { /* ignore */ }
+  return { master: 80, music: 60, fx: 75, hardMode: false };
+}
+
+static saveVolumeSettings(s) {
+  try { localStorage.setItem("bbl_vol", JSON.stringify(s)); } catch (e) { /* ignore */ }
+}
+
+static applyVolumeSettings(s) {
+  const bgm = document.getElementById("bgm-player");
+  if (bgm) bgm.volume = (s.master / 100) * (s.music / 100);
+}
+constructor() {
+  this.hotspots = [];
+  this.currentBackgroundUrl = null;
+}
 
   /**
    * Shorthand for document.getElementById.
@@ -511,18 +539,57 @@ class LevelUI {
     this.byId("proceed-btn").addEventListener("click", () =>
       handlers.onProceed(),
     );
-    this.byId("settings-btn").addEventListener("click", () => this.showSettings());
+    LevelUI.applyVolumeSettings(LevelUI.loadVolumeSettings());
+
+this.byId("settings-btn").addEventListener("click", () => this.showSettings());
+
 this.byId("settings-resume").addEventListener("click", () => {
   this.hideSettings();
   this.focusInput();
 });
+
 this.byId("settings-restart").addEventListener("click", () => {
   this.hideSettings();
   handlers.onReset();
 });
+
 this.byId("settings-save-exit").addEventListener("click", () => {
   handlers.onSaveExit();
 });
+
+["master", "music", "fx"].forEach((key) => {
+  this.byId("vol-" + key).addEventListener("input", () => {
+    this.byId("vol-" + key + "-val").textContent =
+      this.byId("vol-" + key).value + "%";
+  });
+});
+
+this.byId("hardmode-toggle").addEventListener("click", () => {
+  const btn = this.byId("hardmode-toggle");
+  const isOn = btn.classList.toggle("on");
+  btn.textContent = isOn ? "ENABLED" : "DISABLED";
+});
+
+this.byId("settings-apply").addEventListener("click", () => {
+  const s = {
+    master:   parseInt(this.byId("vol-master").value),
+    music:    parseInt(this.byId("vol-music").value),
+    fx:       parseInt(this.byId("vol-fx").value),
+    hardMode: this.byId("hardmode-toggle").classList.contains("on"),
+  };
+  LevelUI.saveVolumeSettings(s);
+  LevelUI.applyVolumeSettings(s);
+  this.hideSettings();
+  this.focusInput();
+});
+
+this.byId("settings-reset").addEventListener("click", () => {
+  const defaults = { master: 80, music: 60, fx: 75, hardMode: false };
+  LevelUI.saveVolumeSettings(defaults);
+  LevelUI.applyVolumeSettings(defaults);
+  this.showSettings();
+});
+
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     this.hideSettings();
@@ -530,7 +597,6 @@ document.addEventListener("keydown", (event) => {
 });
   }
 }
-
 if (typeof module !== "undefined" && module.exports) {
   module.exports = { LevelUI };
 }

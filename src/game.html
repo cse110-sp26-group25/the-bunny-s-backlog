@@ -157,11 +157,47 @@
       </div>
     </div>
     <div class="ovbg" id="settings-bg" role="dialog" aria-modal="true" aria-label="Settings">
-  <div class="ov-box" style="max-width:320px">
-    <h2 style="margin-bottom:18px">&#x2699;&#xFE0F; Paused</h2>
-    <button class="ovbtn" id="settings-resume" style="display:block;width:100%;margin-bottom:8px">&#x25B6; Resume</button>
-    <button class="ovbtn" id="settings-save-exit" style="display:block;width:100%;margin-bottom:8px;background:var(--warm)">&#x1F4BE; Save &amp; Exit to Menu</button>
-    <button class="ovbtn" id="settings-restart" style="display:block;width:100%;background:#c04040;border-color:#c04040">&#x21BA; Start Over</button>
+  <div class="ov-box" style="max-width:340px">
+    <h2 style="margin-bottom:18px">&#x2699;&#xFE0F; Settings</h2>
+
+    <div class="vol-row">
+      <label class="vol-lbl">MASTER VOLUME</label>
+      <div class="vol-track">
+        <input type="range" id="vol-master" min="0" max="100" value="80" class="vol-slider"/>
+        <span id="vol-master-val">80%</span>
+      </div>
+    </div>
+
+    <div class="vol-row">
+      <label class="vol-lbl">MUSIC VOLUME</label>
+      <div class="vol-track">
+        <input type="range" id="vol-music" min="0" max="100" value="60" class="vol-slider"/>
+        <span id="vol-music-val">60%</span>
+      </div>
+    </div>
+
+    <div class="vol-row">
+      <label class="vol-lbl">EFFECTS VOLUME</label>
+      <div class="vol-track">
+        <input type="range" id="vol-fx" min="0" max="100" value="75" class="vol-slider"/>
+        <span id="vol-fx-val">75%</span>
+      </div>
+    </div>
+
+    <div class="vol-row" style="justify-content:space-between;align-items:center;margin-top:8px">
+      <label class="vol-lbl">HARD MODE</label>
+      <button id="hardmode-toggle" class="hardmode-btn">DISABLED</button>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-top:18px;flex-wrap:wrap">
+      <button class="ovbtn" id="settings-reset" style="flex:1;background:#888">&#x21BA; Reset</button>
+      <button class="ovbtn" id="settings-apply" style="flex:1">&#x2713; Apply</button>
+    </div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="ovbtn" id="settings-resume" style="flex:1;background:var(--ink-mid)">&#x25B6; Resume</button>
+      <button class="ovbtn" id="settings-save-exit" style="flex:1;background:var(--warm)">&#x1F4BE; Back to Title</button>
+    </div>
+    <button class="ovbtn" id="settings-restart" style="display:block;width:100%;margin-top:8px;background:#c04040;border-color:#c04040">&#x21BA; Start Over</button>
   </div>
 </div>
     <div id="toast" role="status" aria-live="polite"></div>
