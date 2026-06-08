@@ -817,3 +817,16 @@ body {
     border-top: 2.5px solid var(--ink);
   }
 }
+
+#settings-btn {
+  background: rgb(13 15 30 / 80%);
+  border: 1.5px solid var(--tbrd);
+  border-radius: 3px;
+  font-size: 0.85rem;
+  padding: 2px 7px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+#settings-btn:hover {
+  border-color: var(--warm);
+}

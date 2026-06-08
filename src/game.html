@@ -24,6 +24,7 @@
               PHASE <span id="ph-num">1</span> / <span id="ph-total">10</span>
             </p>
             <ul id="inv-bar" aria-label="Inventory"></ul>
+            <button id="settings-btn" title="Settings" aria-label="Settings">&#x2699;&#xFE0F;</button>
           </div>
           <div id="tlog-wrap">
             <output id="tlog-scroll" role="log" aria-live="polite"></output>
@@ -155,6 +156,14 @@
         <button class="ovbtn" id="proceed-btn">&#x25B6; Continue</button>
       </div>
     </div>
+    <div class="ovbg" id="settings-bg" role="dialog" aria-modal="true" aria-label="Settings">
+  <div class="ov-box" style="max-width:320px">
+    <h2 style="margin-bottom:18px">&#x2699;&#xFE0F; Paused</h2>
+    <button class="ovbtn" id="settings-resume" style="display:block;width:100%;margin-bottom:8px">&#x25B6; Resume</button>
+    <button class="ovbtn" id="settings-save-exit" style="display:block;width:100%;margin-bottom:8px;background:var(--warm)">&#x1F4BE; Save &amp; Exit to Menu</button>
+    <button class="ovbtn" id="settings-restart" style="display:block;width:100%;background:#c04040;border-color:#c04040">&#x21BA; Start Over</button>
+  </div>
+</div>
     <div id="toast" role="status" aria-live="polite"></div>
 
     <audio id="bgm-player" loop preload="auto" data-volume-type="music"></audio>

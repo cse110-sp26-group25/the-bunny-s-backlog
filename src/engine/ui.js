@@ -7,6 +7,13 @@ class LevelUI {
   /**
    * Sets up the UI with no hotspots and no current background.
    */
+  showSettings() {
+    this.byId("settings-bg").classList.add("show");
+  } 
+
+  hideSettings() {
+    this.byId("settings-bg").classList.remove("show");
+  }
   constructor() {
     this.hotspots = [];
     this.currentBackgroundUrl = null;
@@ -504,6 +511,23 @@ class LevelUI {
     this.byId("proceed-btn").addEventListener("click", () =>
       handlers.onProceed(),
     );
+    this.byId("settings-btn").addEventListener("click", () => this.showSettings());
+this.byId("settings-resume").addEventListener("click", () => {
+  this.hideSettings();
+  this.focusInput();
+});
+this.byId("settings-restart").addEventListener("click", () => {
+  this.hideSettings();
+  handlers.onReset();
+});
+this.byId("settings-save-exit").addEventListener("click", () => {
+  handlers.onSaveExit();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    this.hideSettings();
+  }
+});
   }
 }
 
