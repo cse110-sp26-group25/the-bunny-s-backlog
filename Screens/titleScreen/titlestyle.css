@@ -121,6 +121,30 @@ p {
   border:none;
 }
 
+/* Mobile: shrink button text so it fits inside the narrow vw-based buttons */
+@media (width <= 768px) {
+  .level-button,
+  .continue-button,
+  .something-button,
+  .credits-button,
+  .settings-button {
+    padding: 0.25rem;
+    line-height: 1.15;
+    overflow-wrap: break-word;
+  }
+
+  .level-button,
+  .continue-button {
+    font-size: clamp(0.875rem, 4vw, 1.5rem);
+  }
+
+  .something-button,
+  .credits-button,
+  .settings-button {
+    font-size: clamp(0.75rem, 3vw, 1.25rem);
+  }
+}
+
 /* Footer bar */
 footer.bottom-bar {
   position: fixed;

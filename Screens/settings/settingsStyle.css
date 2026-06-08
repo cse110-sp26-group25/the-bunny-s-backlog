@@ -303,3 +303,47 @@ input[type="range"]:focus {
   box-shadow: 0 0 28px rgb(42 127 255 / 50%);
   transform: translateY(-1px);
 }
+
+/* --- MOBILE LAYOUT ---
+   The vw/vh-based switch becomes pinched on portrait phones, and the
+   60vh panel + overflow:hidden body clip the Back to Title button. Use
+   rem-based sizing for the switch and let the page scroll. */
+@media (width <= 768px) {
+  body {
+    overflow: auto;
+    align-items: flex-start;
+    padding: 1.5rem 0;
+  }
+
+  main.panel {
+    width: 90vw;
+    height: auto;
+    padding: 1.25rem 1.25rem 1.5rem;
+  }
+
+  .slider-track {
+    margin-bottom: 2.25rem;
+  }
+
+  .switch {
+    width: 3.5rem;
+    height: 2rem;
+    flex-shrink: 0;
+  }
+
+  .slider-switch::before {
+    width: 1.5rem;
+    height: 1.5rem;
+    left: 0.25rem;
+    top: 0.25rem;
+  }
+
+  .panel-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+  }
+
+  .btn-backbutton {
+    margin-top: 1.25rem;
+  }
+}
