@@ -827,6 +827,7 @@ body {
   cursor: pointer;
   transition: all 0.12s;
 }
+
 #settings-btn:hover {
   border-color: var(--warm);
 }
