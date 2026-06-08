@@ -831,3 +831,55 @@ body {
 #settings-btn:hover {
   border-color: var(--warm);
 }
+
+.vol-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.vol-lbl {
+  font-family: "Courier Prime", monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--ink-mid);
+  margin-bottom: 4px;
+}
+
+.vol-track {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.vol-slider {
+  flex: 1;
+  accent-color: var(--warm);
+  cursor: pointer;
+}
+
+.vol-track span {
+  font-family: "Courier Prime", monospace;
+  font-size: 0.7rem;
+  color: var(--warm);
+  min-width: 36px;
+  text-align: right;
+}
+
+.hardmode-btn {
+  font-family: "Courier Prime", monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border: 2px solid var(--ink);
+  border-radius: 3px;
+  background: var(--cream);
+  color: #c04040;
+  cursor: pointer;
+}
+
+.hardmode-btn.on {
+  background: var(--teal);
+  color: #fff;
+  border-color: var(--teal);
+}
