@@ -261,7 +261,7 @@ class LevelPlayer {
         onReset: () => this.reset(),
         onSaveExit: () => {
           this.persist();
-          window.location.href = "../../Screens/titleScreen/title.html";
+          window.location.href = "../Screens/titleScreen/title.html";
         },
         onProceed: () => {
           // 1. Fire the visual confirmation toast banner
