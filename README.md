@@ -12,6 +12,8 @@ For example, a player might search under a plant pot to find a physical key obje
 
 # 1. Project Overview & Core Loop
 
+Find our project at: https://cse110-sp26-group25.github.io/the-bunny-s-backlog/
+
 The Bunny's Backlog is a cozy, narrative-driven investigator puzzle game with a twist. The tone strikes a careful balance: a warm, pastel color palette that is soft and easy on the eyes, paired with character-driven storylines where mysteries feel genuine. Players take on the role of Bill the Lizard, a deadpan, down-to-earth technician who must step out from behind his tech visor to assist the local townspeople.
 
 ## The Core Gameplay Loop
